@@ -1,4 +1,4 @@
-package com.example.arithmos;
+package com.example.arithmos.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentSecondBinding;
+import com.example.arithmos.exercice.Exercice;
 
 public class SecondFragment extends Fragment {
 
     private FragmentSecondBinding binding;
+    private Exercice currentExercice;
 
     @Override
     public View onCreateView(
@@ -29,13 +32,11 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
-            }
-        });
+        currentExercice = new Exercice();
+
+        currentExercice.generateTypeOfExercice("additions", 10);
+
+        binding.textviewTitle.setText(currentExercice.getQuestion().getTitle());
     }
 
     @Override
