@@ -33,7 +33,7 @@ public class FirstFragment extends Fragment {
 
 
 
-        binding.button.setOnClickListener(new View.OnClickListener() {
+        binding.ButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(FirstFragment.this)
