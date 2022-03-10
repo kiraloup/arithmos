@@ -5,18 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FirstFragment"
-    android:background="@drawable/menu_background">
+    android:background="@drawable/arbrenu">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="91dp"
-        android:layout_height="88dp"
-        android:background="@color/white"
-        android:text="Button"
+
+    <ImageButton
+        android:id="@+id/Button_add"
+        android:layout_width="0dp"
+        android:layout_height="87dp"
+
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="156dp"
+        android:background="@null"
+        android:src="@drawable/apple_add"
+        app:layout_constraintBottom_toTopOf="@+id/Button_dult"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/Button_sous"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="164dp"
+        android:background="@null"
+        android:src="@drawable/applesous"
+        app:layout_constraintBottom_toTopOf="@+id/Button_dult"
+        app:layout_constraintStart_toEndOf="@+id/Button_add" />
+
+    <ImageButton
+        android:id="@+id/Button_dult"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+
+        android:layout_marginStart="83dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="276dp"
+        android:background="@null"
+        android:src="@drawable/applemult"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.206" />
+        app:layout_constraintEnd_toStartOf="@+id/Button_div"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/Button_div"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="164dp"
+        android:background="@null"
+        android:src="@drawable/applediv"
+        app:layout_constraintStart_toStartOf="@+id/Button_rand"
+        app:layout_constraintTop_toBottomOf="@+id/Button_sous" />
+
+    <ImageButton
+        android:id="@+id/Button_rand"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="100dp"
+        android:background="@null"
+        android:src="@drawable/applerand"
+        app:layout_constraintBottom_toTopOf="@+id/Button_div"
+        app:layout_constraintEnd_toEndOf="@+id/Button_sous"
+        app:layout_constraintTop_toBottomOf="@+id/Button_add"
+        app:layout_constraintVertical_bias="0.2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
