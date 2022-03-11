@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment"
+    tools:context=".view.MainActivity"
     android:background="@drawable/background">
 
     <ImageButton
@@ -86,4 +86,5 @@
         app:layout_constraintEnd_toEndOf="@+id/Button_sous"
         app:layout_constraintTop_toBottomOf="@+id/Button_add"
         app:layout_constraintVertical_bias="0.2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

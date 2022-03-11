@@ -1,7 +1,8 @@
-package com.example.arithmos;
+package com.example.arithmos.view;
 
 import android.os.Bundle;
 
+import com.example.arithmos.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
