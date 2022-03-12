@@ -1,57 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:id="@+id/text_scrollUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/param_tre_de_l_exercice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/group_exo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/add_button_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/sous_button_choose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/div_button_choose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/mult_button_choose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RadioButton" />
+
+    </RadioGroup>
+
     <ScrollView
-        android:layout_width="417dp"
-        android:layout_height="226dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="229dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/text_scrollUp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-            <ImageView
-                android:layout_width="407dp"
-                android:layout_height="64dp"
-                android:background="@android:color/holo_green_dark"
-                android:contentDescription="@string/app_name"
-                android:scaleType="center" />
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="4dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
-                android:hint="@string/type_d_exercice"/>
+                android:hint="@string/type_d_exercice" />
 
             <RadioGroup
+                android:id="@+id/group_type"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <RadioButton
                     android:id="@+id/simple"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Classique" />
+                    android:text="@string/classique" />
 
                 <RadioButton
                     android:id="@+id/draganddrop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Drag and drop" />
+                    android:text="@string/drag_and_drop" />
             </RadioGroup>
 
             <TextView
@@ -66,26 +107,27 @@
                 android:hint="@string/diffucult" />
 
             <RadioGroup
+                android:id="@+id/group_diff"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <RadioButton
                     android:id="@+id/facile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Facile" />
+                    android:text="@string/facile" />
 
                 <RadioButton
                     android:id="@+id/moyen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Moyen" />
+                    android:text="@string/moyen" />
 
                 <RadioButton
                     android:id="@+id/difficile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Difficile" />
+                    android:text="@string/difficile" />
             </RadioGroup>
 
             <TextView
@@ -100,23 +142,29 @@
                 android:hint="@string/format_des_r_ponses" />
 
             <RadioGroup
+                android:id="@+id/group_rep"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <RadioButton
                     android:id="@+id/chiffre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Chiffres" />
+                    android:text="@string/chiffres" />
 
                 <RadioButton
                     android:id="@+id/lettres"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lettres" />
+                    android:text="@string/lettres" />
+
             </RadioGroup>
+
+            <Button
+                android:id="@+id/valider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/valider" />
         </LinearLayout>
-
-
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
