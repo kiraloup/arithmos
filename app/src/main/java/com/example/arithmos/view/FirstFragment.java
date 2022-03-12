@@ -1,6 +1,7 @@
 package com.example.arithmos.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.arithmos.databinding.FragmentFirstBinding;
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
+    private final String TAG = "FIRSTFRAGMENT";
 
     @Override
     public View onCreateView(
@@ -29,7 +31,7 @@ public class FirstFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.d(TAG, "HERE 1");
 
 
         binding.ButtonAdd.setOnClickListener(new View.OnClickListener() {

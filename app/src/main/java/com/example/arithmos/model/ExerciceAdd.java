@@ -8,10 +8,12 @@ import java.util.List;
 public class ExerciceAdd extends AbstractExercice {
 
     @Override
-    public void createAllQuestion(List<Question> listQuestions) {
-        for(Question question : listQuestions) {
+    public void createAllQuestion(List<Question> questions) {
+        this.listQuestion = questions;
+        for(Question question : this.listQuestion) {
             createQuestion(question);
         }
+
     }
 
     private void createQuestion(Question q) {

@@ -3,6 +3,7 @@ package com.example.arithmos.db;
 import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
@@ -36,14 +37,17 @@ public class QuestionRepository {
     //this method move the execution to the background thread
     public void getAllQuestion(final RepositoryCallback<List<Question>> callback) {
         //execute the method in a available thread
-
+        Log.d("QuestionRepository", "getAllQuestion");
         executor.execute(new Runnable() {
             @Override
             public void run() {
+                Log.d("QuestionRepository", "HE 1");
                 try {
-                    Result<List<Question>> resultQuestion= makeCallToDatabseQuestion();
+                    Log.d("QuestionRepository", "HE 2");
+                    Result<List<Question>> resultQuestion= new Result.Success<>(questionDAO.getAllQuestion());
                     callback.onComplete(resultQuestion);
                 }catch (Exception e){
+                    Log.d("QuestionRepository", "HE 3");
                     Result<List<Question>> error = new Result.Error<>(e);
                     callback.onComplete(error);
                 }
@@ -51,7 +55,4 @@ public class QuestionRepository {
         });
     }
 
-    public Result<List<Question>> makeCallToDatabseQuestion() {
-        return new Result.Success<>(questionDAO.getAllQuestion());
-    }
 }

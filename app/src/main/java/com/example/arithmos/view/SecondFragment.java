@@ -1,6 +1,7 @@
 package com.example.arithmos.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ public class SecondFragment extends Fragment {
 
     private FragmentSecondBinding binding;
     private ExerciceViewModel repository;
+    private final String TAG = "SECONDFRAGMENT";
 
     @Override
     public View onCreateView(
@@ -24,11 +26,8 @@ public class SecondFragment extends Fragment {
     ) {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
-
         repository = new ViewModelProvider(this).get(ExerciceViewModel.class);
-        //we create the exercice that contains the question that will be display
-        repository.createExercice("addition");
-
+        Log.d(TAG, "HERE 1");
         return binding.getRoot();
 
     }
@@ -36,9 +35,14 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.d(TAG, "HERE 2");
+
+        //we create the exercice that contains the question that will be display
+        repository.createExercice("addition");
+
         //The observer job is to observe the question and change what is display on the view
         //for that we use a mutable live data in the viewmodel
-        repository.getQuestion().observe(getViewLifecycleOwner(), question -> {
+        repository.currentQuestion.observe(getViewLifecycleOwner(), question -> {
             binding.textviewTitle.setText(question.getTitle());
         });
 

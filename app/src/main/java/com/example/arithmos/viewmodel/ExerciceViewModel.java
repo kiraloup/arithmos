@@ -23,14 +23,17 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     private final QuestionRepository questionRepository;
 
-    private final String TAG = "EXERCICEVIEWMODEL";
-
     private AbstractExercice exercice;
 
+    //For debug only
+    private final String TAG = "EXERCICEVIEWMODEL";
+
+    private static int PASSAGE = 0;
+
     //This is the object that the view is observing
-    private MutableLiveData<Question> currentQuestion = new MutableLiveData<>();
+    public MutableLiveData<Question> currentQuestion = new MutableLiveData<>();
     //boolean to check if exercice is finish while in the view
-    private MutableLiveData<Boolean> isExerciceFinish;
+    private MutableLiveData<Boolean> isExerciceFinish = new MutableLiveData<>(false);
 
     public ExerciceViewModel(@NonNull Application application) {
         super(application);
@@ -38,26 +41,31 @@ public class ExerciceViewModel extends AndroidViewModel {
     }
 
     public void createExercice(String typeOfExercice) {
+        PASSAGE++;
+
         if(typeOfExercice.equals("addition")) {
             exercice = new ExerciceAdd();
+
+            Log.d(TAG, String.valueOf(PASSAGE));
             //we use a callback to create the exercice
-            // because we need to access the database
+            // because we need to access the database and it's not possible in UI thread
             questionRepository.getAllQuestion(new RepositoryCallback<List<Question>>() {
                 @Override
                 public void onComplete(Result<List<Question>> result) {
                     if(result instanceof Result.Success) {
                         List<Question> resData = ((Result.Success<List<Question>>) result).data;
-                        Log.d(TAG, String.valueOf(resData.size()));
-                        //exercice.createAllQuestion(resData);
-                        //currentQuestion.setValue(exercice.getQuestion());
-                        currentQuestion.postValue(new Question("OK", "OK", 2));
+                        Log.d(TAG, "SIZE OF Question : " + String.valueOf(resData.size()));
+                        Log.d(TAG, "TITLE Question 1 : " + String.valueOf(resData.get(0).getTitle()));
+                        exercice.createAllQuestion(resData);
 
-                    } else {
+                        Log.d(TAG, "TITLE Question 1 : " + exercice.getQuestion().getTitle());
+                        currentQuestion.postValue(exercice.getQuestion());
+                    } else if (result instanceof Result.Error){
+                        //TODO : find a better way to handle error case
                         currentQuestion.postValue(new Question("ERROR", "ERROR", 2));
                     }
                 }
             });
-
         }
     }
 
@@ -69,9 +77,5 @@ public class ExerciceViewModel extends AndroidViewModel {
         if(exercice.isFinish()) {
             isExerciceFinish.setValue(true);
         }
-    }
-
-    public MutableLiveData<Question> getQuestion() {
-        return currentQuestion;
     }
 }
