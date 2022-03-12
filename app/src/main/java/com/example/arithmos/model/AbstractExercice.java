@@ -9,11 +9,14 @@ public abstract class AbstractExercice {
     int NumberOfCurrentquestion = 0;
     List<Question> listQuestion = new ArrayList<>();
     int difficulty;
-    int typeOfExercice;
+    TypeOfExercice typeOfExercice;
+
+    public AbstractExercice(int difficulty, TypeOfExercice typeOfExercice) {
+        this.difficulty = difficulty;
+        this.typeOfExercice = typeOfExercice;
+    }
 
     public abstract void createAllQuestion(List<Question> listQuestions);
-
-
 
     public Question getNextQuestion() {
         NumberOfCurrentquestion++;

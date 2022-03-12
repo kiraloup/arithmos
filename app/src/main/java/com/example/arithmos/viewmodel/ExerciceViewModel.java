@@ -14,6 +14,7 @@ import com.example.arithmos.db.Result;
 import com.example.arithmos.model.AbstractExercice;
 import com.example.arithmos.model.ExerciceAdd;
 import com.example.arithmos.model.Question;
+import com.example.arithmos.model.TypeOfExercice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ExerciceViewModel extends AndroidViewModel {
         PASSAGE++;
 
         if(typeOfExercice.equals("addition")) {
-            exercice = new ExerciceAdd();
+            exercice = new ExerciceAdd(1, TypeOfExercice.NUMBER);
 
             Log.d(TAG, String.valueOf(PASSAGE));
             //we use a callback to create the exercice
