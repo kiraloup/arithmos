@@ -56,9 +56,10 @@ public class CustomDialog extends Dialog {
     private Button valider;
 
     private CustomDialog.FullNameListener listener;
-
-    public CustomDialog(Context context, CustomDialog.FullNameListener listener) {
+    private String type;
+    public CustomDialog(Context context,String type, CustomDialog.FullNameListener listener) {
         super(context);
+        this.type = type;
         this.context = context;
         this.listener = listener;
     }
@@ -74,7 +75,16 @@ public class CustomDialog extends Dialog {
         RadioButton button_sous_choose = (RadioButton) findViewById(R.id.sous_button_choose);
         RadioButton button_div_choose = (RadioButton) findViewById(R.id.div_button_choose);
         RadioButton button_mult_choose = (RadioButton) findViewById(R.id.mult_button_choose);
-        button_add_choose.setChecked(true);
+
+        if(type.equals("add") ){
+            button_add_choose.setChecked(true);
+        }else if(type.equals("sous") ){
+            button_sous_choose.setChecked(true);
+        }else if(type.equals("div") ){
+            button_div_choose.setChecked(true);
+        }else if(type.equals("mutl") ){
+            button_mult_choose.setChecked(true);
+        }
         group_exo.setVisibility(View.INVISIBLE);
 
         scrollView = (ScrollView) findViewById(R.id.scrollView);

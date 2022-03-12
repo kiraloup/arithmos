@@ -1,5 +1,6 @@
 package com.example.arithmos.view;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -57,8 +58,7 @@ public class FirstFragment extends Fragment {
                     public void fullNameEntered(String fullName) {
                     }
                 };
-                final CustomDialog dialog = new CustomDialog(this.getContext(),listener);
-
+                final CustomDialog dialog = new CustomDialog(this.getContext(),"add",listener);
                 dialog.show();
             }
 
