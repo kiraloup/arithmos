@@ -11,13 +11,16 @@ public abstract class AbstractExercice {
 
     public abstract void createAllQuestion(List<Question> listQuestions);
 
+
+
     public Question getNextQuestion() {
         NumberOfCurrentquestion++;
         return listQuestion.get(NumberOfCurrentquestion);
     }
 
+    //TODO : check if - 1 doesn't create any error with list that have a size > 0
     public Boolean isFinish() {
-        return NumberOfCurrentquestion == 10;
+        return NumberOfCurrentquestion == listQuestion.size() - 1;
     }
 
     public Question getQuestion(){

@@ -33,7 +33,7 @@ public class ExerciceViewModel extends AndroidViewModel {
     //This is the object that the view is observing
     public MutableLiveData<Question> currentQuestion = new MutableLiveData<>();
     //boolean to check if exercice is finish while in the view
-    private MutableLiveData<Boolean> isExerciceFinish = new MutableLiveData<>(false);
+    public MutableLiveData<Boolean> isExerciceFinish = new MutableLiveData<>(false);
 
     public ExerciceViewModel(@NonNull Application application) {
         super(application);
@@ -48,7 +48,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
             Log.d(TAG, String.valueOf(PASSAGE));
             //we use a callback to create the exercice
-            // because we need to access the database and it's not possible in UI thread
+            //because we need to access the database and it's not possible in UI thread
             questionRepository.getAllQuestion(new RepositoryCallback<List<Question>>() {
                 @Override
                 public void onComplete(Result<List<Question>> result) {
@@ -58,7 +58,8 @@ public class ExerciceViewModel extends AndroidViewModel {
                         Log.d(TAG, "TITLE Question 1 : " + String.valueOf(resData.get(0).getTitle()));
                         exercice.createAllQuestion(resData);
 
-                        Log.d(TAG, "TITLE Question 1 : " + exercice.getQuestion().getTitle());
+                        Log.d(TAG, "TITLE Question 1 title : " + exercice.getQuestion().getTitle());
+                        Log.d(TAG, "TITLE Question 1 res : " + exercice.getQuestion().getResult());
                         currentQuestion.postValue(exercice.getQuestion());
                     } else if (result instanceof Result.Error){
                         //TODO : find a better way to handle error case
@@ -73,9 +74,16 @@ public class ExerciceViewModel extends AndroidViewModel {
         currentQuestion.setValue(exercice.getNextQuestion());
     }
 
-    public void IsExerciceFinish() {
+    public boolean isExerciceFinish() {
         if(exercice.isFinish()) {
+            Log.d(TAG, "Exercice is finish");
             isExerciceFinish.setValue(true);
+            return true;
         }
+        return false;
+    }
+
+    public Boolean isResponseCorrect(int reponse) {
+        return exercice.getQuestion().getResult() == reponse;
     }
 }

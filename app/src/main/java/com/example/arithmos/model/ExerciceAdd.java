@@ -18,18 +18,19 @@ public class ExerciceAdd extends AbstractExercice {
 
     private void createQuestion(Question q) {
 
-        String modifiedTitle = q.getTitle();
-        int res = 0;
+        StringBuilder modifiedTitle = new StringBuilder(q.getTitle());
+        int res = 0, i = 0;
 
-        for(int i = 0; i < q.getExpectedNumValues(); i++) {
-            //on replace le paramètre par un nombre dans
-            int genNum = Utils.generateInteger(1, 10);
-            res += genNum;
-            modifiedTitle = modifiedTitle.replace("#" + i,
-                    String.valueOf(genNum));
+        while(i < modifiedTitle.length()) {
+            if(modifiedTitle.charAt(i) == '#') {
+                int randomNumber = Utils.generateInteger(0, 10);
+                modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
+                res += randomNumber;
+            }
+            i++;
         }
 
-        q.setTitle(modifiedTitle);
+        q.setTitle(modifiedTitle.toString());
         q.setResult(res);
     }
 }

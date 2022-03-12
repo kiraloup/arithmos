@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentSecondBinding;
 import com.example.arithmos.viewmodel.ExerciceViewModel;
 
@@ -44,6 +46,32 @@ public class SecondFragment extends Fragment {
         //for that we use a mutable live data in the viewmodel
         repository.currentQuestion.observe(getViewLifecycleOwner(), question -> {
             binding.textviewTitle.setText(question.getTitle());
+        });
+
+        //we observe a boolean that will tell us is the exercice is finish
+        //if this is the case we will change to the finish screen
+        repository.isExerciceFinish.observe(getViewLifecycleOwner(), isExerciceFinish -> {
+            if(isExerciceFinish) {
+                //NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
+                NavHostFragment.findNavController(SecondFragment.this)
+                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+            }
+        });
+
+        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if( repository.isResponseCorrect(
+                        Integer.parseInt(binding.editTextTextResponse.getText().toString())) ) {
+
+                    //check if exercice is finish
+                    //otherwise we display next quest
+                    if(!repository.isExerciceFinish()){
+                        Log.d(TAG,"Exercice is not finish");
+                        //repository.nextQuestion();
+                    }
+                }
+            }
         });
 
 
