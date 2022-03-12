@@ -25,24 +25,28 @@
         android:layout_width="0dp"
         android:layout_height="87dp"
 
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="64dp"
         android:layout_marginBottom="156dp"
         android:background="@null"
         android:src="@drawable/apple_add"
         app:layout_constraintBottom_toTopOf="@+id/Button_dult"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/Button_sous"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="60dp"
         android:layout_marginBottom="164dp"
         android:background="@null"
         android:src="@drawable/applesous"
         app:layout_constraintBottom_toTopOf="@+id/Button_dult"
-        app:layout_constraintStart_toEndOf="@+id/Button_add" />
+        app:layout_constraintStart_toEndOf="@+id/Button_add"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/Button_dult"
@@ -60,7 +64,6 @@
 
     <ImageButton
         android:id="@+id/Button_div"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginStart="72dp"

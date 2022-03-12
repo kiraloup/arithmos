@@ -10,4 +10,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="add">+</string>
+    <string name="valider">Valider</string>
+    <string name="reponse">Réponse</string>
+    <string name="ennonce">Ennonce</string>
+    <string name="exercice">Exercice</string>
 </resources>
