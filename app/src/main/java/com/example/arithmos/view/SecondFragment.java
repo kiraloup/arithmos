@@ -7,16 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentSecondBinding;
-import com.example.arithmos.exercice.Exercice;
+import com.example.arithmos.viewmodel.ExerciceViewModel;
 
 public class SecondFragment extends Fragment {
 
     private FragmentSecondBinding binding;
-    private Exercice currentExercice;
+    private ExerciceViewModel repository;
 
     @Override
     public View onCreateView(
@@ -25,6 +24,11 @@ public class SecondFragment extends Fragment {
     ) {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
+
+        repository = new ViewModelProvider(this).get(ExerciceViewModel.class);
+        //we create the exercice that contains the question that will be display
+        repository.createExercice("addition");
+
         return binding.getRoot();
 
     }
@@ -32,11 +36,13 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        currentExercice = new Exercice();
+        //The observer job is to observe the question and change what is display on the view
+        //for that we use a mutable live data in the viewmodel
+        repository.getQuestion().observe(getViewLifecycleOwner(), question -> {
+            binding.textviewTitle.setText(question.getTitle());
+        });
 
-        currentExercice.generateTypeOfExercice("additions", 10);
 
-        binding.textviewTitle.setText(currentExercice.getQuestion().getTitle());
     }
 
     @Override

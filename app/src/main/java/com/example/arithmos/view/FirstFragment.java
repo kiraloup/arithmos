@@ -11,7 +11,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentFirstBinding;
-import com.example.arithmos.exercice.Exercice;
 
 public class FirstFragment extends Fragment {
 
