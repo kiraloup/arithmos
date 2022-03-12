@@ -73,8 +73,6 @@ public class SecondFragment extends Fragment {
                 }
             }
         });
-
-
     }
 
     @Override

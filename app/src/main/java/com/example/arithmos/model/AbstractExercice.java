@@ -8,6 +8,8 @@ public abstract class AbstractExercice {
     int numberOfErrors = 0;
     int NumberOfCurrentquestion = 0;
     List<Question> listQuestion = new ArrayList<>();
+    int difficulty;
+    int typeOfExercice;
 
     public abstract void createAllQuestion(List<Question> listQuestions);
 
@@ -18,7 +20,7 @@ public abstract class AbstractExercice {
         return listQuestion.get(NumberOfCurrentquestion);
     }
 
-    //TODO : check if - 1 doesn't create any error with list that have a size > 0
+    //TODO : check if - 1 doesn't create any error with list that have a size > 1
     public Boolean isFinish() {
         return NumberOfCurrentquestion == listQuestion.size() - 1;
     }
