@@ -10,8 +10,21 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="add">+</string>
-    <string name="valider">Valider</string>
     <string name="reponse">Réponse</string>
     <string name="ennonce">Ennonce</string>
     <string name="exercice">Exercice</string>
+    <string name="diffucult">Diffuculté</string>
+    <string name="format_des_r_ponses">Format des réponses</string>
+    <string name="type_d_exercice">Type d\'exercice</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="classique">Classique</string>
+    <string name="drag_and_drop">Drag and drop</string>
+    <string name="chiffres">Chiffres</string>
+    <string name="lettres">Lettres</string>
+    <string name="valider">Valider</string>
+    <string name="facile">Facile</string>
+    <string name="moyen">Moyen</string>
+    <string name="difficile">Difficile</string>
+    <string name="param_tre_de_l_exercice">paramètre de l\'exercice</string>
 </resources>
