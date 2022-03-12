@@ -26,7 +26,7 @@ public class Question {
 
     //NOT IN DATABASE CLASS MEMBER
     @Ignore
-    private int result;
+    private QuestionResultat result;
 
     public Question(@NonNull String title, @NonNull String type, @NonNull int expectedNumValues) {
         this.title = title;
@@ -68,11 +68,15 @@ public class Question {
         expectedNumValues = expectedNumValues;
     }
 
-    public int getResult() {
+    public QuestionResultat getResult() {
         return result;
     }
 
+    public void setResult(String result) {
+        this.result.setStringResult(result);
+    }
+
     public void setResult(int result) {
-        this.result = result;
+        this.result.setNumberResult(result);
     }
 }

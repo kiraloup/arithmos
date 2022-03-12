@@ -61,8 +61,7 @@ public class SecondFragment extends Fragment {
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( repository.isResponseCorrect(
-                        Integer.parseInt(binding.editTextTextResponse.getText().toString())) ) {
+                if( repository.checkResponse(binding.editTextTextResponse.getText().toString()) ) {
 
                     //check if exercice is finish
                     //otherwise we display next quest

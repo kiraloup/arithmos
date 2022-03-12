@@ -31,4 +31,8 @@ public abstract class AbstractExercice {
     public Question getQuestion(){
         return listQuestion.get(NumberOfCurrentquestion);
     }
+
+    public TypeOfExercice getTypeOfExercice() {
+        return typeOfExercice;
+    }
 }

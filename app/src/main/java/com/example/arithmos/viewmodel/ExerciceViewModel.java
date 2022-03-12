@@ -19,7 +19,7 @@ import com.example.arithmos.model.TypeOfExercice;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO : Connect it to the view
+//TODO : Test the difference between number and string result
 public class ExerciceViewModel extends AndroidViewModel {
 
     private final QuestionRepository questionRepository;
@@ -84,7 +84,19 @@ public class ExerciceViewModel extends AndroidViewModel {
         return false;
     }
 
+    public Boolean checkResponse(String result) {
+        if(exercice.getTypeOfExercice() == TypeOfExercice.LETTER) {
+            return isResponseCorrect(result);
+        } else {
+            return isResponseCorrect(Integer.parseInt(result));
+        }
+    }
+
     public Boolean isResponseCorrect(int reponse) {
-        return exercice.getQuestion().getResult() == reponse;
+        return exercice.getQuestion().getResult().getNumberResult() == reponse;
+    }
+
+    public Boolean isResponseCorrect(String reponse) {
+        return exercice.getQuestion().getResult().getStringResult().equals(reponse);
     }
 }
