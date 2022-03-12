@@ -14,4 +14,7 @@
     <string name="reponse">Réponse</string>
     <string name="ennonce">Ennonce</string>
     <string name="exercice">Exercice</string>
+    <string name="diffucult">Diffuculté</string>
+    <string name="format_des_r_ponses">Format des réponses</string>
+    <string name="type_d_exercice">Type d\'exercice</string>
 </resources>
