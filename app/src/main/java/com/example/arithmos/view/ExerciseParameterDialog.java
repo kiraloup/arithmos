@@ -8,10 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,23 +18,11 @@ import com.example.arithmos.R;
 
 public class ExerciseParameterDialog extends DialogFragment {
 
-    public Context context;
+    public interface ExerciseParameterDialogListener {
+        public void onDialogPositiveClick();
+    }
 
-
-    private RadioGroup radio_type;
-    private RadioButton radioButton_simple;
-    private RadioButton radioButton_dd;
-
-    private RadioGroup radio_diff;
-    private RadioButton radioButton_facile;
-    private RadioButton radioButton_moyen;
-    private RadioButton radioButton_difficile;
-
-    private TextView text_format;
-
-    private RadioGroup radio_rep ;
-    private RadioButton radioButton_chiffres;
-    private RadioButton radioButton_lettres;
+    ExerciseParameterDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -47,6 +32,8 @@ public class ExerciseParameterDialog extends DialogFragment {
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
+        //no need to attach a parent when inflating in alertdialog
+        //see : https://web.archive.org/web/20190528213406/https://possiblemobile.com/2013/05/layout-inflation-as-intended/
         builder.setView(inflater.inflate(R.layout.activity_dial,null)).setPositiveButton(
                 "valider",
                 new DialogInterface.OnClickListener() {
@@ -59,19 +46,78 @@ public class ExerciseParameterDialog extends DialogFragment {
         return builder.create();
     }
 
+    //Here we instanciate the listener
+    //if the class that call our method doesn't implements the callback, we throw an error
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
-        radioButton_simple = view.findViewById(R.id.simple);
-        radioButton_dd = view.findViewById(R.id.draganddrop);
+        try {
+            listener = (ExerciseParameterDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement NoticeDialogListener");
+        }
+    }
+
+    //apparently it's better to write if/else
+    //TODO : change switch to if/else
+    public int checkExerciseType(View view) {
+        //is the radio button check ?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch (view.getId()) {
+            case R.id.chiffre:
+                if (checked)
+                    return 1;
+                break;
+            case R.id.lettres:
+                if (checked)
+                    return 2;
+                break;
+        }
+
+        return -1;
+    }
+
+    public int checkExerciseSelect(View view) {
+        //is the radio button check ?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch (view.getId()) {
+            case R.id.simple:
+                if (checked)
+                    return 1;
+                break;
+            case R.id.difficile:
+                if (checked)
+                    return 2;
+                break;
+        }
+
+        return -1;
+    }
 
 
-        radioButton_facile = (RadioButton) view.findViewById(R.id.facile);
-        radioButton_moyen = (RadioButton) view.findViewById(R.id.moyen);
-        radioButton_difficile = (RadioButton) view.findViewById(R.id.difficile);
+    public int checkDifficulty(View view) {
+        //is the radio button check ?
+        boolean checked = ((RadioButton) view).isChecked();
 
-        radioButton_chiffres = (RadioButton) view.findViewById(R.id.chiffre);
-        radioButton_lettres = (RadioButton) view.findViewById(R.id.lettres);
+        switch (view.getId()) {
+            case R.id.facile:
+                if (checked)
+                    return 1;
+                break;
+            case R.id.moyen:
+                if (checked)
+                    return 2;
+                break;
+            case R.id.difficile:
+                if (checked)
+                    return 3;
+                break;
+        }
+
+        return -1;
     }
 }

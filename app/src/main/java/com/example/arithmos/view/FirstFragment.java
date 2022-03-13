@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.arithmos.databinding.FragmentFirstBinding;
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements ExerciseParameterDialog.ExerciseParameterDialogListener{
 
     private FragmentFirstBinding binding;
     private final String TAG = "FIRSTFRAGMENT";
@@ -57,4 +57,9 @@ public class FirstFragment extends Fragment {
         binding = null;
     }
 
+    //methode that is implements from the dialog
+    @Override
+    public void onDialogPositiveClick() {
+        //TODO : get the data from the dialog
+    }
 }
