@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -56,8 +57,21 @@ public class FirstFragment extends Fragment{
                 new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-                        String result = bundle.getString("bundleKey");
-                        Log.d(TAG, result);
+                        //letter or number
+                        int exerciseType = bundle.getInt("exerciseType");
+                        int exerciseDifficulty = bundle.getInt("exerciseSelect");
+                        //simple or drag and drop
+                        int exerciseSelect = bundle.getInt("exerciseDifficulty");
+
+                        if(!bundle.isEmpty() && (exerciseType != 0 && exerciseDifficulty != 0 &&
+                                exerciseSelect != 0)) {
+                            //here we start the activity
+                            Log.d(TAG, exerciseDifficulty
+                                    + " " + exerciseType
+                                    + " " + exerciseSelect);
+                        } else {
+                            Log.d(TAG, "Error: in the result of the dialog return -1");
+                        }
                     }
                 });
 

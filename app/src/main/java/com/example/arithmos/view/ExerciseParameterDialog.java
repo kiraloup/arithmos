@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,14 @@ import androidx.fragment.app.DialogFragment;
 import com.example.arithmos.R;
 
 public class ExerciseParameterDialog extends DialogFragment {
+
+
+    private RadioButton radioButton_simple;
+
+    private RadioButton radioButton_facile;
+    private RadioButton radioButton_moyen;
+
+    private RadioButton radioButton_chiffres;
 
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -28,19 +37,35 @@ public class ExerciseParameterDialog extends DialogFragment {
 
         //no need to attach a parent when inflating in alertdialog
         //see : https://web.archive.org/web/20190528213406/https://possiblemobile.com/2013/05/layout-inflation-as-intended/
-        builder.setView(inflater.inflate(R.layout.activity_dial,null)).setPositiveButton(
+        View view = inflater.inflate(R.layout.activity_dial, null);
+
+        //since the view in OnViewCreate is different we are force to declare the radio button here
+        radioButton_simple = (RadioButton) view.findViewById(R.id.simple);
+
+        radioButton_facile =  (RadioButton) view.findViewById(R.id.facile);
+        radioButton_moyen =  (RadioButton) view.findViewById(R.id.moyen);
+
+        radioButton_chiffres =  (RadioButton) view.findViewById(R.id.chiffre);
+
+        builder.setView(view).setPositiveButton(
                 "valider",
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Bundle resultParameter = new Bundle();
-                resultParameter.putString("bundleKey", "test");
+
+                resultParameter.putInt("exerciseType", checkExerciseType());
+                resultParameter.putInt("exerciseSelect", checkExerciseSelect());
+                resultParameter.putInt("exerciseDifficulty", checkDifficulty());
+
                 //We send to the parent the parameter to launch the exercice
                 getParentFragmentManager().setFragmentResult("exerciseParameter",
                         resultParameter);
                 ExerciseParameterDialog.this.getDialog().cancel();
             }
-        }).setNegativeButton("annuler", new DialogInterface.OnClickListener() {
+        });
+
+        builder.setNegativeButton("annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ExerciseParameterDialog.this.getDialog().cancel();
@@ -50,64 +75,34 @@ public class ExerciseParameterDialog extends DialogFragment {
         return builder.create();
     }
 
-    //apparently it's better to write if/else
-    //TODO : change switch to if/else
-    public int checkExerciseType(View view) {
+    public int checkExerciseType() {
         //is the radio button check ?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.chiffre:
-                if (checked)
-                    return 1;
-                break;
-            case R.id.lettres:
-                if (checked)
-                    return 2;
-                break;
+        if(radioButton_simple.isChecked()) {
+            return 1;
+        } else {
+            return 2;
         }
-
-        return -1;
     }
 
-    public int checkExerciseSelect(View view) {
+    public int checkExerciseSelect() {
         //is the radio button check ?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.simple:
-                if (checked)
-                    return 1;
-                break;
-            case R.id.difficile:
-                if (checked)
-                    return 2;
-                break;
+        if(radioButton_facile.isChecked()) {
+            return 1;
+        } else if(radioButton_moyen.isChecked()) {
+            return 2;
+        } else {
+            return 3;
         }
 
-        return -1;
     }
 
 
-    public int checkDifficulty(View view) {
+    public int checkDifficulty() {
         //is the radio button check ?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.facile:
-                if (checked)
-                    return 1;
-                break;
-            case R.id.moyen:
-                if (checked)
-                    return 2;
-                break;
-            case R.id.difficile:
-                if (checked)
-                    return 3;
-                break;
+        if(radioButton_chiffres.isChecked()) {
+            return 1;
+        } else {
+            return 2;
         }
-
-        return -1;
     }
 }
