@@ -1,26 +1,16 @@
 package com.example.arithmos.view;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment {
@@ -28,6 +18,7 @@ public class FirstFragment extends Fragment {
     private FragmentFirstBinding binding;
     private final String TAG = "FIRSTFRAGMENT";
     final Context context = getContext();
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -52,15 +43,11 @@ public class FirstFragment extends Fragment {
         });
     }
 
-            private void buttonOpenDialogClicked()  {
-                CustomDialog.FullNameListener listener = new CustomDialog.FullNameListener() {
-                    @Override
-                    public void fullNameEntered(String fullName) {
-                    }
-                };
-                final CustomDialog dialog = new CustomDialog(this.getContext(),"add",listener);
-                dialog.show();
-            }
+    private void buttonOpenDialogClicked()  {
+
+        DialogFragment dialog = new ExerciseParameterDialog();
+        dialog.show(getChildFragmentManager(), "CustomDialog");
+    }
 
 
 
