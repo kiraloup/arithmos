@@ -10,10 +10,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import com.example.arithmos.databinding.FragmentFirstBinding;
 
-public class FirstFragment extends Fragment implements ExerciseParameterDialog.ExerciseParameterDialogListener{
+public class FirstFragment extends Fragment{
 
     private FragmentFirstBinding binding;
     private final String TAG = "FIRSTFRAGMENT";
@@ -46,6 +47,20 @@ public class FirstFragment extends Fragment implements ExerciseParameterDialog.E
     private void buttonOpenDialogClicked()  {
 
         DialogFragment dialog = new ExerciseParameterDialog();
+
+        //using a result listener to pass data from dialog fragment to this one
+        //the dialog is a child of this fragment so we must carefull to use  getChildFragmentManager
+        //otherwise this is the same when we receive the result
+        //see : https://developer.android.com/guide/fragments/communicate#pass-parent-child
+        getChildFragmentManager().setFragmentResultListener("exerciseParameter", this,
+                new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                        String result = bundle.getString("bundleKey");
+                        Log.d(TAG, result);
+                    }
+                });
+
         dialog.show(getChildFragmentManager(), "CustomDialog");
     }
 
@@ -57,9 +72,4 @@ public class FirstFragment extends Fragment implements ExerciseParameterDialog.E
         binding = null;
     }
 
-    //methode that is implements from the dialog
-    @Override
-    public void onDialogPositiveClick() {
-        //TODO : get the data from the dialog
-    }
 }

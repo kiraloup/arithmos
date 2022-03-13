@@ -18,12 +18,6 @@ import com.example.arithmos.R;
 
 public class ExerciseParameterDialog extends DialogFragment {
 
-    public interface ExerciseParameterDialogListener {
-        public void onDialogPositiveClick();
-    }
-
-    ExerciseParameterDialogListener listener;
-
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,25 +33,21 @@ public class ExerciseParameterDialog extends DialogFragment {
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Bundle resultParameter = new Bundle();
+                resultParameter.putString("bundleKey", "test");
+                //We send to the parent the parameter to launch the exercice
+                getParentFragmentManager().setFragmentResult("exerciseParameter",
+                        resultParameter);
+                ExerciseParameterDialog.this.getDialog().cancel();
+            }
+        }).setNegativeButton("annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 ExerciseParameterDialog.this.getDialog().cancel();
             }
         });
 
         return builder.create();
-    }
-
-    //Here we instanciate the listener
-    //if the class that call our method doesn't implements the callback, we throw an error
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        try {
-            listener = (ExerciseParameterDialogListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().toString()
-                    + " must implement NoticeDialogListener");
-        }
     }
 
     //apparently it's better to write if/else
