@@ -42,6 +42,24 @@ public class MainMenuFragment extends Fragment{
                 buttonOpenDialogClicked("add");
             }
         });
+        binding.ButtonSous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonOpenDialogClicked("sous");
+            }
+        });
+        binding.ButtonDiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonOpenDialogClicked("div");
+            }
+        });
+        binding.ButtonMult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonOpenDialogClicked("mult");
+            }
+        });
     }
 
     private void buttonOpenDialogClicked(String exeriseName)  {

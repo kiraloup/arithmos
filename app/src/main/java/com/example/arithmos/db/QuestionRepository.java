@@ -34,6 +34,25 @@ public class QuestionRepository {
         this.executor = db.getQueryExecutor();
     }
 
+    public void getTenQuestionType(final RepositoryCallback<List<Question>> callback,String type){
+        Log.d("QuestionRepository", "getAllQuestion");
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("QuestionRepository", "HE 1");
+                try {
+                    Log.d("QuestionRepository", "HE 2");
+                    Result<List<Question>> resultQuestion= new Result.Success<>(questionDAO.getTenQuestionType(type));
+                    callback.onComplete(resultQuestion);
+                }catch (Exception e){
+                    Log.d("QuestionRepository", "HE 3" + e.toString());
+                    Result<List<Question>> error = new Result.Error<>(e);
+                    callback.onComplete(error);
+                }
+            }
+        });
+    }
+
     //this method move the execution to the background thread
     public void getAllQuestion(final RepositoryCallback<List<Question>> callback) {
         //execute the method in a available thread

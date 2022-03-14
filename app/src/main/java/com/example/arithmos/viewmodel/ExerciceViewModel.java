@@ -59,7 +59,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
             //we use a callback to create the exercice
             //because we need to access the database and it's not possible in UI thread
-            questionRepository.getAllQuestion(new RepositoryCallback<List<Question>>() {
+            questionRepository.getTenQuestionType(new RepositoryCallback<List<Question>>() {
                 @Override
                 public void onComplete(Result<List<Question>> result) {
                     if(result instanceof Result.Success) {
@@ -78,7 +78,7 @@ public class ExerciceViewModel extends AndroidViewModel {
                         currentQuestion.postValue(new Question("ERROR", "ERROR", 2));
                     }
                 }
-            });
+            },typeOfExercice);
         }
     }
 

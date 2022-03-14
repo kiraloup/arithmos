@@ -53,9 +53,12 @@ public abstract class RoomDatabaseA extends RoomDatabase {
                 QuestionDAO dao = INSTANCE.questionDAO();
                 dao.deleteAll();
 
-                Question word = new Question("combien font #1 roses + #2 tulipes ? ",
-                        "additions", 2);
-                dao.insert(word);
+                dao.insert(new Question("Le fermier a récolté #1 roses et #2 tulipes, combien de fleur possède-t-il ? ",
+                        "add", 2));
+                dao.insert(new Question("Le fermier a récolté #1 roses mais à jeté #2 tulipes, combien de fleur possède-t-il ? ",
+                        "sous", 2));
+                dao.insert(new Question("Cet arbustre avait #1 feuilles en été, il ne lui en reste plus que #2 en automne, combien sont tombé ? ",
+                        "sous", 2));
             });
         }
     };

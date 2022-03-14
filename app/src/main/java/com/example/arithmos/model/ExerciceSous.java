@@ -1,19 +1,23 @@
 package com.example.arithmos.model;
 
+import android.widget.ArrayAdapter;
+
 import com.example.arithmos.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class ExerciceAdd extends AbstractExercice {
+public class ExerciceSous extends AbstractExercice {
 
-    public ExerciceAdd(int difficulty, TypeOfExercice typeOfExercice) {
+    public ExerciceSous(int difficulty, TypeOfExercice typeOfExercice) {
         super(difficulty, typeOfExercice);
     }
 
 
     @Override
     public void createAllQuestion(List<Question> questions,
-                                            TypeOfExercice typeOfExercice,int difficulty) {
+                                  TypeOfExercice typeOfExercice, int difficulty) {
 
         for(int i = 0; i < questions.size(); i++) {
             if(typeOfExercice == TypeOfExercice.NUMBER) {
@@ -30,7 +34,7 @@ public class ExerciceAdd extends AbstractExercice {
 
         StringBuilder modifiedTitle = new StringBuilder(q.getTitle());
         int res = 0, i = 0;
-
+        List<Integer> listSous = new ArrayList<Integer>();
         while(i < modifiedTitle.length()) {
             if(modifiedTitle.charAt(i) == '#') {
                 int min = 0;
@@ -46,27 +50,20 @@ public class ExerciceAdd extends AbstractExercice {
                     max = 999;
                 }
                 int randomNumber = Utils.generateInteger(min, max);
-
-                res += randomNumber;
-                int nb = 0;
-                boolean flag = false;
-
-                while (res > 999) {
-                    flag = true;
-                    nb ++;
-                    res -= (randomNumber/2);
-                }
-                if (flag) {
-                    modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber/(2*nb)));
-                } else {
-                    modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
-                }
-                flag = false;
-
+                modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
+                listSous.add(randomNumber);
             }
             i++;
         }
-
+        Collections.sort(listSous,Collections.reverseOrder());
+        res = listSous.get(0);
+        int deb = res;
+        for(int k = 1; k < listSous.size(); k++){
+            res -= listSous.get(k);
+        }
+        if ((deb - res) > 0){
+            //error nombre negatif
+        }
 
         q.setTitle(modifiedTitle.toString());
         q.setResult(res);

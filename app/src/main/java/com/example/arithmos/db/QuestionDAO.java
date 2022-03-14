@@ -22,9 +22,14 @@ public interface QuestionDAO {
     @Query("Select distinct * From QUESTION_TABLE")
     List<Question> getAllQuestion();
 
-    @Query("Select distinct * From QUESTION_TABLE LIMIT 10")
+    @Query("Select distinct * From QUESTION_TABLE  LIMIT 10")
     LiveData<List<Question>> getTenQuestion();
 
     @Query("Delete from question_table")
     void deleteAll();
+
+    @Query("SELECT * FROM QUESTION_TABLE where type = :typeQuestion LIMIT 10")
+    List<Question> getTenQuestionType(String typeQuestion);
+
+
 }
