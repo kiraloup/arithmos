@@ -15,6 +15,7 @@ import com.example.arithmos.model.AbstractExercice;
 import com.example.arithmos.model.ExerciceAdd;
 import com.example.arithmos.model.Question;
 import com.example.arithmos.model.TypeOfExercice;
+import com.example.arithmos.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,6 @@ public class ExerciceViewModel extends AndroidViewModel {
     //For debug only
     private final String TAG = "EXERCICEVIEWMODEL";
 
-    private static int PASSAGE = 0;
 
     //This is the object that the view is observing
     public MutableLiveData<Question> currentQuestion = new MutableLiveData<>();
@@ -41,13 +41,18 @@ public class ExerciceViewModel extends AndroidViewModel {
         questionRepository = new QuestionRepository(application);
     }
 
-    public void createExercice(String typeOfExercice) {
-        PASSAGE++;
+    /**
+     *
+     * @param typeOfExercice : if the exercise is type add, sub...
+     * @param difficulty : exercise difficulty between 1 and 3
+     * @param select : exercise can be simple MCQ or in drag and drop style
+     * @param type : the response must be in number or letter
+     */
+    public void createExercice(String typeOfExercice, int difficulty, int select, int type) {
 
-        if(typeOfExercice.equals("addition")) {
+        if(typeOfExercice.equals("add")) {
             exercice = new ExerciceAdd(1, TypeOfExercice.NUMBER);
 
-            Log.d(TAG, String.valueOf(PASSAGE));
             //we use a callback to create the exercice
             //because we need to access the database and it's not possible in UI thread
             questionRepository.getAllQuestion(new RepositoryCallback<List<Question>>() {
@@ -55,12 +60,14 @@ public class ExerciceViewModel extends AndroidViewModel {
                 public void onComplete(Result<List<Question>> result) {
                     if(result instanceof Result.Success) {
                         List<Question> resData = ((Result.Success<List<Question>>) result).data;
-                        Log.d(TAG, "SIZE OF Question : " + String.valueOf(resData.size()));
-                        Log.d(TAG, "TITLE Question 1 : " + String.valueOf(resData.get(0).getTitle()));
-                        exercice.createAllQuestion(resData);
 
-                        Log.d(TAG, "TITLE Question 1 title : " + exercice.getQuestion().getTitle());
-                        Log.d(TAG, "TITLE Question 1 res : " + exercice.getQuestion().getResult());
+                        exercice.createAllQuestion(resData, TypeOfExercice.NUMBER);
+
+                        Log.d(TAG, "SIZE OF Question : "
+                                + String.valueOf(resData.size()));
+                        Log.d(TAG, "TITLE Question 1 : "
+                                + String.valueOf(resData.get(0).getTitle()));
+
                         currentQuestion.postValue(exercice.getQuestion());
                     } else if (result instanceof Result.Error){
                         //TODO : find a better way to handle error case
@@ -85,18 +92,18 @@ public class ExerciceViewModel extends AndroidViewModel {
     }
 
     public Boolean checkResponse(String result) {
+        int res = Integer.parseInt(result);
+
         if(exercice.getTypeOfExercice() == TypeOfExercice.LETTER) {
-            return isResponseCorrect(result);
+            String correctResponse = Utils.convertIntToString(exercice.getQuestion().getResult());
+
+            //TODO : handle edge cases like number > 1000 and else
+            String userResponse = Utils.convertIntToString(res);
+
+            return correctResponse.equals(userResponse);
         } else {
-            return isResponseCorrect(Integer.parseInt(result));
+
+            return res == exercice.getQuestion().getResult();
         }
-    }
-
-    public Boolean isResponseCorrect(int reponse) {
-        return exercice.getQuestion().getResult().getNumberResult() == reponse;
-    }
-
-    public Boolean isResponseCorrect(String reponse) {
-        return exercice.getQuestion().getResult().getStringResult().equals(reponse);
     }
 }

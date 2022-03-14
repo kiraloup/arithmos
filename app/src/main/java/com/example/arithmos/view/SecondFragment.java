@@ -39,8 +39,21 @@ public class SecondFragment extends Fragment {
 
         Log.d(TAG, "HERE 2");
 
+        assert getArguments() != null;
+        //letter or number
+        int exerciseType = getArguments().getInt("exerciseType");
+
+        int exerciseDifficulty = getArguments().getInt("exerciseSelect");
+
+        //simple or drag and drop
+        int exerciseSelect = getArguments().getInt("exerciseDifficulty");
+
+        //here we get the exercice "global" type like add, sub...
+        String type = getArguments().getString("exeriseName");
+
+
         //we create the exercice that contains the question that will be display
-        repository.createExercice("addition");
+        repository.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
 
         //The observer job is to observe the question and change what is display on the view
         //for that we use a mutable live data in the viewmodel

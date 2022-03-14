@@ -47,7 +47,7 @@ public class QuestionRepository {
                     Result<List<Question>> resultQuestion= new Result.Success<>(questionDAO.getAllQuestion());
                     callback.onComplete(resultQuestion);
                 }catch (Exception e){
-                    Log.d("QuestionRepository", "HE 3");
+                    Log.d("QuestionRepository", "HE 3" + e.toString());
                     Result<List<Question>> error = new Result.Error<>(e);
                     callback.onComplete(error);
                 }

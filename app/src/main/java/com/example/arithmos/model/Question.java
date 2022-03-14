@@ -26,12 +26,13 @@ public class Question {
 
     //NOT IN DATABASE CLASS MEMBER
     @Ignore
-    private QuestionResultat result;
+    private int result;
 
     public Question(@NonNull String title, @NonNull String type, @NonNull int expectedNumValues) {
         this.title = title;
         this.type = type;
         this.expectedNumValues = expectedNumValues;
+        this.result = 0;
     }
 
     public int getId() {
@@ -64,19 +65,13 @@ public class Question {
         return expectedNumValues;
     }
 
-    public void setExpectedNumValues(int expectedNumValues) {
-        expectedNumValues = expectedNumValues;
-    }
-
-    public QuestionResultat getResult() {
+    @Ignore
+    public int getResult() {
         return result;
     }
 
-    public void setResult(String result) {
-        this.result.setStringResult(result);
-    }
-
+    @Ignore
     public void setResult(int result) {
-        this.result.setNumberResult(result);
+        this.result = result;
     }
 }

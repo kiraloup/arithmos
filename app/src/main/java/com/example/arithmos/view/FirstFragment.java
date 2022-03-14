@@ -12,14 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment{
 
     private FragmentFirstBinding binding;
     private final String TAG = "FIRSTFRAGMENT";
-    final Context context = getContext();
 
     @Override
     public View onCreateView(
@@ -40,12 +41,12 @@ public class FirstFragment extends Fragment{
         binding.ButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOpenDialogClicked();
+                buttonOpenDialogClicked("add");
             }
         });
     }
 
-    private void buttonOpenDialogClicked()  {
+    private void buttonOpenDialogClicked(String exeriseName)  {
 
         DialogFragment dialog = new ExerciseParameterDialog();
 
@@ -53,7 +54,8 @@ public class FirstFragment extends Fragment{
         //the dialog is a child of this fragment so we must carefull to use  getChildFragmentManager
         //otherwise this is the same when we receive the result
         //see : https://developer.android.com/guide/fragments/communicate#pass-parent-child
-        getChildFragmentManager().setFragmentResultListener("exerciseParameter", this,
+        getChildFragmentManager().setFragmentResultListener("exerciseParameter",
+                this,
                 new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
@@ -62,6 +64,8 @@ public class FirstFragment extends Fragment{
                         int exerciseDifficulty = bundle.getInt("exerciseSelect");
                         //simple or drag and drop
                         int exerciseSelect = bundle.getInt("exerciseDifficulty");
+                        //here we add if the exercice "global" type like add, sub...
+                        bundle.putString("exeriseName", exeriseName);
 
                         if(!bundle.isEmpty() && (exerciseType != 0 && exerciseDifficulty != 0 &&
                                 exerciseSelect != 0)) {
@@ -69,6 +73,9 @@ public class FirstFragment extends Fragment{
                             Log.d(TAG, exerciseDifficulty
                                     + " " + exerciseType
                                     + " " + exerciseSelect);
+                            NavHostFragment.findNavController(FirstFragment.this).
+                                    navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
+
                         } else {
                             Log.d(TAG, "Error: in the result of the dialog return -1");
                         }
