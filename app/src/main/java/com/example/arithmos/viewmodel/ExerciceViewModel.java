@@ -50,8 +50,12 @@ public class ExerciceViewModel extends AndroidViewModel {
      */
     public void createExercice(String typeOfExercice, int difficulty, int select, int type) {
 
+
+        TypeOfExercice selectExercise = type == 1 ? TypeOfExercice.NUMBER : TypeOfExercice.LETTER;
+
         if(typeOfExercice.equals("add")) {
-            exercice = new ExerciceAdd(1, TypeOfExercice.NUMBER);
+
+            exercice = new ExerciceAdd(difficulty, selectExercise);
 
             //we use a callback to create the exercice
             //because we need to access the database and it's not possible in UI thread
@@ -95,6 +99,7 @@ public class ExerciceViewModel extends AndroidViewModel {
         int res = Integer.parseInt(result);
 
         if(exercice.getTypeOfExercice() == TypeOfExercice.LETTER) {
+
             String correctResponse = Utils.convertIntToString(exercice.getQuestion().getResult());
 
             //TODO : handle edge cases like number > 1000 and else
@@ -102,7 +107,6 @@ public class ExerciceViewModel extends AndroidViewModel {
 
             return correctResponse.equals(userResponse);
         } else {
-
             return res == exercice.getQuestion().getResult();
         }
     }

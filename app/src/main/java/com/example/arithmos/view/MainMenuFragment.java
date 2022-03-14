@@ -1,12 +1,10 @@
 package com.example.arithmos.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -17,7 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentFirstBinding;
 
-public class FirstFragment extends Fragment{
+public class MainMenuFragment extends Fragment{
 
     private FragmentFirstBinding binding;
     private final String TAG = "FIRSTFRAGMENT";
@@ -73,7 +71,7 @@ public class FirstFragment extends Fragment{
                             Log.d(TAG, exerciseDifficulty
                                     + " " + exerciseType
                                     + " " + exerciseSelect);
-                            NavHostFragment.findNavController(FirstFragment.this).
+                            NavHostFragment.findNavController(MainMenuFragment.this).
                                     navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
 
                         } else {

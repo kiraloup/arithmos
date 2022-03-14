@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.arithmos.view.FirstFragment"
+        android:name="com.example.arithmos.view.MainMenuFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.arithmos.view.SecondFragment"
+        android:name="com.example.arithmos.view.ExerciseFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
