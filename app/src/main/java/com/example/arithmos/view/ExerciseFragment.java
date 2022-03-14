@@ -46,19 +46,23 @@ public class ExerciseFragment extends Fragment {
         //letter or number
         int exerciseType = getArguments().getInt("exerciseType");
 
-        int exerciseDifficulty = getArguments().getInt("exerciseSelect");
+        int exerciseDifficulty = getArguments().getInt("exerciseDifficulty");
 
         //simple or drag and drop
-        int exerciseSelect = getArguments().getInt("exerciseDifficulty");
+        int exerciseSelect = getArguments().getInt("exerciseSelect");
 
         //here we get the exercice "global" type like add, sub...
         String type = getArguments().getString("exeriseName");
 
         EditText input = binding.editTextTextResponse;
 
-        if (exerciseType == 1) {
+        Log.d(TAG, exerciseDifficulty
+                + " " + exerciseType
+                + " " + exerciseSelect);
+
+        if (exerciseSelect == 1) {
             input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        } else {
+        } else if(exerciseSelect == 2) {
             input.setInputType(InputType.TYPE_CLASS_TEXT);
         }
         //we create the exercise that contains the question that will be display
@@ -85,10 +89,10 @@ public class ExerciseFragment extends Fragment {
             public void onClick(View v) {
                 if( exerciceViewModel.checkResponse(binding.editTextTextResponse.getText().toString()) ) {
 
-                    //check if exercice is finish
+                    //check if exercise is finish
                     //otherwise we display next quest
                     if(!exerciceViewModel.isExerciceFinish()){
-                        Log.d(TAG,"Exercice is not finish");
+                        Log.d(TAG,"Exercise is not finish");
                         //we display the next question, the observer will update the UI
                         exerciceViewModel.nextQuestion();
                     }

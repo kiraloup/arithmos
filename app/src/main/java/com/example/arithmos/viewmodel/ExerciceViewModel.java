@@ -45,13 +45,13 @@ public class ExerciceViewModel extends AndroidViewModel {
      *
      * @param typeOfExercice : if the exercise is type add, sub...
      * @param difficulty : exercise difficulty between 1 and 3
-     * @param select : exercise can be simple MCQ or in drag and drop style
-     * @param type : the response must be in number or letter
+     * @param select : the response must be in number or letter
+     * @param type :  exercise can be simple MCQ or in drag and drop style
      */
     public void createExercice(String typeOfExercice, int difficulty, int select, int type) {
 
 
-        TypeOfExercice selectExercise = type == 1 ? TypeOfExercice.NUMBER : TypeOfExercice.LETTER;
+        TypeOfExercice selectExercise = select == 1 ? TypeOfExercice.NUMBER : TypeOfExercice.LETTER;
 
         if(typeOfExercice.equals("add")) {
 
@@ -96,18 +96,18 @@ public class ExerciceViewModel extends AndroidViewModel {
     }
 
     public Boolean checkResponse(String result) {
-        int res = Integer.parseInt(result);
-
         if(exercice.getTypeOfExercice() == TypeOfExercice.LETTER) {
-
             String correctResponse = Utils.convertIntToString(exercice.getQuestion().getResult());
 
-            //TODO : handle edge cases like number > 1000 and else
-            String userResponse = Utils.convertIntToString(res);
+            Log.d(TAG, "Correct response  : "
+                    + correctResponse);
 
-            return correctResponse.equals(userResponse);
+            return correctResponse.equals(result);
         } else {
+            int res = Integer.parseInt(result);
             return res == exercice.getQuestion().getResult();
         }
+
+
     }
 }

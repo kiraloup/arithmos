@@ -86,6 +86,17 @@ public class ExerciseParameterDialog extends DialogFragment {
 
     public int checkExerciseSelect() {
         //is the radio button check ?
+        if(radioButton_chiffres.isChecked()) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+
+    public int checkDifficulty() {
+
+        //is the radio button check ?
         if(radioButton_facile.isChecked()) {
             return 1;
         } else if(radioButton_moyen.isChecked()) {
@@ -94,15 +105,5 @@ public class ExerciseParameterDialog extends DialogFragment {
             return 3;
         }
 
-    }
-
-
-    public int checkDifficulty() {
-        //is the radio button check ?
-        if(radioButton_chiffres.isChecked()) {
-            return 1;
-        } else {
-            return 2;
-        }
     }
 }
