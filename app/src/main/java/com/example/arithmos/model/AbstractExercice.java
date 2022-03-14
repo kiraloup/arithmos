@@ -17,7 +17,7 @@ public abstract class AbstractExercice {
     }
 
     public abstract void  createAllQuestion(List<Question> listQuestions,
-                                                     TypeOfExercice typeOfExercice);
+                                                     TypeOfExercice typeOfExercice,int difficulty);
 
     public Question getNextQuestion() {
         currentQuestion++;

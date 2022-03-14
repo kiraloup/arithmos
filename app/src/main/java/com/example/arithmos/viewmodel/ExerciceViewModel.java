@@ -65,7 +65,7 @@ public class ExerciceViewModel extends AndroidViewModel {
                     if(result instanceof Result.Success) {
                         List<Question> resData = ((Result.Success<List<Question>>) result).data;
 
-                        exercice.createAllQuestion(resData, TypeOfExercice.NUMBER);
+                        exercice.createAllQuestion(resData, TypeOfExercice.NUMBER,difficulty);
 
                         Log.d(TAG, "SIZE OF Question : "
                                 + String.valueOf(resData.size()));

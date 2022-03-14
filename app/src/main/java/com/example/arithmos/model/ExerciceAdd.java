@@ -13,11 +13,11 @@ public class ExerciceAdd extends AbstractExercice {
 
     @Override
     public void createAllQuestion(List<Question> questions,
-                                            TypeOfExercice typeOfExercice) {
+                                            TypeOfExercice typeOfExercice,int difficulty) {
 
         for(int i = 0; i < questions.size(); i++) {
             if(typeOfExercice == TypeOfExercice.NUMBER) {
-                questions.set(i, createQuestionNumber(questions.get(i)));
+                questions.set(i, createQuestionNumber(questions.get(i),difficulty));
             } /*else {
                 createQuestionString(question);
             }*/
@@ -26,14 +26,26 @@ public class ExerciceAdd extends AbstractExercice {
         this.listQuestion = questions;
     }
 
-    private Question createQuestionNumber(Question q) {
+    private Question createQuestionNumber(Question q, int difficulty) {
 
         StringBuilder modifiedTitle = new StringBuilder(q.getTitle());
         int res = 0, i = 0;
 
         while(i < modifiedTitle.length()) {
             if(modifiedTitle.charAt(i) == '#') {
-                int randomNumber = Utils.generateInteger(0, 50);
+                int min = 0;
+                int max = 0;
+                if (difficulty == 1) {
+                    min = 1;
+                    max = 9;
+                } else if (difficulty == 2) {
+                    min = 10;
+                    max = 99;
+                } else if (difficulty == 3){
+                    min = 100;
+                    max = 999;
+                }
+                int randomNumber = Utils.generateInteger(min, max);
                 modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
                 res += randomNumber;
             }
