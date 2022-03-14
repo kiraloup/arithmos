@@ -61,30 +61,32 @@ public class ExerciceSous extends AbstractExercice {
             i++;
         }
         System.out.println("sizeoflist" + listdol.size());
-        Collections.sort(listSous);
+        //Collections.sort(listSous);
         Collections.reverse(listSous);
         res = listSous.get(0);
         System.out.println("res : " + listSous.get(0)+ "listdolres"+listdol.get(0)+ "autre " + listSous.get(1)+" listdol "+ listdol.get(1));
+
+        for (int j = 1 ; j < listdol.size(); j++) {
+            res -= listSous.get(j);
+        }
+        while (res < 0){
+            res = listSous.get(0);
+            for (int k = 1; k < listSous.size(); k++){
+                System.out.println(" On retire car gauche = "+ listSous.get(0)+" et droite ="  + listSous.get(k));
+                listSous.set(k,(listSous.get(k)/2));
+                res -= listSous.get(k);
+            }
+        }
+
         for(int k = 0; k < listdol.size(); k++){
             System.out.println("k : "+k+" contenue "  + listSous.get(k));
             int myI = listdol.get(k);
             modifiedTitle.replace(myI, myI+2, String.valueOf(listSous.get(k)));
             //res -= listSous.get(k);
         }
-        for (int j = 1 ; j < listdol.size(); j++) {
-            res -= listSous.get(j);
-        }
 
-        while (res < 0){
-            res = listSous.get(0);
-            for (int k = 1; k < listSous.size(); k++){
-                listSous.set(k,k/2);
-                res -= listSous.get(k);
-            }
-            for (int j = 0; j <listdol.size() ;j++) {
-                modifiedTitle.replace(listdol.get(j), listdol.get(j) + 2,String.valueOf(listSous.get(j)) );
-            }
-        }
+
+
 
         q.setTitle(modifiedTitle.toString());
         q.setResult(res);
