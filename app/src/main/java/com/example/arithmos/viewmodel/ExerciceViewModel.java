@@ -97,7 +97,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     public Boolean checkResponse(String result) {
         if(exercice.getTypeOfExercice() == TypeOfExercice.LETTER) {
-            String correctResponse = Utils.convertIntToString(exercice.getQuestion().getResult());
+            String correctResponse = Utils.convertIntToStringCentaine(exercice.getQuestion().getResult());
 
             Log.d(TAG, "Correct response  : "
                     + correctResponse);
