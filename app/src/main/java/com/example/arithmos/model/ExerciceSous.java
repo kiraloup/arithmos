@@ -79,7 +79,7 @@ public class ExerciceSous extends AbstractExercice {
             res = listSous.get(0);
             for (int k = 1; k < listSous.size(); k++){
                 listSous.set(k,k/2);
-                res -= listSous.get(k/2);
+                res -= listSous.get(k);
             }
             for (int j = 0; j <listdol.size() ;j++) {
                 modifiedTitle.replace(listdol.get(j), listdol.get(j) + 2,String.valueOf(listSous.get(j)) );
