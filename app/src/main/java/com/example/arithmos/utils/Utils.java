@@ -4,17 +4,36 @@ import java.util.Random;
 
 public class Utils {
 
+    private static final String[] nombre = {"zero", "un", "deux", "trois", "quatre", "cinq", "six",
+            "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze",
+            "seize", "dix-sept", "dix-huit", "dix-neuf"};
+
     public static int generateInteger(int min, int max) {
         return new Random().nextInt((max - min) + 1 ) + min;
     }
 
-    public static String convertIntToString(int num) {
+    public static String convertIntToStringCentaine(int num) {
+        String word = "";
+        int rem = num / 100;
+        int mod = num % 100;
+        if(rem == 1) {
+            word = "cents ";
+        } else if (rem > 0) {
+            word = nombre[rem] + " cents";
+            if (mod > 0) {
+                word = word + " ";
+            }
+        }
+
+        if (mod > 0) {
+            word = word + convertIntToStringDizaine(mod);
+        }
+        return word;
+    }
+
+    private static String convertIntToStringDizaine(int num) {
         String[] dizaine = {"vingt", "trente", "quarante", "cinquante", "soixante",
                 "soixante-dix", "quatre-vingt", "quatre-vint-dix"};
-
-        String[] nombre = {"zero", "un", "deux", "trois", "quatre", "cinq", "six",
-                "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze",
-                "seize", "dix-sept", "dix-huit", "dix-neuf"};
 
         String dcap = "";
         if(num < 20) {

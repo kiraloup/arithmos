@@ -18,9 +18,7 @@ public class ExerciceAdd extends AbstractExercice {
         for(int i = 0; i < questions.size(); i++) {
             if(typeOfExercice == TypeOfExercice.NUMBER) {
                 questions.set(i, createQuestionNumber(questions.get(i)));
-            } /*else {
-                createQuestionString(question);
-            }*/
+            }
         }
 
         this.listQuestion = questions;
