@@ -33,7 +33,7 @@ public class ExerciceAdd extends AbstractExercice {
 
         while(i < modifiedTitle.length()) {
             if(modifiedTitle.charAt(i) == '#') {
-                int randomNumber = Utils.generateInteger(0, 10);
+                int randomNumber = Utils.generateInteger(0, 50);
                 modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
                 res += randomNumber;
             }
