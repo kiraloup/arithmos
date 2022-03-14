@@ -13,6 +13,7 @@ import com.example.arithmos.db.RepositoryCallback;
 import com.example.arithmos.db.Result;
 import com.example.arithmos.model.AbstractExercice;
 import com.example.arithmos.model.ExerciceAdd;
+import com.example.arithmos.model.ExerciceSous;
 import com.example.arithmos.model.Question;
 import com.example.arithmos.model.TypeOfExercice;
 import com.example.arithmos.utils.Utils;
@@ -56,7 +57,9 @@ public class ExerciceViewModel extends AndroidViewModel {
         if(typeOfExercice.equals("add")) {
 
             exercice = new ExerciceAdd(difficulty, selectExercise);
-
+        } else if (typeOfExercice.equals("sous")) {
+            exercice = new ExerciceSous(difficulty, selectExercise);
+        }
             //we use a callback to create the exercice
             //because we need to access the database and it's not possible in UI thread
             questionRepository.getTenQuestionType(new RepositoryCallback<List<Question>>() {
@@ -79,7 +82,7 @@ public class ExerciceViewModel extends AndroidViewModel {
                     }
                 }
             },typeOfExercice);
-        }
+
     }
 
     public void nextQuestion() {

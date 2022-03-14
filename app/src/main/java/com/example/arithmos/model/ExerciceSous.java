@@ -30,11 +30,14 @@ public class ExerciceSous extends AbstractExercice {
         this.listQuestion = questions;
     }
 
+
     private Question createQuestionNumber(Question q, int difficulty) {
 
         StringBuilder modifiedTitle = new StringBuilder(q.getTitle());
         int res = 0, i = 0;
         List<Integer> listSous = new ArrayList<Integer>();
+        //list position des #
+        List<Integer> listdol = new ArrayList<Integer>();
         while(i < modifiedTitle.length()) {
             if(modifiedTitle.charAt(i) == '#') {
                 int min = 0;
@@ -50,19 +53,37 @@ public class ExerciceSous extends AbstractExercice {
                     max = 999;
                 }
                 int randomNumber = Utils.generateInteger(min, max);
-                modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
+                res += randomNumber;
+                listdol.add(i);
                 listSous.add(randomNumber);
             }
+
             i++;
         }
-        Collections.sort(listSous,Collections.reverseOrder());
+        System.out.println("sizeoflist" + listdol.size());
+        Collections.sort(listSous);
+        Collections.reverse(listSous);
         res = listSous.get(0);
-        int deb = res;
-        for(int k = 1; k < listSous.size(); k++){
-            res -= listSous.get(k);
+        System.out.println("res : " + listSous.get(0)+ "listdolres"+listdol.get(0)+ "autre " + listSous.get(1)+" listdol "+ listdol.get(1));
+        for(int k = 0; k < listdol.size(); k++){
+            System.out.println("k : "+k+" contenue "  + listSous.get(k));
+            int myI = listdol.get(k);
+            modifiedTitle.replace(myI, myI+2, String.valueOf(listSous.get(k)));
+            //res -= listSous.get(k);
         }
-        if ((deb - res) > 0){
-            //error nombre negatif
+        for (int j = 1 ; j < listdol.size(); j++) {
+            res -= listSous.get(j);
+        }
+
+        while (res < 0){
+            res = listSous.get(0);
+            for (int k = 1; k < listSous.size(); k++){
+                listSous.set(k,k/2);
+                res -= listSous.get(k/2);
+            }
+            for (int j = 0; j <listdol.size() ;j++) {
+                modifiedTitle.replace(listdol.get(j), listdol.get(j) + 2,String.valueOf(listSous.get(j)) );
+            }
         }
 
         q.setTitle(modifiedTitle.toString());
@@ -71,3 +92,4 @@ public class ExerciceSous extends AbstractExercice {
         return q;
     }
 }
+
