@@ -33,7 +33,7 @@ public class Utils {
 
     private static String convertIntToStringDizaine(int num) {
         String[] dizaine = {"vingt", "trente", "quarante", "cinquante", "soixante",
-                "soixante-dix", "quatre-vingt", "quatre-vint-dix"};
+                "soixante dix", "quatre vingt", "quatre vingt dix"};
 
         String dcap = "";
         if(num < 20) {
@@ -45,7 +45,15 @@ public class Utils {
                 int dval = 20 + 10 * v;
                 if (dval + 10 > num) {
                     if ((num % 10) != 0)
-                        return dcap + "-" + nombre[num % 10];
+                        if (num > 70 && num < 80) {
+                            return dizaine[v-1] + "-" + nombre[(num % 10 + 10)];
+                        } else if(num > 90) {
+                            return "quatre-vint" + "-" + nombre[(num % 10 + 10)];
+                        }
+                        else {
+                            return dcap + "-" + nombre[num % 10];
+                        }
+
                     return dcap;
                 }
             }

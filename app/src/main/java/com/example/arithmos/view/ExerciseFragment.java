@@ -87,7 +87,9 @@ public class ExerciseFragment extends Fragment {
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( exerciceViewModel.checkResponse(binding.editTextTextResponse.getText().toString()) ) {
+                String rep = binding.editTextTextResponse.getText().toString().toLowerCase().replaceAll("\\s+", " ").replaceAll("-", " ");
+
+                if( exerciceViewModel.checkResponse(rep) ) {
 
                     //check if exercise is finish
                     //otherwise we display next quest
