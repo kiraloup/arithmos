@@ -29,22 +29,14 @@ public class ExerciceAdd extends AbstractExercice {
     private Question createQuestionNumber(Question q, int difficulty) {
 
         StringBuilder modifiedTitle = new StringBuilder(q.getTitle());
-        int res = 0, i = 0;
+        int res = 0, i = 0, min = 0, max = 0;
+
+        int[] range = getRange(difficulty);
+        min = range[0];
+        max = range[1];
 
         while(i < modifiedTitle.length()) {
             if(modifiedTitle.charAt(i) == '#') {
-                int min = 0;
-                int max = 0;
-                if (difficulty == 1) {
-                    min = 1;
-                    max = 9;
-                } else if (difficulty == 2) {
-                    min = 10;
-                    max = 99;
-                } else if (difficulty == 3){
-                    min = 100;
-                    max = 999;
-                }
                 int randomNumber = Utils.generateInteger(min, max);
 
                 res += randomNumber;
@@ -66,11 +58,24 @@ public class ExerciceAdd extends AbstractExercice {
             }
             i++;
         }
-
-
         q.setTitle(modifiedTitle.toString());
         q.setResult(res);
 
         return q;
+    }
+
+    public int[] getRange(int difficulty) {
+        int[] res = new int[2];
+        if (difficulty == 1) {
+            res[0] = 1;
+            res[1] = 9;
+        } else if (difficulty == 2) {
+            res[0] = 10;
+            res[1] = 99;
+        } else if (difficulty == 3){
+            res[0] = 100;
+            res[1] = 999;
+        }
+        return res;
     }
 }
