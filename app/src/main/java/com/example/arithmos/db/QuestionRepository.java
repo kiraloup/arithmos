@@ -1,17 +1,12 @@
 package com.example.arithmos.db;
 
 import android.app.Application;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
-import androidx.core.os.HandlerCompat;
-import androidx.lifecycle.LiveData;
-
-import com.example.arithmos.R;
 import com.example.arithmos.model.Question;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -42,7 +37,13 @@ public class QuestionRepository {
                 Log.d("QuestionRepository", "HE 1");
                 try {
                     Log.d("QuestionRepository", "HE 2");
-                    Result<List<Question>> resultQuestion= new Result.Success<>(questionDAO.getTenQuestionType(type));
+
+                    List<Question> queryRes = questionDAO.getTenQuestionType(type);
+
+                    Log.d("QuestionRepository", "queryRes : " + queryRes.size());
+
+                    Result<List<Question>> resultQuestion= new Result.Success<>(queryRes);
+
                     callback.onComplete(resultQuestion);
                 }catch (Exception e){
                     Log.d("QuestionRepository", "HE 3" + e.toString());
@@ -72,6 +73,30 @@ public class QuestionRepository {
                 }
             }
         });
+    }
+
+
+    public static List<Integer> findNumberOfimage(ArrayList<Integer> TypeOfimages,ArrayList<Integer> NumberOfimages,int value) {
+        int i, count = 0;
+        List<Integer> res = Collections.nCopies(TypeOfimages.size(), 0);
+
+        for(i = 0; i < TypeOfimages.size(); i++) {
+            while(value >= TypeOfimages.get(i) && NumberOfimages.get(i) > 0) {
+                //decremente the value since we select the image
+                value -= TypeOfimages.get(i);
+
+                // we check how many images of this type we can still display
+                int rest = NumberOfimages.get(i) - 1;
+                //we decremente this value
+                NumberOfimages.set(i, rest);
+                //now we incremente the result for this specific images
+                //since we select it
+                int newNumberImages = res.get(i) + 1;
+                res.set(i, newNumberImages);
+            }
+        }
+
+        return res;
     }
 
 }

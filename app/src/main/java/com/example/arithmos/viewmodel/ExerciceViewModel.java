@@ -55,33 +55,33 @@ public class ExerciceViewModel extends AndroidViewModel {
         TypeOfExercice selectExercise = select == 1 ? TypeOfExercice.NUMBER : TypeOfExercice.LETTER;
 
         if(typeOfExercice.equals("add")) {
-
             exercice = new ExerciceAdd(difficulty, selectExercise);
         } else if (typeOfExercice.equals("sous")) {
             exercice = new ExerciceSous(difficulty, selectExercise);
         }
-            //we use a callback to create the exercice
-            //because we need to access the database and it's not possible in UI thread
-            questionRepository.getTenQuestionType(new RepositoryCallback<List<Question>>() {
-                @Override
-                public void onComplete(Result<List<Question>> result) {
-                    if(result instanceof Result.Success) {
-                        List<Question> resData = ((Result.Success<List<Question>>) result).data;
 
-                        exercice.createAllQuestion(resData, TypeOfExercice.NUMBER,difficulty);
+        //we use a callback to create the exercice
+        //because we need to access the database and it's not possible in UI thread
+        questionRepository.getTenQuestionType(new RepositoryCallback<List<Question>>() {
+            @Override
+            public void onComplete(Result<List<Question>> result) {
+                if(result instanceof Result.Success) {
+                    List<Question> resData = ((Result.Success<List<Question>>) result).data;
 
-                        Log.d(TAG, "SIZE OF Question : "
-                                + String.valueOf(resData.size()));
-                        Log.d(TAG, "TITLE Question 1 : "
-                                + String.valueOf(resData.get(0).getTitle()));
+                    exercice.createAllQuestion(resData, TypeOfExercice.NUMBER, difficulty);
 
-                        currentQuestion.postValue(exercice.getQuestion());
-                    } else if (result instanceof Result.Error){
-                        //TODO : find a better way to handle error case
-                        currentQuestion.postValue(new Question("ERROR", "ERROR", 2));
-                    }
+                    Log.d(TAG, "SIZE OF Question : "
+                            + String.valueOf(resData.size()));
+                    Log.d(TAG, "TITLE Question 1 : "
+                            + String.valueOf(resData.get(0).getTitle()));
+
+                    currentQuestion.postValue(exercice.getQuestion());
+                } else if (result instanceof Result.Error){
+                    //TODO : find a better way to handle error case
+                    currentQuestion.postValue(new Question("ERROR", "ERROR", 2));
                 }
-            },typeOfExercice);
+            }
+        },typeOfExercice);
 
     }
 
@@ -113,4 +113,35 @@ public class ExerciceViewModel extends AndroidViewModel {
 
 
     }
+
+    /**
+     *
+     * @param TypeOfimages should in acsending order since we want he lowest number of images
+     * @param NumberOfimages should be a prefix number of images for each type
+     * @param value the actual value that need to be broken down
+     * @return an array that contains how many image of each type do we need
+     */
+    private int[] findNumberOfimage(int[] TypeOfimages,int[] NumberOfimages,int value) {
+        int i, count = 0;
+        int[] res = new int[NumberOfimages.length];
+
+        for(i = 0; i < TypeOfimages.length; i++) {
+            while(value >= TypeOfimages[i] && NumberOfimages[i] > 0) {
+                //decremente the value since we select the image
+                value -= TypeOfimages[i];
+                System.out.println(value + " is decremente by " + TypeOfimages[i]);
+
+                // we check how many images of this type we can still display
+                //we decremente this value
+                NumberOfimages[i] = NumberOfimages[i] - 1;
+
+                //now we incremente the result for this specific images
+                //since we select it
+                res[i]  = res[i] + 1;
+            }
+        }
+
+        return res;
+    }
+
 }
