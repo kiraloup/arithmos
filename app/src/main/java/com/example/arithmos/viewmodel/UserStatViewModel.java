@@ -30,22 +30,17 @@ public class UserStatViewModel extends AndroidViewModel {
     }
 
     public void getUserStat() {
-        userRepository.getUserStat(new RepositoryCallback<List<UserWithExoStat>>() {
+        userRepository.getUserStat(new RepositoryCallback<List<ExoStat>>() {
             @Override
-            public void onComplete(Result<List<UserWithExoStat>> result) {
+            public void onComplete(Result<List<ExoStat>> result) {
                 if(result instanceof Result.Success) {
-                    List<UserWithExoStat> userWithExoStatList =
-                            ((Result.Success<List<UserWithExoStat>>) result).data;
+                    List<ExoStat> userExoStatList =
+                            ((Result.Success<List<ExoStat>>) result).data;
 
-                    Log.d(TAG, "userWithExoStatList size " + userWithExoStatList.size());
+                    Log.d(TAG, "userStat size : " + userExoStatList.size());
 
-                    Log.d(TAG, userWithExoStatList.get(0).user.toString());
-
-                    List<ExoStat> userStat = userWithExoStatList.get(0).exoStatList;
-                    Log.d(TAG, "userStat size : " + userStat.size());
-
-                    for(int i = 0; i < userStat.size(); i++) {
-                        Log.d(TAG, "user Stat : " + userStat.get(i).toString());
+                    for(int i = 0; i < userExoStatList.size(); i++) {
+                        Log.d(TAG, "user Stat : " + userExoStatList.get(i).toString());
                     }
 
                     isLoadingSuccess.postValue(true);

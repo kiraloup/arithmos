@@ -3,6 +3,7 @@ package com.example.arithmos.db;
 import android.app.Application;
 import android.util.Log;
 
+import com.example.arithmos.model.ExoStat;
 import com.example.arithmos.model.Question;
 import com.example.arithmos.model.UserWithExoStat;
 
@@ -24,20 +25,20 @@ public class UserRepository {
         this.executor = db.getQueryExecutor();
     }
 
-    public void getUserStat(final RepositoryCallback<List<UserWithExoStat>> callback) {
+    public void getUserStat(final RepositoryCallback<List<ExoStat>> callback) {
         Log.d(TAG, "get user stat");
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    List<UserWithExoStat> queryRes = userDao.getUserWithExoStat();
+                    List<ExoStat> queryRes = userDao.getUserWithExoStat();
 
-                    Result<List<UserWithExoStat>> resultUserStat= new Result.Success<>(queryRes);
+                    Result<List<ExoStat>> resultUserStat= new Result.Success<>(queryRes);
 
                     callback.onComplete(resultUserStat);
                 } catch (Exception e) {
                     Log.d("QuestionRepository", "HE 3" + e.toString());
-                    Result<List<UserWithExoStat>> error = new Result.Error<>(e);
+                    Result<List<ExoStat>> error = new Result.Error<>(e);
                     callback.onComplete(error);
                 }
 

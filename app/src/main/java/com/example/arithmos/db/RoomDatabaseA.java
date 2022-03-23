@@ -13,6 +13,8 @@ import com.example.arithmos.model.Question;
 import com.example.arithmos.model.User;
 import com.example.arithmos.model.UserWithExoStat;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -60,7 +62,19 @@ public abstract class RoomDatabaseA extends RoomDatabase {
                 daoUser.deleteAll();
                 dao.deleteAll();
 
-                daoUser.insertUser(new User("nom", "prenom",18, "novice",  0));
+                User u = new User("nom", "prenom",18, "novice",
+                        0);
+
+                daoUser.insertUser(u);
+
+                List<ExoStat> list = new ArrayList<>();
+                list.add(new ExoStat(0, "add", 0, 0, 0));
+                list.add(new ExoStat(0, "sous", 0, 0, 0));
+                list.add(new ExoStat(0, "mult", 0, 0, 0));
+                list.add(new ExoStat(0, "div", 0, 0, 0));
+
+                daoUser.insertUserStat(u, list);
+
 
                 dao.insert(new Question("Le fermier a récolté #1 roses et #2 tulipes, combien de fleur possède-t-il ? ",
                         "add", 2));
