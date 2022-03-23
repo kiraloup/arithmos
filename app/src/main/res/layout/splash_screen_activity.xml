@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/green">
 
 
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="152dp"
         android:layout_height="153dp"
+        android:foreground="@drawable/foreground"
         android:layout_centerInParent="true"
         android:src="@mipmap/ic_launcher" />
 
@@ -17,7 +19,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
-        android:text="www.lyon.fr"
+        android:text="HELLO"
         android:textColor="#454545"
         android:textSize="12dp" />
 
@@ -32,6 +34,7 @@
         android:layout_marginEnd="154dp"
         android:layout_marginBottom="156dp"
         android:gravity="center_horizontal"
+        android:indeterminate="true"
         android:text="HELLO"
         android:textColor="#454545"
         android:textSize="12dp" />
