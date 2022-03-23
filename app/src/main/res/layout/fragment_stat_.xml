@@ -59,19 +59,19 @@
                     android:id="@+id/correctadd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de réponse correct :" />
+                    android:text="@string/correct" />
 
                 <TextView
                     android:id="@+id/incorrectadd"
                     android:layout_width="388dp"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de réponse incorrect :" />
+                    android:text="@string/incorrect" />
 
                 <TextView
                     android:id="@+id/Pourcentageadd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pourcentage" />
+                    android:text="@string/pourcentage" />
 
             </LinearLayout>
 
@@ -86,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Soustraction"
+                    android:text="@string/soustraction"
                     android:textSize="16sp" />
 
                 <TextView
@@ -99,19 +99,19 @@
                     android:id="@+id/correct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de réponse correct :" />
+                    android:text="@string/correct" />
 
                 <TextView
                     android:id="@+id/incorrect"
                     android:layout_width="387dp"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de réponse incorrect :" />
+                    android:text="@string/incorrect" />
 
                 <TextView
                     android:id="@+id/PourcentageSous"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pourcentage" />
+                    android:text="@string/pourcentage" />
 
             </LinearLayout>
 
@@ -126,7 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Division"
+                    android:text="@string/division"
                     android:textSize="16sp" />
 
                 <TextView
@@ -139,19 +139,19 @@
                     android:id="@+id/correctmult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de réponse correct :" />
+                    android:text="@string/correct" />
 
                 <TextView
                     android:id="@+id/incorrectmult"
                     android:layout_width="388dp"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de réponse incorrect :" />
+                    android:text="@string/incorrect" />
 
                 <TextView
                     android:id="@+id/Pourcentagemult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pourcentage" />
+                    android:text="@string/pourcentage" />
 
             </LinearLayout>
 
@@ -166,7 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Multiplication"
+                    android:text="@string/multiplication"
                     android:textSize="16sp" />
 
                 <TextView
@@ -179,19 +179,19 @@
                     android:id="@+id/correctdiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de réponse correct :" />
+                    android:text="@string/correct" />
 
                 <TextView
                     android:id="@+id/incorrectdiv"
                     android:layout_width="390dp"
                     android:layout_height="wrap_content"
-                    android:text="Nombre de réponse incorrect :" />
+                    android:text="@string/incorrect" />
 
                 <TextView
                     android:id="@+id/Pourcentagediv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pourcentage" />
+                    android:text="@string/pourcentage" />
 
             </LinearLayout>
 

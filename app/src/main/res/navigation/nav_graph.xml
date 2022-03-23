@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/stat_Fragment"
-        android:name="com.example.arithmos.Stat_Fragment"
+        android:name="com.example.arithmos.viewmodel.Stat_Fragment"
         android:label="fragment_stat_"
         tools:layout="@layout/fragment_stat_" />
 </navigation>
