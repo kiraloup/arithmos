@@ -69,16 +69,17 @@ public class ExerciseFragment extends Fragment {
         //we create the exercise that contains the question that will be display
         exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
 
-        binding.gridViewApple.setAdapter(new GridViewAdapter(getContext()));
+
 
         //The observer job is to observe the question and change what is display on the view
         //for that we use a mutable live data in the viewmodel
         exerciceViewModel.currentQuestion.observe(getViewLifecycleOwner(), question -> {
             binding.textviewTitle.setText(question.getTitle());
-
+            int[] arrayOfImage = exerciceViewModel.getArrayOfImages();
+            binding.gridViewApple.setAdapter(new GridViewAdapter(getContext(), arrayOfImage));
         });
 
-        //we observe a boolean that will tell us is the exercice is finish
+        //we observe a boolean that will tell us is the exercise is finish
         //if this is the case we will change to the finish screen
         exerciceViewModel.isExerciceFinish.observe(getViewLifecycleOwner(), isExerciceFinish -> {
             if(isExerciceFinish) {

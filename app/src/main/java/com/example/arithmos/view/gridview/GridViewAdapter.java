@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.example.arithmos.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GridViewAdapter extends BaseAdapter {
 
@@ -17,10 +18,12 @@ public class GridViewAdapter extends BaseAdapter {
     //this array contains all the id
     public ArrayList<Integer> imageID = new ArrayList<>();
 
-    public GridViewAdapter(Context context) {
+    public GridViewAdapter(Context context, int[] listOfApple) {
         this.context = context;
-        for(int i = 0; i < 3; i++) {
-            imageID.add(R.drawable.apple);
+        for(int i = 0; i < listOfApple.length; i++) {
+            for(int j = 0; j < listOfApple[i]; j++) {
+                imageID.add(R.drawable.apple);
+            }
         }
     }
 

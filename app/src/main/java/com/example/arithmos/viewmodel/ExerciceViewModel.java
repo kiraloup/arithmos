@@ -114,22 +114,40 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     }
 
+    public int[] getArrayOfImages() {
+        //this is the value that are represented by image, 100 will be an apple with an x100
+        int[] value = {100, 50, 10, 1};
+        //this is the number of image that can be display for each type of image
+        int[] nvalue = {10, 10, 10, 10};
+
+        //the result to be broken
+        int res = exercice.getQuestion().getResult();
+        if( res <= 0) {
+            return new int[]{};
+        } else {
+            return findNumberOfimage(value, nvalue, res);
+        }
+    }
+
     /**
      *
-     * @param TypeOfimages should in acsending order since we want he lowest number of images
-     * @param NumberOfimages should be a prefix number of images for each type
+     * @param TypeOfimages should in acsending order since we want the lowest number of images
+     * @param NumberOfimages should be a fix number of images for each type
      * @param value the actual value that need to be broken down
      * @return an array that contains how many image of each type do we need
      */
     private int[] findNumberOfimage(int[] TypeOfimages,int[] NumberOfimages,int value) {
-        int i, count = 0;
+        int i;
         int[] res = new int[NumberOfimages.length];
 
         for(i = 0; i < TypeOfimages.length; i++) {
-            while(value >= TypeOfimages[i] && NumberOfimages[i] > 0) {
+            //TODO : rewrite this stupid comment
+            //value >= TypeOfimages[i] is to check decremente the number of images
+            //until the value is greater that the "coin" at place i
+            while(value >= TypeOfimages[i] && NumberOfimages[i] > 0 && value >= 0) {
                 //decremente the value since we select the image
                 value -= TypeOfimages[i];
-                System.out.println(value + " is decremente by " + TypeOfimages[i]);
+                Log.d(TAG, value + " is decremente by " + TypeOfimages[i]);
 
                 // we check how many images of this type we can still display
                 //we decremente this value
