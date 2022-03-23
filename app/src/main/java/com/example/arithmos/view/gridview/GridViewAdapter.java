@@ -32,8 +32,6 @@ public class GridViewAdapter extends BaseAdapter {
                     case 2:
                         imageID.add(R.drawable.apple_dix);
                         break;
-                    case 3:
-                        imageID.add(R.drawable.apple);
                     default:
                         imageID.add(R.drawable.apple);
                 }

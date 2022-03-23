@@ -77,6 +77,7 @@ public class ExerciseFragment extends Fragment {
             binding.textviewTitle.setText(question.getTitle());
             int[] arrayOfImage = exerciceViewModel.getArrayOfImages();
             binding.gridViewApple.setAdapter(new GridViewAdapter(getContext(), arrayOfImage));
+            binding.gridViewApple.setNumColumns(2);
         });
 
         //we observe a boolean that will tell us is the exercise is finish
