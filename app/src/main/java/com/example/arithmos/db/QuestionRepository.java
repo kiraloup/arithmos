@@ -75,28 +75,4 @@ public class QuestionRepository {
         });
     }
 
-
-    public static List<Integer> findNumberOfimage(ArrayList<Integer> TypeOfimages,ArrayList<Integer> NumberOfimages,int value) {
-        int i, count = 0;
-        List<Integer> res = Collections.nCopies(TypeOfimages.size(), 0);
-
-        for(i = 0; i < TypeOfimages.size(); i++) {
-            while(value >= TypeOfimages.get(i) && NumberOfimages.get(i) > 0) {
-                //decremente the value since we select the image
-                value -= TypeOfimages.get(i);
-
-                // we check how many images of this type we can still display
-                int rest = NumberOfimages.get(i) - 1;
-                //we decremente this value
-                NumberOfimages.set(i, rest);
-                //now we incremente the result for this specific images
-                //since we select it
-                int newNumberImages = res.get(i) + 1;
-                res.set(i, newNumberImages);
-            }
-        }
-
-        return res;
-    }
-
 }

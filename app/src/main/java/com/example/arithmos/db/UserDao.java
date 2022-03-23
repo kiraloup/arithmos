@@ -12,6 +12,7 @@ import java.util.List;
 @Dao
 public interface UserDao {
     @Insert void insertUser(User u);
+
     @Transaction
     @Query("SELECT * FROM user")
     List<UserWithExoStat> getUserWithExoStat();
