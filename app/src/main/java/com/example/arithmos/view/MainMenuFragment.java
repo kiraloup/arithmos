@@ -1,5 +1,6 @@
 package com.example.arithmos.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ public class MainMenuFragment extends Fragment{
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
+
     ) {
 
         binding = FragmentFirstBinding.inflate(inflater, container, false);
@@ -60,6 +62,15 @@ public class MainMenuFragment extends Fragment{
                 buttonOpenDialogClicked("mult");
             }
         });
+
+        binding.ButtonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(MainMenuFragment.this).
+                        navigate(R.id.action_FirstFragment_to_stat_Fragment);
+            }
+        });
+
     }
 
     private void buttonOpenDialogClicked(String exeriseName)  {

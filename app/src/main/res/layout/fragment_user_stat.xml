@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/green"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Statistique"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:text="@string/statistique"
+                android:textColor="#039BE5"
+                android:textSize="30sp"
+                tools:ignore="TextContrastCheck" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Soustraction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/addition"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/totalsous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse total :" />
+
+                <TextView
+                    android:id="@+id/correctsous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse correct :" />
+
+                <TextView
+                    android:id="@+id/incorrectsous"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse incorrect :" />
+
+                <TextView
+                    android:id="@+id/Pourcentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pourcentage" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Soustraction"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse total :" />
+
+                <TextView
+                    android:id="@+id/correct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse correct :" />
+
+                <TextView
+                    android:id="@+id/incorrect"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse incorrect :" />
+
+                <TextView
+                    android:id="@+id/PourcentageSous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pourcentage" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/multiply"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Division"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/totalmult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse total :" />
+
+                <TextView
+                    android:id="@+id/correctmult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse correct :" />
+
+                <TextView
+                    android:id="@+id/incorrectmult"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse incorrect :" />
+
+                <TextView
+                    android:id="@+id/Pourcentagemult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pourcentage" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Multiplication"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/totaldiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse total :" />
+
+                <TextView
+                    android:id="@+id/correctdiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse correct :" />
+
+                <TextView
+                    android:id="@+id/incorrectdiv"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de réponse incorrect :" />
+
+                <TextView
+                    android:id="@+id/Pourcentagediv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pourcentage" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
