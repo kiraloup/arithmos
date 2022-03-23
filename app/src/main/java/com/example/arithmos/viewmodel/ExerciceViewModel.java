@@ -55,33 +55,33 @@ public class ExerciceViewModel extends AndroidViewModel {
         TypeOfExercice selectExercise = select == 1 ? TypeOfExercice.NUMBER : TypeOfExercice.LETTER;
 
         if(typeOfExercice.equals("add")) {
-
             exercice = new ExerciceAdd(difficulty, selectExercise);
         } else if (typeOfExercice.equals("sous")) {
             exercice = new ExerciceSous(difficulty, selectExercise);
         }
-            //we use a callback to create the exercice
-            //because we need to access the database and it's not possible in UI thread
-            questionRepository.getTenQuestionType(new RepositoryCallback<List<Question>>() {
-                @Override
-                public void onComplete(Result<List<Question>> result) {
-                    if(result instanceof Result.Success) {
-                        List<Question> resData = ((Result.Success<List<Question>>) result).data;
 
-                        exercice.createAllQuestion(resData, TypeOfExercice.NUMBER,difficulty);
+        //we use a callback to create the exercice
+        //because we need to access the database and it's not possible in UI thread
+        questionRepository.getTenQuestionType(new RepositoryCallback<List<Question>>() {
+            @Override
+            public void onComplete(Result<List<Question>> result) {
+                if(result instanceof Result.Success) {
+                    List<Question> resData = ((Result.Success<List<Question>>) result).data;
 
-                        Log.d(TAG, "SIZE OF Question : "
-                                + String.valueOf(resData.size()));
-                        Log.d(TAG, "TITLE Question 1 : "
-                                + String.valueOf(resData.get(0).getTitle()));
+                    exercice.createAllQuestion(resData, TypeOfExercice.NUMBER, difficulty);
 
-                        currentQuestion.postValue(exercice.getQuestion());
-                    } else if (result instanceof Result.Error){
-                        //TODO : find a better way to handle error case
-                        currentQuestion.postValue(new Question("ERROR", "ERROR", 2));
-                    }
+                    Log.d(TAG, "SIZE OF Question : "
+                            + String.valueOf(resData.size()));
+                    Log.d(TAG, "TITLE Question 1 : "
+                            + String.valueOf(resData.get(0).getTitle()));
+
+                    currentQuestion.postValue(exercice.getQuestion());
+                } else if (result instanceof Result.Error){
+                    //TODO : find a better way to handle error case
+                    currentQuestion.postValue(new Question("ERROR", "ERROR", 2));
                 }
-            },typeOfExercice);
+            }
+        },typeOfExercice);
 
     }
 
@@ -113,4 +113,53 @@ public class ExerciceViewModel extends AndroidViewModel {
 
 
     }
+
+    public int[] getArrayOfImages() {
+        //this is the value that are represented by image, 100 will be an apple with an x100
+        int[] value = {100, 50, 10, 1};
+        //this is the number of image that can be display for each type of image
+        int[] nvalue = {10, 10, 10, 10};
+
+        //the result to be broken
+        int res = exercice.getQuestion().getResult();
+        if( res <= 0) {
+            return new int[]{};
+        } else {
+            return findNumberOfimage(value, nvalue, res);
+        }
+    }
+
+    /**
+     *
+     * @param TypeOfimages should in acsending order since we want the lowest number of images
+     * @param NumberOfimages should be a fix number of images for each type
+     * @param value the actual value that need to be broken down
+     * @return an array that contains how many image of each type do we need
+     */
+    private int[] findNumberOfimage(int[] TypeOfimages,int[] NumberOfimages,int value) {
+        int i;
+        int[] res = new int[NumberOfimages.length];
+
+        for(i = 0; i < TypeOfimages.length; i++) {
+            //TODO : rewrite this stupid comment
+            //value >= TypeOfimages[i] is to check decremente the number of images
+            //until the value is greater that the "coin" at place i
+            while(value >= TypeOfimages[i] && NumberOfimages[i] > 0 && value >= 0) {
+                //decremente the value since we select the image
+                value -= TypeOfimages[i];
+                Log.d(TAG, value + " is decremente by " + TypeOfimages[i]);
+
+                // we check how many images of this type we can still display
+                //we decremente this value
+                NumberOfimages[i] = NumberOfimages[i] - 1;
+
+                //now we incremente the result for this specific images
+                //since we select it
+                res[i]  = res[i] + 1;
+            }
+        }
+
+        return res;
+    }
+
 }
