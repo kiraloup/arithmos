@@ -22,7 +22,22 @@ public class GridViewAdapter extends BaseAdapter {
         this.context = context;
         for(int i = 0; i < listOfApple.length; i++) {
             for(int j = 0; j < listOfApple[i]; j++) {
-                imageID.add(R.drawable.apple);
+                switch (i) {
+                    case 0:
+                        imageID.add(R.drawable.apple_cents);
+                        break;
+                    case 1:
+                        imageID.add(R.drawable.apple_cinquante);
+                        break;
+                    case 2:
+                        imageID.add(R.drawable.apple_dix);
+                        break;
+                    case 3:
+                        imageID.add(R.drawable.apple);
+                    default:
+                        imageID.add(R.drawable.apple);
+                }
+
             }
         }
     }
