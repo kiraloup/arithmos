@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.arithmos.view.ExerciseFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_second">
 
         <action
@@ -37,7 +37,7 @@
 
         android:id="@+id/stat_Fragment"
         android:name="com.example.arithmos.view.shadow.Stat_Fragment"
-        android:label="fragment_stat_"
+        android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_stat_" >
 
         <action
@@ -49,7 +49,7 @@
     <fragment
         android:id="@+id/dragAndDropFragment"
         android:name="com.example.arithmos.view.DragAndDropFragment"
-        android:label="fragment_drag_and_drop"
+        android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_drag_and_drop" >
 
     <action
