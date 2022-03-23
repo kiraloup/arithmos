@@ -5,6 +5,7 @@
         <item name="colorPrimary">@android:color/holo_green_dark</item>
         <item name="colorPrimaryVariant">@android:color/holo_green_light</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowFullscreen">true</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -14,12 +15,10 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Arithmos.NoActionBar">
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">true</item>
-    </style>
 
-    <style name="Theme.Arithmos.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="Theme.Arithmos.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.Arithmos.PopupOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="Theme.Arithmos.PopupOverlay"  parent="ThemeOverlay.AppCompat.Light" />
+
+
 </resources>
