@@ -12,6 +12,25 @@ public class Utils {
         return new Random().nextInt((max - min) + 1 ) + min;
     }
 
+    public static String convertIntToStringMillier(int num) {
+        String word = "";
+        int rem = num / 1000;
+        int mod = num % 1000;
+        if(rem == 1) {
+            word = "mille ";
+        } else if (rem > 0) {
+            word = nombre[rem] + " milles";
+            if (mod > 0) {
+                word = word + " ";
+            }
+        }
+
+        if (mod > 0) {
+            word = word + convertIntToStringCentaine(mod);
+        }
+        return word;
+    }
+
     public static String convertIntToStringCentaine(int num) {
         String word = "";
         int rem = num / 100;

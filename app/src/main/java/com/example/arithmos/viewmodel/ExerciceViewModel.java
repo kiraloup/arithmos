@@ -13,6 +13,8 @@ import com.example.arithmos.db.RepositoryCallback;
 import com.example.arithmos.db.Result;
 import com.example.arithmos.model.AbstractExercice;
 import com.example.arithmos.model.ExerciceAdd;
+import com.example.arithmos.model.ExerciceDiv;
+import com.example.arithmos.model.ExerciceMult;
 import com.example.arithmos.model.ExerciceSous;
 import com.example.arithmos.model.Question;
 import com.example.arithmos.model.TypeOfExercice;
@@ -58,6 +60,10 @@ public class ExerciceViewModel extends AndroidViewModel {
             exercice = new ExerciceAdd(difficulty, selectExercise);
         } else if (typeOfExercice.equals("sous")) {
             exercice = new ExerciceSous(difficulty, selectExercise);
+        } else if (typeOfExercice.equals("mult")) {
+            exercice = new ExerciceMult(difficulty, selectExercise);
+        } else if (typeOfExercice.equals("div")) {
+            exercice = new ExerciceDiv(difficulty, selectExercise);
         }
 
         //we use a callback to create the exercice
@@ -100,7 +106,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     public Boolean checkResponse(String result) {
         if(exercice.getTypeOfExercice() == TypeOfExercice.LETTER) {
-            String correctResponse = Utils.convertIntToStringCentaine(exercice.getQuestion().getResult());
+            String correctResponse = Utils.convertIntToStringMillier(exercice.getQuestion().getResult());
 
             Log.d(TAG, "Correct response  : "
                     + correctResponse);
@@ -121,12 +127,15 @@ public class ExerciceViewModel extends AndroidViewModel {
         int[] nvalue = {10, 10, 10, 10};
 
         //the result to be broken
-        int res = exercice.getQuestion().getResult();
-        if( res <= 0) {
-            return new int[]{};
-        } else {
-            return findNumberOfimage(value, nvalue, res);
+        if (!exercice.IsListQuestionEmpty()){
+            int res = exercice.getQuestion().getResult();
+            if( res <= 0) {
+                return new int[]{};
+            } else {
+                return findNumberOfimage(value, nvalue, res);
+            }
         }
+        return new int[]{};
     }
 
     /**

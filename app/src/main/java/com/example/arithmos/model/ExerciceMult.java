@@ -4,32 +4,27 @@ import com.example.arithmos.utils.Utils;
 
 import java.util.List;
 
-public class ExerciceAdd extends AbstractExercice {
+public class ExerciceMult extends AbstractExercice {
+    private final String TAG = "EXERCICEMULT";
 
-    public ExerciceAdd(int difficulty, TypeOfExercice typeOfExercice) {
+    public ExerciceMult(int difficulty, TypeOfExercice typeOfExercice) {
         super(difficulty, typeOfExercice);
     }
 
-
     @Override
     public void createAllQuestion(List<Question> questions,
-                                            TypeOfExercice typeOfExercice,int difficulty) {
+                                  TypeOfExercice typeOfExercice, int difficulty) {
 
         for(int i = 0; i < questions.size(); i++) {
-            if(typeOfExercice == TypeOfExercice.NUMBER) {
                 questions.set(i, createQuestionNumber(questions.get(i),difficulty));
-            } /*else {
-                createQuestionString(question);
-            }*/
         }
 
         this.listQuestion = questions;
     }
 
     private Question createQuestionNumber(Question q, int difficulty) {
-
         StringBuilder modifiedTitle = new StringBuilder(q.getTitle());
-        int res = 0, i = 0, min = 0, max = 0;
+        int res = 1, i = 0, min = 0, max = 0;
 
         int[] range = getRange(difficulty);
         min = range[0];
@@ -39,15 +34,11 @@ public class ExerciceAdd extends AbstractExercice {
             if(modifiedTitle.charAt(i) == '#') {
                 int randomNumber = Utils.generateInteger(min, max);
 
-                res += randomNumber;
+                res  = res * randomNumber;
                 int nb = 0;
                 boolean flag = false;
 
-                /*while (res > 999) {
-                    flag = true;
-                    nb ++;
-                    res -= (randomNumber/2);
-                }*/
+                
                 if (flag) {
                     modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber/(2*nb)));
                 } else {
@@ -60,7 +51,6 @@ public class ExerciceAdd extends AbstractExercice {
         }
         q.setTitle(modifiedTitle.toString());
         q.setResult(res);
-        System.out.println("res ="+res);
 
         return q;
     }
@@ -71,11 +61,11 @@ public class ExerciceAdd extends AbstractExercice {
             res[0] = 1;
             res[1] = 9;
         } else if (difficulty == 2) {
-            res[0] = 10;
+            res[0] = 1;
             res[1] = 99;
         } else if (difficulty == 3){
-            res[0] = 500;
-            res[1] = 999;
+            res[0] = 1;
+            res[1] = 200;
         }
         return res;
     }
