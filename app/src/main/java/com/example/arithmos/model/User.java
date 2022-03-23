@@ -75,4 +75,10 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

@@ -74,6 +74,12 @@ public class ExoStat {
     public void setPourcentage(int pourcentage) {
         this.pourcentage = pourcentage;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
 
 
