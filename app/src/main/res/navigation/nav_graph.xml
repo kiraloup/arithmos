@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_dragAndDropFragment"
+            app:destination="@id/dragAndDropFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -22,6 +25,15 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dragAndDropFragment"
+        android:name="com.example.arithmos.view.DragAndDropFragment"
+        android:label="fragment_drag_and_drop"
+        tools:layout="@layout/fragment_drag_and_drop" >
+        <action
+            android:id="@+id/action_dragAndDropFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

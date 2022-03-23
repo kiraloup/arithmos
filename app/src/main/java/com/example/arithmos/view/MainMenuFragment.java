@@ -89,8 +89,15 @@ public class MainMenuFragment extends Fragment{
                             Log.d(TAG, exerciseDifficulty
                                     + " " + exerciseType
                                     + " " + exerciseSelect);
-                            NavHostFragment.findNavController(MainMenuFragment.this).
-                                    navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
+
+                            if (exerciseType == 1) {
+                                NavHostFragment.findNavController(MainMenuFragment.this).
+                                        navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
+                            } else {
+                                NavHostFragment.findNavController(MainMenuFragment.this)
+                                        .navigate(R.id.action_FirstFragment_to_dragAndDropFragment);
+                            }
+
 
                         } else {
                             Log.d(TAG, "Error: in the result of the dialog return -1");
