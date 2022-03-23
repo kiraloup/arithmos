@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_stat_Fragment"
+            app:destination="@id/stat_Fragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -24,4 +27,9 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/stat_Fragment"
+        android:name="com.example.arithmos.Stat_Fragment"
+        android:label="fragment_stat_"
+        tools:layout="@layout/fragment_stat_" />
 </navigation>

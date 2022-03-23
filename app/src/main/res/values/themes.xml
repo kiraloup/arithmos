@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Arithmos" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Arithmos" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@android:color/holo_green_dark</item>
         <item name="colorPrimaryVariant">@android:color/holo_green_light</item>
@@ -15,11 +15,11 @@
     </style>
 
     <style name="Theme.Arithmos.NoActionBar">
-        <item name="windowActionBar">false</item>
+        <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Arithmos.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Arithmos.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
 
-    <style name="Theme.Arithmos.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.Arithmos.PopupOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
 </resources>

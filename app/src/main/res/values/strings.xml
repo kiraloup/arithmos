@@ -117,4 +117,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="statistiques">Statistiques</string>
+    <string name="statistique">Statistique</string>
+    <string name="addition">Addition</string>
+    <string name="reptTotal">Nombre de réponse total :</string>
 </resources>
