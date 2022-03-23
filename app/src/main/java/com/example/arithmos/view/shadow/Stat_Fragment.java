@@ -1,4 +1,4 @@
-package com.example.arithmos.viewmodel;
+package com.example.arithmos.view.shadow;
 
 import android.os.Bundle;
 

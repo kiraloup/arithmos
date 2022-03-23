@@ -14,8 +14,14 @@
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
         <action
+
             android:id="@+id/action_FirstFragment_to_stat_Fragment"
             app:destination="@id/stat_Fragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_dragAndDropFragment"
+            app:destination="@id/dragAndDropFragment" />
+
+
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -28,8 +34,28 @@
             app:destination="@id/FirstFragment" />
     </fragment>
     <fragment
+
         android:id="@+id/stat_Fragment"
-        android:name="com.example.arithmos.viewmodel.Stat_Fragment"
+        android:name="com.example.arithmos.view.shadow.Stat_Fragment"
         android:label="fragment_stat_"
-        tools:layout="@layout/fragment_stat_" />
+        tools:layout="@layout/fragment_stat_" >
+
+        <action
+            android:id="@+id/action_stat_Fragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dragAndDropFragment"
+        android:name="com.example.arithmos.view.DragAndDropFragment"
+        android:label="fragment_drag_and_drop"
+        tools:layout="@layout/fragment_drag_and_drop" >
+
+    <action
+        android:id="@+id/action_dragAndDropFragment_to_FirstFragment"
+        app:destination="@id/FirstFragment" />
+    </fragment>
+
+
 </navigation>
