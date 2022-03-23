@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentStatBinding;
+import com.example.arithmos.model.ExoStat;
 import com.example.arithmos.viewmodel.UserStatViewModel;
 
 
@@ -51,6 +52,34 @@ public class Stat_Fragment extends Fragment {
             } else {
                 Log.d(TAG, "user profile load succesfull");
             }
+        });
+
+        //TODO : find a better way to do that
+        userStatViewModel.listStats.observe(getViewLifecycleOwner(), listStats -> {
+            ExoStat add = listStats.get(0);
+
+            binding.totaladd.append(" " + String.valueOf(add.getNbErreur() + add.getNbOk()));
+            binding.correctadd.append( " " + String.valueOf(add.getNbOk()));
+            binding.incorrectadd.append(" " + String.valueOf(add.getNbErreur()));
+            binding.Pourcentageadd.append(" " + String.valueOf(add.getPourcentage()));
+
+            ExoStat sous = listStats.get(1);
+            binding.total.append(" " + String.valueOf(sous.getNbErreur() + sous.getNbOk()));
+            binding.correct.append( " " + String.valueOf(sous.getNbOk()));
+            binding.incorrect.append(" " + String.valueOf(sous.getNbErreur()));
+            binding.PourcentageSous.append(" " + String.valueOf(sous.getPourcentage()));
+
+            ExoStat mult = listStats.get(2);
+            binding.totalmult.append(" " + String.valueOf(mult.getNbErreur() + mult.getNbOk()));
+            binding.correctmult.append( " " + String.valueOf(mult.getNbOk()));
+            binding.incorrectmult.append(" " + String.valueOf(mult.getNbErreur()));
+            binding.Pourcentagemult.append(" " + String.valueOf(mult.getPourcentage()));
+
+            ExoStat div = listStats.get(3);
+            binding.totaldiv.append(" " + String.valueOf(div.getNbErreur() + div.getNbOk()));
+            binding.correctdiv.append( " " + String.valueOf(div.getNbOk()));
+            binding.incorrectdiv.append(" " + String.valueOf(div.getNbErreur()));
+            binding.Pourcentagediv.append(" " + String.valueOf(div.getPourcentage()));
         });
 
         Log.d(TAG, "after call to DATABASE");

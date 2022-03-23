@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.arithmos.db.RepositoryCallback;
@@ -23,6 +24,7 @@ public class UserStatViewModel extends AndroidViewModel {
     private final String TAG = "USERSTATVIEWMODELE";
 
     public MutableLiveData<Boolean> isLoadingSuccess = new MutableLiveData<>();
+    public MutableLiveData<List<ExoStat>> listStats = new MutableLiveData<>();
 
     public UserStatViewModel(@NonNull Application application) {
         super(application);
@@ -42,6 +44,8 @@ public class UserStatViewModel extends AndroidViewModel {
                     for(int i = 0; i < userExoStatList.size(); i++) {
                         Log.d(TAG, "user Stat : " + userExoStatList.get(i).toString());
                     }
+
+                    listStats.postValue(userExoStatList);
 
                     isLoadingSuccess.postValue(true);
                 } else {
