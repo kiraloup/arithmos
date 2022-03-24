@@ -24,12 +24,15 @@ public class GridViewAdapter extends BaseAdapter {
             for(int j = 0; j < listOfApple[i]; j++) {
                 switch (i) {
                     case 0:
-                        imageID.add(R.drawable.apple_cents);
+                        imageID.add(R.drawable.apple_mille);
                         break;
                     case 1:
-                        imageID.add(R.drawable.apple_cinquante);
+                        imageID.add(R.drawable.apple_cents);
                         break;
                     case 2:
+                        imageID.add(R.drawable.apple_cinquante);
+                        break;
+                    case 3:
                         imageID.add(R.drawable.apple_dix);
                         break;
                     default:
