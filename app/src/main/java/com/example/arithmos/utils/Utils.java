@@ -6,7 +6,7 @@ public class Utils {
 
     private static final String[] nombre = {"zero", "un", "deux", "trois", "quatre", "cinq", "six",
             "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze",
-            "seize", "dix-sept", "dix-huit", "dix-neuf"};
+            "seize", "dix sept", "dix huit", "dix neuf"};
 
     public static int generateInteger(int min, int max) {
         return new Random().nextInt((max - min) + 1 ) + min;
@@ -65,12 +65,12 @@ public class Utils {
                 if (dval + 10 > num) {
                     if ((num % 10) != 0)
                         if (num > 70 && num < 80) {
-                            return dizaine[v-1] + "-" + nombre[(num % 10 + 10)];
+                            return dizaine[v-1] + " " + nombre[(num % 10 + 10)];
                         } else if(num > 90) {
-                            return "quatre-vint" + "-" + nombre[(num % 10 + 10)];
+                            return "quatre vint" + " " + nombre[(num % 10 + 10)];
                         }
                         else {
-                            return dcap + "-" + nombre[num % 10];
+                            return dcap + " " + nombre[num % 10];
                         }
 
                     return dcap;
