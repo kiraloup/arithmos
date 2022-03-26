@@ -82,9 +82,10 @@ public class MainMenuFragment extends Fragment{
 
     private void buttonOpenDialogClicked(String exeriseName)  {
 
-        DialogFragment dialog = new ExerciseParameterDialog();
+        DialogFragment dialog = null;
 
         if (exeriseName != "random"){
+            dialog = new ExerciseParameterDialog();
             //using a result listener to pass data from dialog fragment to this one
             //the dialog is a child of this fragment so we must carefull to use  getChildFragmentManager
             //otherwise this is the same when we receive the result
@@ -121,6 +122,19 @@ public class MainMenuFragment extends Fragment{
                             } else {
                                 Log.d(TAG, "Error: in the result of the dialog return -1");
                             }
+                        }
+                    });
+        } else {
+            dialog = new DialogueDifficulty();
+            getChildFragmentManager().setFragmentResultListener("exerciseParameter",
+                    this,
+                    new FragmentResultListener() {
+                        @Override
+                        public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                            int exerciseDifficulty = bundle.getInt("exerciseDifficulty");
+                            bundle.putString("exeriseName", exeriseName);
+                            NavHostFragment.findNavController(MainMenuFragment.this).
+                                    navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
                         }
                     });
         }

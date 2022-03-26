@@ -68,6 +68,7 @@ public class ExerciseFragment extends Fragment {
             input.setInputType(InputType.TYPE_CLASS_TEXT);
         }
         if (type == "random"){
+            type = "add";
             // faire le code pour choisir le type en fonction du profil apprenant et l'exercice Type (de base standar)
             // la difficulté reste choisi par l'utilisateur
             // exercice selected (chiffre ou lettre)
