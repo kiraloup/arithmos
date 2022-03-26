@@ -27,6 +27,8 @@ public class ExerciseParameterDialog extends DialogFragment {
 
     private RadioButton radioButton_chiffres;
 
+
+
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -71,53 +71,63 @@ public class MainMenuFragment extends Fragment{
             }
         });
 
+        binding.ButtonRand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonOpenDialogClicked("random");
+            }
+        });
+
     }
 
     private void buttonOpenDialogClicked(String exeriseName)  {
 
         DialogFragment dialog = new ExerciseParameterDialog();
 
-        //using a result listener to pass data from dialog fragment to this one
-        //the dialog is a child of this fragment so we must carefull to use  getChildFragmentManager
-        //otherwise this is the same when we receive the result
-        //see : https://developer.android.com/guide/fragments/communicate#pass-parent-child
-        getChildFragmentManager().setFragmentResultListener("exerciseParameter",
-                this,
-                new FragmentResultListener() {
-                    @Override
-                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-                        //letter or number
-                        int exerciseType = bundle.getInt("exerciseType");
-                        int exerciseDifficulty = bundle.getInt("exerciseSelect");
-                        //simple or drag and drop
-                        int exerciseSelect = bundle.getInt("exerciseDifficulty");
-                        //here we add if the exercice "global" type like add, sub...
-                        bundle.putString("exeriseName", exeriseName);
+        if (exeriseName != "random"){
+            //using a result listener to pass data from dialog fragment to this one
+            //the dialog is a child of this fragment so we must carefull to use  getChildFragmentManager
+            //otherwise this is the same when we receive the result
+            //see : https://developer.android.com/guide/fragments/communicate#pass-parent-child
+            getChildFragmentManager().setFragmentResultListener("exerciseParameter",
+                    this,
+                    new FragmentResultListener() {
+                        @Override
+                        public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                            //letter or number
+                            int exerciseType = bundle.getInt("exerciseType");
+                            int exerciseDifficulty = bundle.getInt("exerciseDifficulty");
+                            //simple or drag and drop
+                            int exerciseSelect = bundle.getInt("exerciseSelect");
+                            //here we add if the exercice "global" type like add, sub...
+                            bundle.putString("exeriseName", exeriseName);
 
-                        if(!bundle.isEmpty() && (exerciseType != 0 && exerciseDifficulty != 0 &&
-                                exerciseSelect != 0)) {
-                            //here we start the activity
-                            Log.d(TAG, exerciseDifficulty
-                                    + " " + exerciseType
-                                    + " " + exerciseSelect);
+                            if(!bundle.isEmpty() && (exerciseType != 0 && exerciseDifficulty != 0 &&
+                                    exerciseSelect != 0)) {
+                                //here we start the activity
+                                Log.d(TAG, exerciseSelect
+                                        + " " + exerciseType
+                                        + " " + exerciseDifficulty);
 
-                            if (exerciseType == 1) {
-                                NavHostFragment.findNavController(MainMenuFragment.this).
-                                        navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
+                                if (exerciseType == 1) {
+                                    NavHostFragment.findNavController(MainMenuFragment.this).
+                                            navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
+                                } else {
+                                    NavHostFragment.findNavController(MainMenuFragment.this)
+                                            .navigate(R.id.action_FirstFragment_to_dragAndDropFragment);
+                                }
+
+
                             } else {
-                                NavHostFragment.findNavController(MainMenuFragment.this)
-                                        .navigate(R.id.action_FirstFragment_to_dragAndDropFragment);
+                                Log.d(TAG, "Error: in the result of the dialog return -1");
                             }
-
-
-                        } else {
-                            Log.d(TAG, "Error: in the result of the dialog return -1");
                         }
-                    }
-                });
+                    });
+        }
 
         dialog.show(getChildFragmentManager(), "CustomDialog");
     }
+
 
 
 
