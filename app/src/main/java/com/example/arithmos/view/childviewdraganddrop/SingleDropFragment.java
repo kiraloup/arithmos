@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.DragEvent;
@@ -28,6 +29,8 @@ import com.example.arithmos.model.GridItem;
 import com.example.arithmos.view.gridview.DragGridView;
 import com.example.arithmos.view.gridview.GridItemHolder;
 import com.example.arithmos.view.gridview.GridViewAdapter;
+import com.example.arithmos.viewmodel.DragAndDropViewModel;
+import com.example.arithmos.viewmodel.ExerciceViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,10 @@ public class SingleDropFragment extends Fragment {
     private GridItem gridItem;
     private List<Integer> allDropValue = new ArrayList<>();
 
+    private ExerciceViewModel exerciceViewModel;
+    private DragAndDropViewModel dragAndDropViewModel;
+
+
     public SingleDropFragment() {
         // Required empty public constructor
     }
@@ -46,6 +53,13 @@ public class SingleDropFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSingleDropBinding.inflate(inflater, container, false);
+
+        exerciceViewModel = new ViewModelProvider(requireParentFragment())
+                .get(ExerciceViewModel.class);
+
+        dragAndDropViewModel = new ViewModelProvider(requireParentFragment()).
+                get(DragAndDropViewModel.class);
+
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -54,6 +68,14 @@ public class SingleDropFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        dragAndDropViewModel.isButtonClick.observe(getViewLifecycleOwner(), isButtonClick -> {
+            Log.d("SingleDropFragment", "button is click");
+            if(isButtonClick) {
+                isAnswerCorrect(allDropValue);
+            }
+        });
 
         binding.gridViewDragAndDrop.setNumColumns(2);
         binding.gridViewDragAndDrop.setAdapter(new DragGridView(getContext(), null));
@@ -84,7 +106,12 @@ public class SingleDropFragment extends Fragment {
 
                     allDropValue.add(gridItem.getValue());
 
-                    Log.d("SingleDropFragment", "val" + allDropValue.size());
+                    int res = 0;
+                    for(int i = 0; i < allDropValue.size(); i++) {
+                        res += allDropValue.get(i);
+                    }
+
+                    Log.d("SingleDropFragment", "current res " +  res);
 
                     v.invalidate();
 
@@ -136,10 +163,39 @@ public class SingleDropFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    private void isAnswerCorrect(List<Integer> allDropValue) {
+        int res = 0;
+        for(int i = 0; i < allDropValue.size(); i++) {
+            res += allDropValue.get(i);
+        }
+        Log.d("SingleDropFragment",
+                " res = " + res);
+
+        if( exerciceViewModel.checkResponse(String.valueOf(res)) ) {
+            //check if exercise is finish
+            //otherwise we display next question
+            changeQuestion();
+        } else {
+            Log.d("SingleDropFragment", "Response is wrong ");
+            //this is use to display that the toast message
+            exerciceViewModel.setIsQuestionCorrect(false);
+
+            exerciceViewModel.updateNumberOfError();
+            changeQuestion();
+
+            exerciceViewModel.setIsQuestionCorrect(true);
+        }
+    }
 
 
 
-
-
+    private void changeQuestion() {
+        if(!exerciceViewModel.isExerciceFinish()){
+            Log.d("SingleDropFragment","Exercise is not finish");
+            //we display the next question, the observer will update the UI
+            exerciceViewModel.nextQuestion();
+        }
     }
 }

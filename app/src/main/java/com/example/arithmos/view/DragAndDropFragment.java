@@ -1,23 +1,32 @@
 package com.example.arithmos.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentDragAndDropBinding;
 import com.example.arithmos.view.childviewdraganddrop.SingleDropFragment;
+import com.example.arithmos.viewmodel.DragAndDropViewModel;
 import com.example.arithmos.viewmodel.ExerciceViewModel;
 
 public class DragAndDropFragment extends Fragment {
 
     private FragmentDragAndDropBinding binding;
+
     private ExerciceViewModel exerciceViewModel;
+    private DragAndDropViewModel dragAndDropViewModel;
+
     private final String TAG = "DRAGANDDROPFRAGMENT";
     private static final String IMAGEVIEW = "Apple Image";
 
@@ -31,116 +40,65 @@ public class DragAndDropFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SingleDropFragment childFragment = new SingleDropFragment();
+        assert getArguments() != null;
+        //letter or number
+        int exerciseType = getArguments().getInt("exerciseType");
 
-        FragmentTransaction fragmentTransaction = getChildFragmentManager().
-                beginTransaction();
+        int exerciseDifficulty = getArguments().getInt("exerciseDifficulty");
 
-        fragmentTransaction.replace(binding.childFragmentContainerDragAndDrop.getId(),
-                childFragment).commit();
+        //simple or drag and drop
+        int exerciseSelect = getArguments().getInt("exerciseSelect");
 
-        /*binding.imageViewSource.setTag(IMAGEVIEW);
+        //here we get the exercice "global" type like add, sub...
+        String type = getArguments().getString("exeriseName");
 
-        binding.imageViewSource.setOnLongClickListener(v -> {
-            ClipData.Item item = new ClipData.Item((CharSequence) v.getTag());
-            ClipData dragData = new ClipData(getTag(),
-                    new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN}, item);
+        Log.d(TAG, exerciseDifficulty
+                + " " + exerciseType
+                + " " + exerciseSelect);
 
-            View.DragShadowBuilder shadow = new View.DragShadowBuilder(binding.imageViewSource);
+        binding.buttonSecond.setOnClickListener(v -> {
+            Log.d(TAG, "button click");
 
-            v.startDragAndDrop(dragData, shadow, null, 0);
-            return true;
-
+            if(exerciceViewModel.currentQuestion != null) {
+                Log.d(TAG, "current question is not null");
+                dragAndDropViewModel.isButtonClick.postValue(true);
+            }
         });
 
-        binding.imageViewSource.setOnDragListener((v, e) -> {
-            switch (e.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
+        exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
 
-                    // Determines if this View can accept the dragged data.
-                    if (e.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+        exerciceViewModel.currentQuestion.observe(getViewLifecycleOwner(), question -> {
+            binding.textviewTitle.setText(question.getTitle());
 
-                        // As an example of what your application might do, applies a blue color tint
-                        // to the View to indicate that it can accept data.
-                        ((ImageView)v).setColorFilter(Color.BLUE);
+            SingleDropFragment childFragment = new SingleDropFragment();
 
-                        // Invalidate the view to force a redraw in the new tint.
-                        v.invalidate();
+            FragmentTransaction fragmentTransaction = getChildFragmentManager().
+                    beginTransaction();
 
-                        // Returns true to indicate that the View can accept the dragged data.
-                        return true;
-
-                    }
-
-                    // Returns false to indicate that, during the current drag and drop operation,
-                    // this View will not receive events again until ACTION_DRAG_ENDED is sent.
-                    return false;
-                case DragEvent.ACTION_DRAG_ENDED:
-
-                    ((ImageView)v).clearColorFilter();
-
-                    // Invalidates the view to force a redraw.
-                    v.invalidate();
-
-                    // Does a getResult(), and displays what happened.
-                    if (e.getResult()) {
-                        Toast.makeText(getActivity(),
-                                "The drop was handled.", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(getActivity(),
-                                "The drop didn't work.", Toast.LENGTH_LONG).show();
-                    }
-
-                    // Returns true; the value is ignored.
-                    return true;
-                default:
-                    Log.e("DragDrop Example","Unknown action type: " +  e.getAction() +
-                            " received by View.OnDragListener.");
-                    break;
-            }
-
-            return false;
+            fragmentTransaction.replace(binding.childFragmentContainerDragAndDrop.getId(),
+                    childFragment).commit();
         });
 
-        binding.constraintLayoutTarget.setOnDragListener((v,e) -> {
-            switch (e.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    ((ConstraintLayout)v).setBackgroundColor(Color.GREEN);
-                    v.invalidate();
-                    return true;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    ((ConstraintLayout)v).setBackgroundColor(Color.WHITE);
-                    v.invalidate();
-                    return true;
-                case DragEvent.ACTION_DROP :
-                    Log.e("DragDrop Example","DRAG DROP constraintLayoutTarget !!!");
-
-                    ImageView imageView = binding.imageViewSource;
-
-                    ViewGroup parent = (ViewGroup) binding.imageViewSource.getParent();
-
-                    if(parent != null) {
-                        parent.removeView(imageView);
-                    }
-
-                    ((ConstraintLayout)v).addView(imageView);
-
-                    v.invalidate();
-
-                    return true;
-                default:
-                    Log.e("DragDrop Example","Unknown action type :" +  e.getAction() +
-                            " received by View.OnDragListener.");
-                    break;
+        exerciceViewModel.isExerciceFinish.observe(getViewLifecycleOwner(), isExerciseFinish -> {
+            Log.d(TAG, "observer : isExerciceFinish");
+            if(isExerciseFinish) {
+                Log.d(TAG, "observer : exercice is finish");
+                NavHostFragment.findNavController(DragAndDropFragment.this)
+                        .navigate(R.id.action_dragAndDropFragment_to_FirstFragment);
             }
-            return false;
-        });*/
+            Log.d(TAG, "observer : exercice is not finish");
+        });
+
+
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDragAndDropBinding.inflate(inflater, container, false);
+
+        exerciceViewModel = new ViewModelProvider(this).get(ExerciceViewModel.class);
+        dragAndDropViewModel = new ViewModelProvider(this).get(DragAndDropViewModel.class);
 
         // Inflate the layout for this fragment
         return binding.getRoot();

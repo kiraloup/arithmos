@@ -106,7 +106,7 @@ public class MainMenuFragment extends Fragment{
                                         navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
                             } else {
                                 NavHostFragment.findNavController(MainMenuFragment.this)
-                                        .navigate(R.id.action_FirstFragment_to_dragAndDropFragment);
+                                        .navigate(R.id.action_FirstFragment_to_dragAndDropFragment, bundle);
                             }
 
 

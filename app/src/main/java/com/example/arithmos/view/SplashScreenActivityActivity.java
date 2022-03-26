@@ -1,4 +1,4 @@
-package com.example.arithmos;
+package com.example.arithmos.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.arithmos.R;
 import com.example.arithmos.view.MainActivity;
 
 public class SplashScreenActivityActivity extends AppCompatActivity {

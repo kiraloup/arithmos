@@ -28,6 +28,7 @@ public class DragGridView extends BaseAdapter {
         this.listItems.add(new GridItem(1000, R.drawable.apple_mille));
         this.listItems.add(new GridItem(100, R.drawable.apple_cents));
         this.listItems.add(new GridItem(50, R.drawable.apple_cinquante));
+        this.listItems.add(new GridItem(10, R.drawable.apple_dix));
         this.listItems.add(new GridItem(1, R.drawable.apple));
 
 
