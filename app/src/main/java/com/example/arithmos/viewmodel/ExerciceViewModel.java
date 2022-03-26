@@ -66,18 +66,30 @@ public class ExerciceViewModel extends AndroidViewModel {
 
         this.nameTypeOfExercise = typeOfExercice;
 
+        // 0 = simple rep num / 1 = simple rep lettre / 2 = drag and drop
+        int typeOfRes = 1;
+        if (type == 1){
+            if (select == 1) {
+                typeOfRes = 0;
+            } else {
+                typeOfRes = 1;
+            }
+        } else {
+            typeOfRes = 3;
+        }
+
         switch (typeOfExercice) {
             case "add":
-                exercice = new ExerciceAdd(difficulty, selectExercise);
+                exercice = new ExerciceAdd(difficulty, selectExercise, typeOfRes);
                 break;
             case "sous":
-                exercice = new ExerciceSous(difficulty, selectExercise);
+                exercice = new ExerciceSous(difficulty, selectExercise, typeOfRes);
                 break;
             case "mult":
-                exercice = new ExerciceMult(difficulty, selectExercise);
+                exercice = new ExerciceMult(difficulty, selectExercise, typeOfRes);
                 break;
             case "div":
-                exercice = new ExerciceDiv(difficulty, selectExercise);
+                exercice = new ExerciceDiv(difficulty, selectExercise, typeOfRes);
                 break;
         }
 
@@ -124,7 +136,7 @@ public class ExerciceViewModel extends AndroidViewModel {
             Log.d(TAG, "wrong answer " + exercice.getNumberOfError());
 
             userRepository.setUserStat(this.nameTypeOfExercise, nbCorrectAnswer,
-                    exercice.getNumberOfError());
+                    exercice.getNumberOfError(),exercice.getTypeReponse());
             //the exercise is finish we tell the observer to change fragment
             //no need to put back to true since after we destroy the fragment
             isExerciceFinish.setValue(true);

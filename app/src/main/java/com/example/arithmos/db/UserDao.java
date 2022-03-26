@@ -24,11 +24,11 @@ public interface UserDao {
         inserAllExosStat(statList);
     }
 
-    @Query("UPDATE exo_stat set incorrect = incorrect + :nbResponse  where exo = :exoType")
-    void updateNbError(String exoType, int nbResponse);
+    @Query("UPDATE exo_stat set incorrect = incorrect + :nbResponse  where exo = :exoType and typeReponse = :typeReponse")
+    void updateNbError(String exoType, int nbResponse,int typeReponse);
 
-    @Query("UPDATE exo_stat set correct = correct + :nbResponse  where exo = :exoType")
-    void updateNbCorrect(String exoType, int nbResponse);
+    @Query("UPDATE exo_stat set correct = correct + :nbResponse  where exo = :exoType and typeReponse = :typeReponse")
+    void updateNbCorrect(String exoType, int nbResponse, int typeReponse);
 
 
     @Query("SELECT * FROM Exo_Stat where userId = 0")

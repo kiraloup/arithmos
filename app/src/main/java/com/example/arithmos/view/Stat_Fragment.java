@@ -56,30 +56,92 @@ public class Stat_Fragment extends Fragment {
 
         //TODO : find a better way to do that
         userStatViewModel.listStats.observe(getViewLifecycleOwner(), listStats -> {
-            ExoStat add = listStats.get(0);
+            ExoStat addnumber = listStats.get(0);
+            ExoStat addletter = listStats.get(1);
+            ExoStat adddd = listStats.get(2);
+            // type de réponse num pour exo simple
+            if (addnumber.getTypeReponse() == 0){
+                binding.totaladdnombre.append(" " + String.valueOf(addnumber.getNbErreur() + addnumber.getNbOk()));
+                binding.correctaddnombre.append( " " + String.valueOf(addnumber.getNbOk()));
+                binding.incorrectaddnombre.append(" " + String.valueOf(addnumber.getNbErreur()));
+                binding.Pourcentageaddnombre.append(" " + String.valueOf(addnumber.getPourcentage()));
+                // type de réponse lettre pour exo simple
+            } if (addletter.getTypeReponse() == 1){
+                binding.totaladdlettre.append(" " + String.valueOf(addletter.getNbErreur() + addletter.getNbOk()));
+                binding.correctaddlettre.append( " " + String.valueOf(addletter.getNbOk()));
+                binding.incorrectaddlettre.append(" " + String.valueOf(addletter.getNbErreur()));
+                binding.Pourcentageaddlettre.append(" " + String.valueOf(addletter.getPourcentage()));
+            }  if (adddd.getTypeReponse() == 2){
+                // exo drag and drop
+                binding.totaladdDragandDrop.append(" " + String.valueOf(adddd.getNbErreur() + adddd.getNbOk()));
+                binding.correctaddDragandDrop.append( " " + String.valueOf(adddd.getNbOk()));
+                binding.incorrectaddDragandDrop.append(" " + String.valueOf(adddd.getNbErreur()));
+                binding.PourcentageaddDragandDrop.append(" " + String.valueOf(adddd.getPourcentage()));
+            }
 
-            binding.totaladdnombre.append(" " + String.valueOf(add.getNbErreur() + add.getNbOk()));
-            binding.correctaddnombre.append( " " + String.valueOf(add.getNbOk()));
-            binding.incorrectaddnombre.append(" " + String.valueOf(add.getNbErreur()));
-            binding.Pourcentageaddnombre.append(" " + String.valueOf(add.getPourcentage()));
 
-            ExoStat sous = listStats.get(1);
-            binding.totalsousnombre.append(" " + String.valueOf(sous.getNbErreur() + sous.getNbOk()));
-            binding.correctsousnombre.append( " " + String.valueOf(sous.getNbOk()));
-            binding.incorrectsousnombre.append(" " + String.valueOf(sous.getNbErreur()));
-            binding.Pourcentagesousnombre.append(" " + String.valueOf(sous.getPourcentage()));
+            ExoStat sousnum = listStats.get(3);
+            ExoStat sousletter = listStats.get(4);
+            ExoStat sousdd = listStats.get(5);
+            if (addnumber.getTypeReponse() == 0){
+                binding.totalsousnombre.append(" " + String.valueOf(sousnum.getNbErreur() + sousnum.getNbOk()));
+                binding.correctsousnombre.append( " " + String.valueOf(sousnum.getNbOk()));
+                binding.incorrectsousnombre.append(" " + String.valueOf(sousnum.getNbErreur()));
+                binding.Pourcentagesousnombre.append(" " + String.valueOf(sousnum.getPourcentage()));
+            } if (addletter.getTypeReponse() == 1){
+                binding.totalsouslettre.append(" " + String.valueOf(sousletter.getNbErreur() + sousletter.getNbOk()));
+                binding.correctsouslettre.append( " " + String.valueOf(sousletter.getNbOk()));
+                binding.incorrectsouslettre.append(" " + String.valueOf(sousletter.getNbErreur()));
+                binding.Pourcentagesouslettre.append(" " + String.valueOf(sousletter.getPourcentage()));
+            }  if (adddd.getTypeReponse() == 2){
+                // exo drag and drop
+                binding.totalsousDragandDrop.append(" " + String.valueOf(sousdd.getNbErreur() + sousdd.getNbOk()));
+                binding.correctsousDragandDrop.append( " " + String.valueOf(sousdd.getNbOk()));
+                binding.incorrectsousDragandDrop.append(" " + String.valueOf(sousdd.getNbErreur()));
+                binding.PourcentagesousDragandDrop.append(" " + String.valueOf(sousdd.getPourcentage()));
+            }
 
-            ExoStat mult = listStats.get(2);
-            binding.totalsousmult.append(" " + String.valueOf(mult.getNbErreur() + mult.getNbOk()));
-            binding.correctmult.append( " " + String.valueOf(mult.getNbOk()));
-            binding.incorrectmultnombre.append(" " + String.valueOf(mult.getNbErreur()));
-            binding.Pourcentagemultnombre.append(" " + String.valueOf(mult.getPourcentage()));
+            ExoStat multnum = listStats.get(6);
+            ExoStat multletter = listStats.get(7);
+            ExoStat multdd = listStats.get(8);
+            if (addnumber.getTypeReponse() == 0){
+                binding.totalsousmult.append(" " + String.valueOf(multnum.getNbErreur() + multnum.getNbOk()));
+                binding.correctmult.append( " " + String.valueOf(multnum.getNbOk()));
+                binding.incorrectmultnombre.append(" " + String.valueOf(multnum.getNbErreur()));
+                binding.Pourcentagemultnombre.append(" " + String.valueOf(multnum.getPourcentage()));
+            } if (addletter.getTypeReponse() == 1){
+                binding.totalmultlettre.append(" " + String.valueOf(multletter.getNbErreur() + multletter.getNbOk()));
+                binding.correctmultlettre.append( " " + String.valueOf(multletter.getNbOk()));
+                binding.incorrectmultlettre.append(" " + String.valueOf(multletter.getNbErreur()));
+                binding.Pourcentagemultlettre.append(" " + String.valueOf(multletter.getPourcentage()));
+            }  if (adddd.getTypeReponse() == 2){
+                // exo drag and drop
+                binding.totalmultDragandDrop.append(" " + String.valueOf(multdd.getNbErreur() + multdd.getNbOk()));
+                binding.correctmultDragandDrop.append( " " + String.valueOf(multdd.getNbOk()));
+                binding.incorrectmultDragandDrop.append(" " + String.valueOf(multdd.getNbErreur()));
+                binding.PourcentagemultDragandDrop.append(" " + String.valueOf(multdd.getPourcentage()));
+            }
 
-            ExoStat div = listStats.get(3);
-            binding.totaldiv.append(" " + String.valueOf(div.getNbErreur() + div.getNbOk()));
-            binding.correctdiv.append( " " + String.valueOf(div.getNbOk()));
-            binding.incorrectdivnombre.append(" " + String.valueOf(div.getNbErreur()));
-            binding.Pourcentagedivnombre.append(" " + String.valueOf(div.getPourcentage()));
+            ExoStat divnum = listStats.get(9);
+            ExoStat divletter = listStats.get(10);
+            ExoStat divdd = listStats.get(11);
+            if (addnumber.getTypeReponse() == 0){
+                binding.totaldiv.append(" " + String.valueOf(divnum.getNbErreur() + divnum.getNbOk()));
+                binding.correctdiv.append( " " + String.valueOf(divnum.getNbOk()));
+                binding.incorrectdivnombre.append(" " + String.valueOf(divnum.getNbErreur()));
+                binding.Pourcentagedivnombre.append(" " + String.valueOf(divnum.getPourcentage()));
+            } if (addletter.getTypeReponse() == 1){
+                binding.totaldivlettre.append(" " + String.valueOf(divletter.getNbErreur() + divletter.getNbOk()));
+                binding.correctdivlettre.append( " " + String.valueOf(divletter.getNbOk()));
+                binding.incorrectdivlettre.append(" " + String.valueOf(divletter.getNbErreur()));
+                binding.Pourcentagedivlettre.append(" " + String.valueOf(divletter.getPourcentage()));
+            }  if (adddd.getTypeReponse() == 2){
+                // exo drag and drop
+                binding.totaldivDragandDrop.append(" " + String.valueOf(divdd.getNbErreur() + divdd.getNbOk()));
+                binding.correctdivDragandDrop.append( " " + String.valueOf(divdd.getNbOk()));
+                binding.incorrectdivDragandDrop.append(" " + String.valueOf(divdd.getNbErreur()));
+                binding.PourcentagedivDragandDrop.append(" " + String.valueOf(divdd.getPourcentage()));
+            }
         });
 
         Log.d(TAG, "after call to DATABASE");

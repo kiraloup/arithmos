@@ -7,8 +7,8 @@ import java.util.List;
 public class ExerciceMult extends AbstractExercice {
     private final String TAG = "EXERCICEMULT";
 
-    public ExerciceMult(int difficulty, TypeOfExercice typeOfExercice) {
-        super(difficulty, typeOfExercice);
+    public ExerciceMult(int difficulty, TypeOfExercice typeOfExercice, int typeOfRep) {
+        super(difficulty, typeOfExercice, typeOfRep);
     }
 
     @Override

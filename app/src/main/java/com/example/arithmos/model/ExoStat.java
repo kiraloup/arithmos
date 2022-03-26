@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Exo_Stat")
+@Entity(tableName = "Exo_Stat", primaryKeys = {"exo","typeReponse"})
 public class ExoStat {
 
     @NonNull
@@ -14,7 +14,6 @@ public class ExoStat {
 
     @NonNull
     @ColumnInfo(name = "exo")
-    @PrimaryKey
     private String idExo;
 
     @ColumnInfo(name = "correct")
@@ -26,17 +25,35 @@ public class ExoStat {
     @ColumnInfo(name = "pourcentage")
     private int pourcentage;
 
-    public ExoStat(int userId, @NonNull String idExo, int nbOk, int nbErreur, int pourcentage) {
+    // 0 = num exo simple / 1 = lettre exo simple // 2 = drag and drop
+    @ColumnInfo(name = "typeReponse")
+    private int typeReponse;
+
+
+
+    public ExoStat(int userId, @NonNull String idExo, int nbOk, int nbErreur, int pourcentage, int typeReponse) {
         this.userId = userId;
         this.idExo = idExo;
         this.nbOk = nbOk;
         this.nbErreur = nbErreur;
         this.pourcentage = pourcentage;
+        this.typeReponse = typeReponse;
+
     }
+
+
 
     @NonNull
     public String getIdExo() {
         return idExo;
+    }
+
+    public int getTypeReponse() {
+        return typeReponse;
+    }
+
+    public void setTypeReponse(int typeReponse) {
+        this.typeReponse = typeReponse;
     }
 
     public int getUserId() {
