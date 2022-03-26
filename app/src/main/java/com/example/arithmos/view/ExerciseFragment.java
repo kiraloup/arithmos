@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,7 +27,7 @@ public class ExerciseFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
+            @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
 
@@ -90,23 +91,54 @@ public class ExerciseFragment extends Fragment {
             }
         });
 
+        exerciceViewModel.isLoadingOK.observe(getViewLifecycleOwner(), isLoadingOk -> {
+            if(!isLoadingOk) {
+                Toast.makeText(getActivity(), "Error when loadinng question",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Log.d(TAG, "Loading is ok");
+            }
+        });
+
+        exerciceViewModel.isQuestionCorrect.observe(getViewLifecycleOwner(), isQuestionCorrect -> {
+            if(!isQuestionCorrect) {
+                Toast.makeText(getActivity(),
+                        "Oups la réponse est fausse",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String rep = binding.editTextTextResponse.getText().toString().toLowerCase().replaceAll("\\s+", " ").replaceAll("-", " ");
+                String rep = binding.editTextTextResponse.getText().toString().toLowerCase().
+                        replaceAll("\\s+", " ").
+                        replaceAll("-", " ");
 
                 if( exerciceViewModel.checkResponse(rep) ) {
-
                     //check if exercise is finish
-                    //otherwise we display next quest
-                    if(!exerciceViewModel.isExerciceFinish()){
-                        Log.d(TAG,"Exercise is not finish");
-                        //we display the next question, the observer will update the UI
-                        exerciceViewModel.nextQuestion();
-                    }
+                    //otherwise we display next question
+                    changeQuestion();
+                } else {
+                    Log.d(TAG, "Response is wrong ");
+                    //this is use to display that the toast message
+                    exerciceViewModel.setIsQuestionCorrect(false);
+
+                    changeQuestion();
+                    exerciceViewModel.updateNumberOfError();
+
+                    exerciceViewModel.setIsQuestionCorrect(true);
                 }
             }
         });
+    }
+
+    private void changeQuestion() {
+        if(!exerciceViewModel.isExerciceFinish()){
+            Log.d(TAG,"Exercise is not finish");
+            //we display the next question, the observer will update the UI
+            exerciceViewModel.nextQuestion();
+        }
     }
 
     @Override

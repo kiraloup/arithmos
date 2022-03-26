@@ -7,6 +7,7 @@ import java.util.List;
 public abstract class AbstractExercice {
 
     int currentQuestion = 0;
+    int numberOfError = 0;
     List<Question> listQuestion = new ArrayList<>();
     int difficulty;
     TypeOfExercice typeOfExercice;
@@ -35,5 +36,17 @@ public abstract class AbstractExercice {
 
     public TypeOfExercice getTypeOfExercice() {
         return typeOfExercice;
+    }
+
+    public int getNumberOfQuestion() {
+        return listQuestion.size();
+    }
+
+    public int getNumberOfError() {
+        return numberOfError;
+    }
+
+    public void setNumberOfError(int numberOfError) {
+        this.numberOfError = numberOfError;
     }
 }

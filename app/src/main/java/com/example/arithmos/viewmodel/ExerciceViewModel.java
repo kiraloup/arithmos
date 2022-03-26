@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.arithmos.db.QuestionRepository;
 import com.example.arithmos.db.RepositoryCallback;
 import com.example.arithmos.db.Result;
+import com.example.arithmos.db.UserRepository;
 import com.example.arithmos.model.AbstractExercice;
 import com.example.arithmos.model.ExerciceAdd;
 import com.example.arithmos.model.ExerciceSous;
@@ -25,8 +26,11 @@ import java.util.List;
 public class ExerciceViewModel extends AndroidViewModel {
 
     private final QuestionRepository questionRepository;
+    private final UserRepository userRepository;
 
     private AbstractExercice exercice;
+
+    private String nameTypeOfExercise;
 
     //For debug only
     private final String TAG = "EXERCICEVIEWMODEL";
@@ -36,10 +40,15 @@ public class ExerciceViewModel extends AndroidViewModel {
     public MutableLiveData<Question> currentQuestion = new MutableLiveData<>();
     //boolean to check if exercice is finish while in the view
     public MutableLiveData<Boolean> isExerciceFinish = new MutableLiveData<>(false);
+    //boolean to check if the loading ok otherwise we display a Toast message
+    public MutableLiveData<Boolean> isLoadingOK = new MutableLiveData<>();
+
+    public MutableLiveData<Boolean> isQuestionCorrect = new MutableLiveData<>();
 
     public ExerciceViewModel(@NonNull Application application) {
         super(application);
         questionRepository = new QuestionRepository(application);
+        userRepository = new UserRepository(application);
     }
 
     /**
@@ -51,8 +60,9 @@ public class ExerciceViewModel extends AndroidViewModel {
      */
     public void createExercice(String typeOfExercice, int difficulty, int select, int type) {
 
-
         TypeOfExercice selectExercise = select == 1 ? TypeOfExercice.NUMBER : TypeOfExercice.LETTER;
+
+        this.nameTypeOfExercise = typeOfExercice;
 
         if(typeOfExercice.equals("add")) {
             exercice = new ExerciceAdd(difficulty, selectExercise);
@@ -76,9 +86,11 @@ public class ExerciceViewModel extends AndroidViewModel {
                             + String.valueOf(resData.get(0).getTitle()));
 
                     currentQuestion.postValue(exercice.getQuestion());
+                    isLoadingOK.postValue(true);
                 } else if (result instanceof Result.Error){
                     //TODO : find a better way to handle error case
                     currentQuestion.postValue(new Question("ERROR", "ERROR", 2));
+                    isLoadingOK.postValue(false);
                 }
             }
         },typeOfExercice);
@@ -91,7 +103,15 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     public boolean isExerciceFinish() {
         if(exercice.isFinish()) {
-            Log.d(TAG, "Exercice is finish");
+            Log.d(TAG, "Exercise is finish");
+
+            int nbCorrectAnswer = exercice.getNumberOfQuestion() - exercice.getNumberOfError();
+            //update the user profile with the number of good and wrong responses
+            Log.d(TAG, "updating user stat");
+            userRepository.setUserStat(this.nameTypeOfExercise, nbCorrectAnswer,
+                    exercice.getNumberOfError());
+            //the exercise is finish we tell the observer to change fragment
+            //no need to put back to true since after we destroy the fragment
             isExerciceFinish.setValue(true);
             return true;
         }
@@ -101,17 +121,22 @@ public class ExerciceViewModel extends AndroidViewModel {
     public Boolean checkResponse(String result) {
         if(exercice.getTypeOfExercice() == TypeOfExercice.LETTER) {
             String correctResponse = Utils.convertIntToStringCentaine(exercice.getQuestion().getResult());
-
-            Log.d(TAG, "Correct response  : "
-                    + correctResponse);
-
+            Log.d(TAG, "Correct response  : " + correctResponse);
             return correctResponse.equals(result);
         } else {
             int res = Integer.parseInt(result);
             return res == exercice.getQuestion().getResult();
         }
+    }
 
+    public void updateNumberOfError() {
+        Log.d(TAG, "update number of error before : " + this.exercice.getNumberOfError());
+        this.exercice.setNumberOfError(this.exercice.getNumberOfError() + 1);
+        Log.d(TAG, "update number of error after : " + this.exercice.getNumberOfError());
+    }
 
+    public void setIsQuestionCorrect(Boolean b) {
+        this.isQuestionCorrect.postValue(b);
     }
 
     public int[] getArrayOfImages() {
@@ -131,7 +156,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     /**
      *
-     * @param TypeOfimages should in acsending order since we want the lowest number of images
+     * @param TypeOfimages should in ascending order since we want the lowest number of images
      * @param NumberOfimages should be a fix number of images for each type
      * @param value the actual value that need to be broken down
      * @return an array that contains how many image of each type do we need
