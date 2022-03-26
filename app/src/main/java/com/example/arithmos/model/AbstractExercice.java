@@ -34,6 +34,10 @@ public abstract class AbstractExercice {
         return listQuestion.get(currentQuestion);
     }
 
+    public boolean IsListQuestionEmpty(){
+        return listQuestion.isEmpty();
+    }
+
     public TypeOfExercice getTypeOfExercice() {
         return typeOfExercice;
     }

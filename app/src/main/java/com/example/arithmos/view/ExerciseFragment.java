@@ -124,8 +124,8 @@ public class ExerciseFragment extends Fragment {
                     //this is use to display that the toast message
                     exerciceViewModel.setIsQuestionCorrect(false);
 
-                    changeQuestion();
                     exerciceViewModel.updateNumberOfError();
+                    changeQuestion();
 
                     exerciceViewModel.setIsQuestionCorrect(true);
                 }

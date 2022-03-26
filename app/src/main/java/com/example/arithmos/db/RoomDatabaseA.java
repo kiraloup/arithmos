@@ -78,10 +78,16 @@ public abstract class RoomDatabaseA extends RoomDatabase {
 
                 dao.insert(new Question("Le fermier a récolté #1 roses et #2 tulipes, combien de fleur possède-t-il ? ",
                         "add", 2));
+                dao.insert(new Question("Le fermier a récolté #1 pomme hier et #2 aujourd'hui, combien de fleur possède-t-il ? ",
+                        "add", 2));
                 dao.insert(new Question("Le fermier a récolté #1 fleur mais à jeté #2 qui était fanées, combien de fleur possède-t-il ? ",
                         "sous", 2));
                 dao.insert(new Question("Cet arbustre avait #1 feuilles en été, il ne lui en reste plus que #2 en automne, combien sont tombé ? ",
                         "sous", 2));
+                dao.insert(new Question("L'année dernière le fermier avait #1 moutons il en a racheté et en a maintenant #2 fois plus, combien sont tombé ? ",
+                        "mult", 2));
+                dao.insert(new Question("Cette arbre avait #1 feuilles, son nombre de feuille à été divisé par #2, combien sont tombé ? ",
+                        "div", 2));
             });
         }
     };

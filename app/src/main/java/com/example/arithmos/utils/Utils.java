@@ -6,10 +6,29 @@ public class Utils {
 
     private static final String[] nombre = {"zero", "un", "deux", "trois", "quatre", "cinq", "six",
             "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze",
-            "seize", "dix-sept", "dix-huit", "dix-neuf"};
+            "seize", "dix sept", "dix huit", "dix neuf"};
 
     public static int generateInteger(int min, int max) {
         return new Random().nextInt((max - min) + 1 ) + min;
+    }
+
+    public static String convertIntToStringMillier(int num) {
+        String word = "";
+        int rem = num / 1000;
+        int mod = num % 1000;
+        if(rem == 1) {
+            word = "mille ";
+        } else if (rem > 0) {
+            word = nombre[rem] + " milles";
+            if (mod > 0) {
+                word = word + " ";
+            }
+        }
+
+        if (mod > 0) {
+            word = word + convertIntToStringCentaine(mod);
+        }
+        return word;
     }
 
     public static String convertIntToStringCentaine(int num) {
@@ -46,12 +65,12 @@ public class Utils {
                 if (dval + 10 > num) {
                     if ((num % 10) != 0)
                         if (num > 70 && num < 80) {
-                            return dizaine[v-1] + "-" + nombre[(num % 10 + 10)];
+                            return dizaine[v-1] + " " + nombre[(num % 10 + 10)];
                         } else if(num > 90) {
-                            return "quatre-vint" + "-" + nombre[(num % 10 + 10)];
+                            return "quatre vint" + " " + nombre[(num % 10 + 10)];
                         }
                         else {
-                            return dcap + "-" + nombre[num % 10];
+                            return dcap + " " + nombre[num % 10];
                         }
 
                     return dcap;

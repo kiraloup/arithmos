@@ -14,6 +14,8 @@ import com.example.arithmos.db.Result;
 import com.example.arithmos.db.UserRepository;
 import com.example.arithmos.model.AbstractExercice;
 import com.example.arithmos.model.ExerciceAdd;
+import com.example.arithmos.model.ExerciceDiv;
+import com.example.arithmos.model.ExerciceMult;
 import com.example.arithmos.model.ExerciceSous;
 import com.example.arithmos.model.Question;
 import com.example.arithmos.model.TypeOfExercice;
@@ -64,10 +66,19 @@ public class ExerciceViewModel extends AndroidViewModel {
 
         this.nameTypeOfExercise = typeOfExercice;
 
-        if(typeOfExercice.equals("add")) {
-            exercice = new ExerciceAdd(difficulty, selectExercise);
-        } else if (typeOfExercice.equals("sous")) {
-            exercice = new ExerciceSous(difficulty, selectExercise);
+        switch (typeOfExercice) {
+            case "add":
+                exercice = new ExerciceAdd(difficulty, selectExercise);
+                break;
+            case "sous":
+                exercice = new ExerciceSous(difficulty, selectExercise);
+                break;
+            case "mult":
+                exercice = new ExerciceMult(difficulty, selectExercise);
+                break;
+            case "div":
+                exercice = new ExerciceDiv(difficulty, selectExercise);
+                break;
         }
 
         //we use a callback to create the exercice
@@ -108,6 +119,10 @@ public class ExerciceViewModel extends AndroidViewModel {
             int nbCorrectAnswer = exercice.getNumberOfQuestion() - exercice.getNumberOfError();
             //update the user profile with the number of good and wrong responses
             Log.d(TAG, "updating user stat");
+
+            Log.d(TAG, "correct answer " + nbCorrectAnswer);
+            Log.d(TAG, "wrong answer " + exercice.getNumberOfError());
+
             userRepository.setUserStat(this.nameTypeOfExercise, nbCorrectAnswer,
                     exercice.getNumberOfError());
             //the exercise is finish we tell the observer to change fragment
@@ -120,8 +135,8 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     public Boolean checkResponse(String result) {
         if(exercice.getTypeOfExercice() == TypeOfExercice.LETTER) {
-            String correctResponse = Utils.convertIntToStringCentaine(exercice.getQuestion().getResult());
-            Log.d(TAG, "Correct response  : " + correctResponse);
+            String correctResponse = Utils.convertIntToStringMillier(exercice.getQuestion().getResult());
+            Log.d(TAG, "Correct response  : "  + correctResponse);
             return correctResponse.equals(result);
         } else {
             int res = Integer.parseInt(result);
@@ -141,17 +156,20 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     public int[] getArrayOfImages() {
         //this is the value that are represented by image, 100 will be an apple with an x100
-        int[] value = {100, 50, 10, 1};
+        int[] value = {1000,100, 50, 10, 1};
         //this is the number of image that can be display for each type of image
-        int[] nvalue = {10, 10, 10, 10};
+        int[] nvalue = {10, 10, 10, 10, 10};
 
         //the result to be broken
-        int res = exercice.getQuestion().getResult();
-        if( res <= 0) {
-            return new int[]{};
-        } else {
-            return findNumberOfimage(value, nvalue, res);
+        if (!exercice.IsListQuestionEmpty()){
+            int res = exercice.getQuestion().getResult();
+            if( res <= 0) {
+                return new int[]{};
+            } else {
+                return findNumberOfimage(value, nvalue, res);
+            }
         }
+        return new int[]{};
     }
 
     /**
