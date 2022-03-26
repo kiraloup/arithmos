@@ -1,27 +1,17 @@
 package com.example.arithmos.view;
 
-import android.content.ClipData;
-import android.content.ClipDescription;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
-import android.view.DragAndDropPermissions;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.arithmos.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.arithmos.databinding.FragmentDragAndDropBinding;
+import com.example.arithmos.view.childviewdraganddrop.SingleDropFragment;
 import com.example.arithmos.viewmodel.ExerciceViewModel;
 
 public class DragAndDropFragment extends Fragment {
@@ -41,7 +31,15 @@ public class DragAndDropFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.imageViewSource.setTag(IMAGEVIEW);
+        SingleDropFragment childFragment = new SingleDropFragment();
+
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().
+                beginTransaction();
+
+        fragmentTransaction.replace(binding.childFragmentContainerDragAndDrop.getId(),
+                childFragment).commit();
+
+        /*binding.imageViewSource.setTag(IMAGEVIEW);
 
         binding.imageViewSource.setOnLongClickListener(v -> {
             ClipData.Item item = new ClipData.Item((CharSequence) v.getTag());
@@ -136,11 +134,11 @@ public class DragAndDropFragment extends Fragment {
                     break;
             }
             return false;
-        });
+        });*/
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDragAndDropBinding.inflate(inflater, container, false);
 
