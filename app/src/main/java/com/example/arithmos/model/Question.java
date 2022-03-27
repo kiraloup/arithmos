@@ -16,6 +16,8 @@ public class Question {
     @ColumnInfo(name = "type")
     private String type;
 
+
+
     @NonNull
     @ColumnInfo(name = "title")
     private String title;
@@ -23,6 +25,7 @@ public class Question {
     @NonNull
     @ColumnInfo(name = "expected_num_values")
     private int expectedNumValues;
+
 
     //NOT IN DATABASE CLASS MEMBER
     @Ignore

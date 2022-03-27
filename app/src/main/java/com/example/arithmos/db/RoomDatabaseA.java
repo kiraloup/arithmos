@@ -68,10 +68,24 @@ public abstract class RoomDatabaseA extends RoomDatabase {
                 daoUser.insertUser(u);
 
                 List<ExoStat> list = new ArrayList<>();
-                list.add(new ExoStat(0, "add", 0, 0, 0));
-                list.add(new ExoStat(0, "sous", 0, 0, 0));
-                list.add(new ExoStat(0, "mult", 0, 0, 0));
-                list.add(new ExoStat(0, "div", 0, 0, 0));
+                // type reponse num pour exo simple
+                list.add(new ExoStat(0, "add", 0, 0, 0,0));
+                // type reponse txt pour exo simple
+                list.add(new ExoStat(0, "add", 0, 0, 0,1));
+                // type drag and drop
+                list.add(new ExoStat(0, "add", 0, 0, 0,2));
+
+                list.add(new ExoStat(0, "sous", 0, 0, 0,0));
+                list.add(new ExoStat(0, "sous", 0, 0, 0,1));
+                list.add(new ExoStat(0, "sous", 0, 0, 0,2));
+
+                list.add(new ExoStat(0, "mult", 0, 0, 0,0));
+                list.add(new ExoStat(0, "mult", 0, 0, 0,1));
+                list.add(new ExoStat(0, "mult", 0, 0, 0,2));
+
+                list.add(new ExoStat(0, "div", 0, 0, 0,0));
+                list.add(new ExoStat(0, "div", 0, 0, 0,1));
+                list.add(new ExoStat(0, "div", 0, 0, 0,2));
 
                 daoUser.insertUserStat(u, list);
 

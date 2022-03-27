@@ -47,68 +47,108 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/addition"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/totaladd"
+                    android:id="@+id/Simple"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exo_simple"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/rnombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/r_ponse_en_nombre"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/totaladdnombre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/reptTotal" />
 
                 <TextView
-                    android:id="@+id/correctadd"
+                    android:id="@+id/correctaddnombre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/correct" />
 
                 <TextView
-                    android:id="@+id/incorrectadd"
+                    android:id="@+id/incorrectaddnombre"
                     android:layout_width="388dp"
                     android:layout_height="wrap_content"
                     android:text="@string/incorrect" />
 
                 <TextView
-                    android:id="@+id/Pourcentageadd"
+                    android:id="@+id/Pourcentageaddnombre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pourcentage" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/border"
-                android:orientation="vertical">
-
                 <TextView
-                    android:id="@+id/sous"
+                    android:id="@+id/rlettre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/soustraction"
-                    android:textSize="16sp" />
+                    android:textColor="@color/black"
+                    android:text="@string/r_ponse_en_lettre"
+                    android:textSize="16sp"/>
 
                 <TextView
-                    android:id="@+id/total"
+                    android:id="@+id/totaladdlettre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/reptTotal" />
 
                 <TextView
-                    android:id="@+id/correct"
+                    android:id="@+id/correctaddlettre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/correct" />
 
                 <TextView
-                    android:id="@+id/incorrect"
-                    android:layout_width="387dp"
+                    android:id="@+id/incorrectaddlettre"
+                    android:layout_width="388dp"
                     android:layout_height="wrap_content"
                     android:text="@string/incorrect" />
 
                 <TextView
-                    android:id="@+id/PourcentageSous"
+                    android:id="@+id/Pourcentageaddlettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pourcentage" />
+
+                <TextView
+                    android:id="@+id/ExoDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/exo_drag_and_drop"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/totaladdDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reptTotal" />
+
+                <TextView
+                    android:id="@+id/correctaddDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct" />
+
+                <TextView
+                    android:id="@+id/incorrectaddDragandDrop"
+                    android:layout_width="388dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect" />
+
+                <TextView
+                    android:id="@+id/PourcentageaddDragandDrop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pourcentage" />
@@ -119,6 +159,128 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Soustraction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/soustraction"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/SimpleSous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exo_simple"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/rnombreSous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/r_ponse_en_nombre"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/totalsousnombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reptTotal" />
+
+                <TextView
+                    android:id="@+id/correctsousnombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct" />
+
+                <TextView
+                    android:id="@+id/incorrectsousnombre"
+                    android:layout_width="388dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect" />
+
+                <TextView
+                    android:id="@+id/Pourcentagesousnombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pourcentage" />
+
+                <TextView
+                    android:id="@+id/rlettresous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/r_ponse_en_lettre"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/totalsouslettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reptTotal" />
+
+                <TextView
+                    android:id="@+id/correctsouslettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct" />
+
+                <TextView
+                    android:id="@+id/incorrectsouslettre"
+                    android:layout_width="388dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect" />
+
+                <TextView
+                    android:id="@+id/Pourcentagesouslettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pourcentage" />
+
+                <TextView
+                    android:id="@+id/ExoDragandDropsous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/exo_drag_and_drop"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/totalsousDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reptTotal" />
+
+                <TextView
+                    android:id="@+id/correctsousDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct" />
+
+                <TextView
+                    android:id="@+id/incorrectsousDragandDrop"
+                    android:layout_width="388dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect" />
+
+                <TextView
+                    android:id="@+id/PourcentagesousDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pourcentage" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -126,11 +288,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/division"
-                    android:textSize="16sp" />
+                    android:text="@string/multiplication"
+                    android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/totalmult"
+                    android:id="@+id/Simplemult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exo_simple"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/rnombremult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/r_ponse_en_nombre"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/totalsousmult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/reptTotal" />
@@ -142,13 +320,77 @@
                     android:text="@string/correct" />
 
                 <TextView
-                    android:id="@+id/incorrectmult"
+                    android:id="@+id/incorrectmultnombre"
                     android:layout_width="388dp"
                     android:layout_height="wrap_content"
                     android:text="@string/incorrect" />
 
                 <TextView
-                    android:id="@+id/Pourcentagemult"
+                    android:id="@+id/Pourcentagemultnombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pourcentage" />
+
+                <TextView
+                    android:id="@+id/rlettremult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/r_ponse_en_lettre"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/totalmultlettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reptTotal" />
+
+                <TextView
+                    android:id="@+id/correctmultlettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct" />
+
+                <TextView
+                    android:id="@+id/incorrectmultlettre"
+                    android:layout_width="388dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect" />
+
+                <TextView
+                    android:id="@+id/Pourcentagemultlettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pourcentage" />
+
+                <TextView
+                    android:id="@+id/ExoDragandDropmult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/exo_drag_and_drop"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/totalmultDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reptTotal" />
+
+                <TextView
+                    android:id="@+id/correctmultDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct" />
+
+                <TextView
+                    android:id="@+id/incorrectmultDragandDrop"
+                    android:layout_width="388dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect" />
+
+                <TextView
+                    android:id="@+id/PourcentagemultDragandDrop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pourcentage" />
@@ -157,8 +399,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/border"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -166,8 +409,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/multiplication"
-                    android:textSize="16sp" />
+                    android:text="@string/division"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/Simplediv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exo_simple"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/rnombrediv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/r_ponse_en_nombre"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/totaldiv"
@@ -182,18 +441,83 @@
                     android:text="@string/correct" />
 
                 <TextView
-                    android:id="@+id/incorrectdiv"
-                    android:layout_width="390dp"
+                    android:id="@+id/incorrectdivnombre"
+                    android:layout_width="388dp"
                     android:layout_height="wrap_content"
                     android:text="@string/incorrect" />
 
                 <TextView
-                    android:id="@+id/Pourcentagediv"
+                    android:id="@+id/Pourcentagedivnombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pourcentage" />
+
+                <TextView
+                    android:id="@+id/rlettrediv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/r_ponse_en_lettre"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/totaldivlettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reptTotal" />
+
+                <TextView
+                    android:id="@+id/correctdivlettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct" />
+
+                <TextView
+                    android:id="@+id/incorrectdivlettre"
+                    android:layout_width="388dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect" />
+
+                <TextView
+                    android:id="@+id/Pourcentagedivlettre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pourcentage" />
+
+                <TextView
+                    android:id="@+id/ExoDragandDropdiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/exo_drag_and_drop"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/totaldivDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reptTotal" />
+
+                <TextView
+                    android:id="@+id/correctdivDragandDrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correct" />
+
+                <TextView
+                    android:id="@+id/incorrectdivDragandDrop"
+                    android:layout_width="388dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incorrect" />
+
+                <TextView
+                    android:id="@+id/PourcentagedivDragandDrop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pourcentage" />
 
             </LinearLayout>
+
 
 
         </LinearLayout>

@@ -13,8 +13,8 @@ public class ExerciceSous extends AbstractExercice {
 
     private final String TAG = "EXERCICESOUS";
 
-    public ExerciceSous(int difficulty, TypeOfExercice typeOfExercice) {
-        super(difficulty, typeOfExercice);
+    public ExerciceSous(int difficulty, TypeOfExercice typeOfExercice, int typeOfRep) {
+        super(difficulty, typeOfExercice, typeOfRep);
     }
 
 

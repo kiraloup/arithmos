@@ -11,10 +11,12 @@ public abstract class AbstractExercice {
     List<Question> listQuestion = new ArrayList<>();
     int difficulty;
     TypeOfExercice typeOfExercice;
+    int typeReponse;
 
-    public AbstractExercice(int difficulty, TypeOfExercice typeOfExercice) {
+    public AbstractExercice(int difficulty, TypeOfExercice typeOfExercice,  int typeReponse) {
         this.difficulty = difficulty;
         this.typeOfExercice = typeOfExercice;
+        this.typeReponse = typeReponse;
     }
 
     public abstract void  createAllQuestion(List<Question> listQuestions,
@@ -23,6 +25,10 @@ public abstract class AbstractExercice {
     public Question getNextQuestion() {
         currentQuestion++;
         return listQuestion.get(currentQuestion);
+    }
+
+    public void setTypeOfExercice(TypeOfExercice typeOfExercice) {
+        this.typeOfExercice = typeOfExercice;
     }
 
     //TODO : check if - 1 doesn't create any error with list that have a size > 1
@@ -49,6 +55,16 @@ public abstract class AbstractExercice {
     public int getNumberOfError() {
         return numberOfError;
     }
+
+    public int getTypeReponse() {
+        return typeReponse;
+    }
+
+    public void setTypeReponse(int typeReponse) {
+        this.typeReponse = typeReponse;
+    }
+
+
 
     public void setNumberOfError(int numberOfError) {
         this.numberOfError = numberOfError;

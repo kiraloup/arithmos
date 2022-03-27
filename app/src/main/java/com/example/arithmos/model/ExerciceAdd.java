@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ExerciceAdd extends AbstractExercice {
 
-    public ExerciceAdd(int difficulty, TypeOfExercice typeOfExercice) {
-        super(difficulty, typeOfExercice);
+    public ExerciceAdd(int difficulty, TypeOfExercice typeOfExercice,int typeOfRep) {
+        super(difficulty, typeOfExercice, typeOfRep);
     }
 
 

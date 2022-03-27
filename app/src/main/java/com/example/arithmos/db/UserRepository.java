@@ -48,15 +48,15 @@ public class UserRepository {
 
     //rather than calling this function each time the user
     // this function is call at the end of an exercise and update the profile once
-    public void setUserStat(String typeOfExercice, int nbCorrectAnswer, int nbWrongAnswer) {
+    public void setUserStat(String typeOfExercice, int nbCorrectAnswer, int nbWrongAnswer,int typeReponse) {
         Log.d(TAG, "get user stat");
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     //both row are update for a select type of exercise(add, sous...)
-                    userDao.updateNbCorrect(typeOfExercice, nbCorrectAnswer);
-                    userDao.updateNbError(typeOfExercice, nbWrongAnswer);
+                    userDao.updateNbCorrect(typeOfExercice, nbCorrectAnswer, typeReponse);
+                    userDao.updateNbError(typeOfExercice, nbWrongAnswer, typeReponse);
                 } catch (Exception e) {
                     Log.d(TAG, e.toString());
                 }
