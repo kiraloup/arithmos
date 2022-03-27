@@ -30,7 +30,7 @@ public interface UserDao {
     @Query("UPDATE exo_stat set correct = correct + :nbResponse  where exo = :exoType and typeReponse = :typeReponse")
     void updateNbCorrect(String exoType, int nbResponse, int typeReponse);
 
-    @Query("UPDATE exo_stat set pourcentage = 5/2   where exo = :exoType and typeReponse = :typeReponse")
+    @Query("UPDATE exo_stat set pourcentage = ((correct*100)/((correct)+(incorrect)))   where exo = :exoType and typeReponse = :typeReponse")
     void updatePourcentage(String exoType, int typeReponse);
 
     @Query("SELECT * FROM Exo_Stat where userId = 0")
