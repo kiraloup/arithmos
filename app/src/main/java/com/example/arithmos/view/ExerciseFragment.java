@@ -1,5 +1,7 @@
 package com.example.arithmos.view;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -118,18 +120,25 @@ public class ExerciseFragment extends Fragment {
                         replaceAll("\\s+", " ").
                         replaceAll("-", " ");
 
-                String correctResponse =  exerciceViewModel.getResultOfQuestion();
+                if (!rep.isEmpty()) {
+                    String correctResponse =  exerciceViewModel.getResultOfQuestion();
 
-                if( exerciceViewModel.checkResponse(rep, correctResponse) ) {
-                    Log.d(TAG, "Response is wrong ");
-                    //this is use to display that the toast message
-                    exerciceViewModel.updateNumberOfError();
+                    if( exerciceViewModel.checkResponse(rep, correctResponse) ) {
+                        Log.d(TAG, "Response is wrong ");
+                        //this is use to display that the toast message
+                        exerciceViewModel.updateNumberOfError();
+                    }
+                    //the observe variable is put to false before switching question
+                    //otherwise the question will be check for it's result
+                    // before the user can enter the response
+                    exerciceViewModel.checkCurrentQuestion.setValue(false);
+                    binding.editTextTextResponse.setText("");
+                    showResponseDialog();
+                } else {
+                    Log.d(TAG, "user response is empty");
+                    Toast.makeText(getActivity(), "Une réponse ne peut pas etre vide !",
+                            Toast.LENGTH_LONG).show();
                 }
-                //the observe variable is put to false before switching question
-                //otherwise the question will be check before the user can enter the response
-                exerciceViewModel.checkCurrentQuestion.setValue(false);
-                binding.editTextTextResponse.setText("");
-                showResponseDialog();
             }
         });
     }
