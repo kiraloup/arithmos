@@ -74,11 +74,8 @@ public class ExerciseFragment extends Fragment {
             // exercice selected (chiffre ou lettre)
         }
 
-        exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
         //we create the exercise that contains the question that will be display
-
-
-
+        exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
 
         //The observer job is to observe the question and change what is display on the view
         //for that we use a mutable live data in the viewmodel
@@ -108,45 +105,41 @@ public class ExerciseFragment extends Fragment {
             }
         });
 
-        exerciceViewModel.isQuestionCorrect.observe(getViewLifecycleOwner(), isQuestionCorrect -> {
-            if(!isQuestionCorrect) {
-                Toast.makeText(getActivity(),
-                        "Oups la réponse est fausse",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                exerciceViewModel.checkCurrentQuestion.setValue(true);
+            }
+        });
+
+        exerciceViewModel.checkCurrentQuestion.observe(getViewLifecycleOwner(), checkQuestion -> {
+            if(checkQuestion) {
                 String rep = binding.editTextTextResponse.getText().toString().toLowerCase().
                         replaceAll("\\s+", " ").
                         replaceAll("-", " ");
 
-                if( exerciceViewModel.checkResponse(rep) ) {
-                    //check if exercise is finish
-                    //otherwise we display next question
-                    changeQuestion();
-                } else {
+                String correctResponse =  exerciceViewModel.getResultOfQuestion();
+
+                if( !exerciceViewModel.checkResponse(rep, correctResponse) ) {
                     Log.d(TAG, "Response is wrong ");
                     //this is use to display that the toast message
-                    exerciceViewModel.setIsQuestionCorrect(false);
-
                     exerciceViewModel.updateNumberOfError();
-                    changeQuestion();
-
-                    exerciceViewModel.setIsQuestionCorrect(true);
                 }
+                //the observe variable is put to false before switching question
+                //otherwise the question will be check before the user can enter the response
+                exerciceViewModel.checkCurrentQuestion.setValue(false);
+
+                showResponseDialog();
             }
         });
     }
 
-    private void changeQuestion() {
-        if(!exerciceViewModel.isExerciceFinish()){
-            Log.d(TAG,"Exercise is not finish");
-            //we display the next question, the observer will update the UI
-            exerciceViewModel.nextQuestion();
-        }
+    private void showResponseDialog() {
+        //we open the dialog here
+        DialogAnswerFragment dialogAnswerFragment = new DialogAnswerFragment();
+
+        dialogAnswerFragment.show(getChildFragmentManager(), "ExerciseFragment");
+
     }
 
     @Override

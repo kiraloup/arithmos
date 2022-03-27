@@ -1,5 +1,7 @@
 package com.example.arithmos.utils;
 
+import android.util.Log;
+
 import java.util.Random;
 
 public class Utils {
@@ -78,5 +80,39 @@ public class Utils {
             }
         }
         return dcap;
+    }
+
+
+    /**
+     *
+     * @param TypeOfimages should in ascending order since we want the lowest number of images
+     * @param NumberOfimages should be a fix number of images for each type
+     * @param value the actual value that need to be broken down
+     * @return an array that contains how many image of each type do we need
+     */
+    public static int[] findNumberOfimage(int[] TypeOfimages, int[] NumberOfimages, int value) {
+        int i;
+        int[] res = new int[NumberOfimages.length];
+
+        for(i = 0; i < TypeOfimages.length; i++) {
+            //TODO : rewrite this stupid comment
+            //value >= TypeOfimages[i] is to check decremente the number of images
+            //until the value is greater that the "coin" at place i
+            while(value >= TypeOfimages[i] && NumberOfimages[i] > 0 && value >= 0) {
+                //decremente the value since we select the image
+                value -= TypeOfimages[i];
+                Log.d("Utils", value + " is decremente by " + TypeOfimages[i]);
+
+                // we check how many images of this type we can still display
+                //we decremente this value
+                NumberOfimages[i] = NumberOfimages[i] - 1;
+
+                //now we incremente the result for this specific images
+                //since we select it
+                res[i]  = res[i] + 1;
+            }
+        }
+
+        return res;
     }
 }

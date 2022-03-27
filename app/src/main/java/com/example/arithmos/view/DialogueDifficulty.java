@@ -27,6 +27,7 @@ public class DialogueDifficulty extends DialogFragment {
 
 
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,13 +60,15 @@ public class DialogueDifficulty extends DialogFragment {
                         //We send to the parent the parameter to launch the exercice
                         getParentFragmentManager().setFragmentResult("exerciseParameter",
                                 resultParameter);
-                        DialogueDifficulty.this.getDialog().cancel();
+                        //the task was complete
+                        DialogueDifficulty.this.getDialog().dismiss();
                     }
                 });
 
         builder.setNegativeButton("annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //the user left the dialog without completing the task
                 DialogueDifficulty.this.getDialog().cancel();
             }
         });

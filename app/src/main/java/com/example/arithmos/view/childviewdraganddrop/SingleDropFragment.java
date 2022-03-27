@@ -18,17 +18,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentSingleDropBinding;
 import com.example.arithmos.model.GridItem;
 import com.example.arithmos.view.gridview.DragGridView;
 import com.example.arithmos.view.gridview.GridItemHolder;
-import com.example.arithmos.view.gridview.GridViewAdapter;
 import com.example.arithmos.viewmodel.DragAndDropViewModel;
 import com.example.arithmos.viewmodel.ExerciceViewModel;
 
@@ -70,7 +65,7 @@ public class SingleDropFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        //we need to do that since the button is not in child view but the parent
         dragAndDropViewModel.isButtonClick.observe(getViewLifecycleOwner(), isButtonClick -> {
             Log.d("SingleDropFragment", "button is click");
             if(isButtonClick) {
@@ -98,9 +93,13 @@ public class SingleDropFragment extends Fragment {
 
                     Log.d("SingleDropFragment", "URI " + item.getUri());
                     DragGridView adapter = (DragGridView) gridViewDropZone.getAdapter();
-
+                    //Here we update the drop zone gridview to add the items that was drop
                     if (adapter.newItems(gridItem)) {
-                        Log.d("SingleDropFragment", "New items successfully add to the grid layout");
+                        Log.d("SingleDropFragment",
+                                "New items successfully add to the grid layout");
+                        //the views are rebuild and redraws
+                        //if I don't do that the new apple display in grid view is not the right one
+                        //but the first one that was add
                         gridViewDropZone.invalidateViews();
                         gridViewDropZone.setAdapter(adapter);
                     }
@@ -174,26 +173,20 @@ public class SingleDropFragment extends Fragment {
         Log.d("SingleDropFragment",
                 " res = " + res);
 
-        if( exerciceViewModel.checkResponse(String.valueOf(res)) ) {
-            //check if exercise is finish
-            //otherwise we display next question
-            changeQuestion();
-        } else {
+        String correctResponse =  exerciceViewModel.getResultOfQuestion();
+
+        if(!exerciceViewModel.checkResponse(String.valueOf(res), correctResponse) ) {
             Log.d("SingleDropFragment", "Response is wrong ");
-            //this is use to display that the toast message
-            exerciceViewModel.setIsQuestionCorrect(false);
-
             exerciceViewModel.updateNumberOfError();
-            changeQuestion();
-
-            exerciceViewModel.setIsQuestionCorrect(true);
         }
+        //all case we change the question
+        changeQuestion();
     }
 
 
 
     private void changeQuestion() {
-        if(!exerciceViewModel.isExerciceFinish()){
+        if(exerciceViewModel.isExerciseFinish()){
             Log.d("SingleDropFragment","Exercise is not finish");
             //we display the next question, the observer will update the UI
             exerciceViewModel.nextQuestion();

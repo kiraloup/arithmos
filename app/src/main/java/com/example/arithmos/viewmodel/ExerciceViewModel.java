@@ -5,7 +5,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.arithmos.db.QuestionRepository;
@@ -21,10 +20,9 @@ import com.example.arithmos.model.Question;
 import com.example.arithmos.model.TypeOfExercice;
 import com.example.arithmos.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
-//TODO : Test the difference between number and string result
+
 public class ExerciceViewModel extends AndroidViewModel {
 
     private final QuestionRepository questionRepository;
@@ -42,10 +40,14 @@ public class ExerciceViewModel extends AndroidViewModel {
     public MutableLiveData<Question> currentQuestion = new MutableLiveData<>();
     //boolean to check if exercice is finish while in the view
     public MutableLiveData<Boolean> isExerciceFinish = new MutableLiveData<>(false);
+    //boolean trigger when the user click on the button
+    //we check user response to the current question in the observer
+    public MutableLiveData<Boolean> checkCurrentQuestion = new MutableLiveData<>(false);
     //boolean to check if the loading ok otherwise we display a Toast message
     public MutableLiveData<Boolean> isLoadingOK = new MutableLiveData<>();
+    //is user result ok
+    public MutableLiveData<Boolean> isResponseCorrect = new MutableLiveData<>();
 
-    public MutableLiveData<Boolean> isQuestionCorrect = new MutableLiveData<>();
 
     public ExerciceViewModel(@NonNull Application application) {
         super(application);
@@ -124,36 +126,53 @@ public class ExerciceViewModel extends AndroidViewModel {
         currentQuestion.setValue(exercice.getNextQuestion());
     }
 
-    public boolean isExerciceFinish() {
+    public boolean isExerciseFinish() {
         if(exercice.isFinish()) {
             Log.d(TAG, "Exercise is finish");
-
-            int nbCorrectAnswer = exercice.getNumberOfQuestion() - exercice.getNumberOfError();
-            //update the user profile with the number of good and wrong responses
-            Log.d(TAG, "updating user stat");
-
-            Log.d(TAG, "correct answer " + nbCorrectAnswer);
-            Log.d(TAG, "wrong answer " + exercice.getNumberOfError());
-
-            userRepository.setUserStat(this.nameTypeOfExercise, nbCorrectAnswer,
-                    exercice.getNumberOfError(),exercice.getTypeReponse());
             //the exercise is finish we tell the observer to change fragment
-            //no need to put back to true since after we destroy the fragment
+            //no need to put back to true since we destroy the fragment in all case
             isExerciceFinish.setValue(true);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
-    public Boolean checkResponse(String result) {
+    private void updateUserStatInDatabase() {
+        int nbCorrectAnswer = exercice.getNumberOfQuestion() - exercice.getNumberOfError();
+        //update the user profile with the number of good and wrong responses
+        Log.d(TAG, "updating user stat");
+
+        Log.d(TAG, "correct answer " + nbCorrectAnswer);
+        Log.d(TAG, "wrong answer " + exercice.getNumberOfError());
+
+        userRepository.setUserStat(this.nameTypeOfExercise, nbCorrectAnswer,
+                exercice.getNumberOfError(),exercice.getTypeReponse());
+    }
+
+    public Boolean checkResponse(String result, String correctResponse) {
+        boolean responseBool;
+
         if(exercice.getTypeOfExercice() == TypeOfExercice.LETTER) {
-            String correctResponse = Utils.convertIntToStringMillier(exercice.getQuestion().getResult());
+            correctResponse = Utils.convertIntToStringMillier(exercice.getQuestion().getResult());
             Log.d(TAG, "Correct response  : "  + correctResponse);
-            return correctResponse.equals(result);
+
+
+            responseBool = correctResponse.equals(result);
         } else {
-            int res = Integer.parseInt(result);
-            return res == exercice.getQuestion().getResult();
+            int res = Integer.parseInt(correctResponse);
+
+            responseBool =  res == exercice.getQuestion().getResult();
         }
+
+        isResponseCorrect.postValue(responseBool);
+
+        Log.d(TAG, "responseBool  : "  + isResponseCorrect);
+
+        return responseBool;
+    }
+
+    public String getResultOfQuestion() {
+        return String.valueOf(exercice.getQuestion().getResult());
     }
 
     public void updateNumberOfError() {
@@ -162,9 +181,7 @@ public class ExerciceViewModel extends AndroidViewModel {
         Log.d(TAG, "update number of error after : " + this.exercice.getNumberOfError());
     }
 
-    public void setIsQuestionCorrect(Boolean b) {
-        this.isQuestionCorrect.postValue(b);
-    }
+
 
     public int[] getArrayOfImages() {
         //this is the value that are represented by image, 100 will be an apple with an x100
@@ -178,43 +195,22 @@ public class ExerciceViewModel extends AndroidViewModel {
             if( res <= 0) {
                 return new int[]{};
             } else {
-                return findNumberOfimage(value, nvalue, res);
+                return Utils.findNumberOfimage(value, nvalue, res);
             }
         }
         return new int[]{};
     }
 
-    /**
-     *
-     * @param TypeOfimages should in ascending order since we want the lowest number of images
-     * @param NumberOfimages should be a fix number of images for each type
-     * @param value the actual value that need to be broken down
-     * @return an array that contains how many image of each type do we need
-     */
-    private int[] findNumberOfimage(int[] TypeOfimages,int[] NumberOfimages,int value) {
-        int i;
-        int[] res = new int[NumberOfimages.length];
-
-        for(i = 0; i < TypeOfimages.length; i++) {
-            //TODO : rewrite this stupid comment
-            //value >= TypeOfimages[i] is to check decremente the number of images
-            //until the value is greater that the "coin" at place i
-            while(value >= TypeOfimages[i] && NumberOfimages[i] > 0 && value >= 0) {
-                //decremente the value since we select the image
-                value -= TypeOfimages[i];
-                Log.d(TAG, value + " is decremente by " + TypeOfimages[i]);
-
-                // we check how many images of this type we can still display
-                //we decremente this value
-                NumberOfimages[i] = NumberOfimages[i] - 1;
-
-                //now we incremente the result for this specific images
-                //since we select it
-                res[i]  = res[i] + 1;
-            }
+    //this function is call on the dialog fragment
+    //when the user validate
+    public void changeQuestion() {
+        if(isExerciseFinish()){
+            Log.d(TAG,"Exercise is not finish");
+            //we display the next question, the observer will update the UI
+           nextQuestion();
         }
-
-        return res;
     }
+
+
 
 }
