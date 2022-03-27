@@ -162,14 +162,14 @@ public class ExerciceViewModel extends AndroidViewModel {
 
             responseBool = correctResponse.equals(result);
         } else {
-            int res = Integer.parseInt(correctResponse);
+            int res = Integer.parseInt(result);
 
             responseBool =  res == exercice.getQuestion().getResult();
         }
 
         isResponseCorrect.postValue(responseBool);
 
-        Log.d(TAG, "responseBool  : "  + isResponseCorrect);
+        Log.d(TAG, "responseBool  : "  + isResponseCorrect.getValue());
 
         return responseBool;
     }
