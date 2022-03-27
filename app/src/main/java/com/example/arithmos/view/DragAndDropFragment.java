@@ -61,7 +61,7 @@ public class DragAndDropFragment extends Fragment {
 
             if(exerciceViewModel.currentQuestion != null) {
                 Log.d(TAG, "current question is not null");
-                dragAndDropViewModel.isButtonClick.postValue(true);
+                exerciceViewModel.checkCurrentQuestion.postValue(true);
             }
         });
 

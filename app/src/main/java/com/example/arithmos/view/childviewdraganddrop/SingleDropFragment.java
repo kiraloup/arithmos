@@ -22,6 +22,7 @@ import android.widget.GridView;
 
 import com.example.arithmos.databinding.FragmentSingleDropBinding;
 import com.example.arithmos.model.GridItem;
+import com.example.arithmos.view.DialogAnswerFragment;
 import com.example.arithmos.view.gridview.DragGridView;
 import com.example.arithmos.view.gridview.GridItemHolder;
 import com.example.arithmos.viewmodel.DragAndDropViewModel;
@@ -64,14 +65,6 @@ public class SingleDropFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        //we need to do that since the button is not in child view but the parent
-        dragAndDropViewModel.isButtonClick.observe(getViewLifecycleOwner(), isButtonClick -> {
-            Log.d("SingleDropFragment", "button is click");
-            if(isButtonClick) {
-                isAnswerCorrect(allDropValue);
-            }
-        });
 
         binding.gridViewDragAndDrop.setNumColumns(2);
         binding.gridViewDragAndDrop.setAdapter(new DragGridView(getContext(), null));
@@ -163,33 +156,38 @@ public class SingleDropFragment extends Fragment {
                 return false;
             }
         });
+
+        //we need to do that since the button is not in child view but the parent
+        exerciceViewModel.checkCurrentQuestion.observe(getViewLifecycleOwner(), checkQuestion -> {
+            if(checkQuestion) {
+                int rep = 0;
+                for(int i = 0; i < allDropValue.size(); i++) {
+                    rep += allDropValue.get(i);
+                }
+
+                String correctResponse =  exerciceViewModel.getResultOfQuestion();
+
+                if( !exerciceViewModel.checkResponse(String.valueOf(rep), correctResponse) ) {
+                    Log.d("SingleDropFragment", "Response is wrong ");
+                    //this is use to display that the toast message
+                    exerciceViewModel.updateNumberOfError();
+                }
+                //the observe variable is put to false before switching question
+                //otherwise the question will be check before the user can enter the response
+                exerciceViewModel.checkCurrentQuestion.setValue(false);
+
+                showResponseDialog();
+            }
+        });
     }
 
-    private void isAnswerCorrect(List<Integer> allDropValue) {
-        int res = 0;
-        for(int i = 0; i < allDropValue.size(); i++) {
-            res += allDropValue.get(i);
-        }
-        Log.d("SingleDropFragment",
-                " res = " + res);
+    private void showResponseDialog() {
+        //we open the dialog here
+        DialogAnswerFragment dialogAnswerFragment = new DialogAnswerFragment();
+        Log.d("SingleDropFragment", getParentFragmentManager().toString());
+        //the parent fragment get 2 child otherwise the viewmodel is null
+        //pretty cool
+        dialogAnswerFragment.show(getParentFragmentManager(), "ExerciseFragment");
 
-        String correctResponse =  exerciceViewModel.getResultOfQuestion();
-
-        if(!exerciceViewModel.checkResponse(String.valueOf(res), correctResponse) ) {
-            Log.d("SingleDropFragment", "Response is wrong ");
-            exerciceViewModel.updateNumberOfError();
-        }
-        //all case we change the question
-        changeQuestion();
-    }
-
-
-
-    private void changeQuestion() {
-        if(exerciceViewModel.isExerciseFinish()){
-            Log.d("SingleDropFragment","Exercise is not finish");
-            //we display the next question, the observer will update the UI
-            exerciceViewModel.nextQuestion();
-        }
     }
 }

@@ -129,6 +129,9 @@ public class ExerciceViewModel extends AndroidViewModel {
     public boolean isExerciseFinish() {
         if(exercice.isFinish()) {
             Log.d(TAG, "Exercise is finish");
+            //call to the database to update the user stat
+            updateUserStatInDatabase();
+
             //the exercise is finish we tell the observer to change fragment
             //no need to put back to true since we destroy the fragment in all case
             isExerciceFinish.setValue(true);
