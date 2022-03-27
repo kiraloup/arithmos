@@ -23,7 +23,7 @@ public class ExoStat {
     private int nbErreur;
 
     @ColumnInfo(name = "pourcentage")
-    private int pourcentage;
+    private float pourcentage;
 
     // 0 = num exo simple / 1 = lettre exo simple // 2 = drag and drop
     @ColumnInfo(name = "typeReponse")
@@ -31,7 +31,7 @@ public class ExoStat {
 
 
 
-    public ExoStat(int userId, @NonNull String idExo, int nbOk, int nbErreur, int pourcentage, int typeReponse) {
+    public ExoStat(int userId, @NonNull String idExo, int nbOk, int nbErreur, float pourcentage, int typeReponse) {
         this.userId = userId;
         this.idExo = idExo;
         this.nbOk = nbOk;
@@ -84,11 +84,11 @@ public class ExoStat {
         this.nbErreur = nbErreur;
     }
 
-    public int getPourcentage() {
+    public float getPourcentage() {
         return pourcentage;
     }
 
-    public void setPourcentage(int pourcentage) {
+    public void setPourcentage(float pourcentage) {
         this.pourcentage = pourcentage;
     }
 

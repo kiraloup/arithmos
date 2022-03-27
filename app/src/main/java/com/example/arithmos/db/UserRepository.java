@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.arithmos.model.ExoStat;
 import com.example.arithmos.model.Question;
+import com.example.arithmos.model.User;
 import com.example.arithmos.model.UserWithExoStat;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class UserRepository {
                     //both row are update for a select type of exercise(add, sous...)
                     userDao.updateNbCorrect(typeOfExercice, nbCorrectAnswer, typeReponse);
                     userDao.updateNbError(typeOfExercice, nbWrongAnswer, typeReponse);
+                    userDao.updatePourcentage(typeOfExercice, typeReponse);
                 } catch (Exception e) {
                     Log.d(TAG, e.toString());
                 }

@@ -186,6 +186,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
 
 
+
     public int[] getArrayOfImages() {
         //this is the value that are represented by image, 100 will be an apple with an x100
         int[] value = {1000,100, 50, 10, 1};

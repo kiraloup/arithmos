@@ -19,8 +19,11 @@ public abstract class AbstractExercice {
         this.typeReponse = typeReponse;
     }
 
+
+
+
     public abstract void  createAllQuestion(List<Question> listQuestions,
-                                                     TypeOfExercice typeOfExercice,int difficulty);
+                                            TypeOfExercice typeOfExercice, int difficulty);
 
     public Question getNextQuestion() {
         currentQuestion++;
