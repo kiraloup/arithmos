@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentDialogAnswerBinding;
+import com.example.arithmos.model.TypeOfExercice;
+import com.example.arithmos.utils.Utils;
 import com.example.arithmos.viewmodel.ExerciceViewModel;
 
 
@@ -76,7 +78,13 @@ public class DialogAnswerFragment extends DialogFragment {
                 textView.setText("Bravo ! Tu as la bonne réponse !");
                 imageView.setImageResource(R.drawable.good_rep);
             } else {
-                textView.append(" " + exerciceViewModel.getResultOfQuestion());
+                if(exerciceViewModel.getExercice().getTypeOfExercice() == TypeOfExercice.NUMBER) {
+                    textView.append(" " + exerciceViewModel.getResultOfQuestion());
+                } else {
+                    int val = Integer.parseInt(exerciceViewModel.getResultOfQuestion());
+                    textView.append(" " + Utils.convertIntToStringMillier(val));
+                }
+
                 imageView.setImageResource(R.drawable.bad_rep);
             }
         });

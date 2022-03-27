@@ -214,6 +214,7 @@ public class ExerciceViewModel extends AndroidViewModel {
         }
     }
 
-
-
+    public AbstractExercice getExercice() {
+        return exercice;
+    }
 }
