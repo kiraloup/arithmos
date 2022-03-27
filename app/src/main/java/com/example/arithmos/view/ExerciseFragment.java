@@ -120,7 +120,7 @@ public class ExerciseFragment extends Fragment {
 
                 String correctResponse =  exerciceViewModel.getResultOfQuestion();
 
-                if( !exerciceViewModel.checkResponse(rep, correctResponse) ) {
+                if( exerciceViewModel.checkResponse(rep, correctResponse) ) {
                     Log.d(TAG, "Response is wrong ");
                     //this is use to display that the toast message
                     exerciceViewModel.updateNumberOfError();
