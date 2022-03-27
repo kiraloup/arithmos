@@ -128,7 +128,7 @@ public class ExerciseFragment extends Fragment {
                 //the observe variable is put to false before switching question
                 //otherwise the question will be check before the user can enter the response
                 exerciceViewModel.checkCurrentQuestion.setValue(false);
-
+                binding.editTextTextResponse.setText("");
                 showResponseDialog();
             }
         });
