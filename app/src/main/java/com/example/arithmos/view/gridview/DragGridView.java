@@ -1,6 +1,7 @@
 package com.example.arithmos.view.gridview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -34,6 +35,13 @@ public class DragGridView extends BaseAdapter {
 
     }
 
+
+    public DragGridView(Context context ) {
+        this.context = context;
+        //this.listItems = listOfItems;
+        this.listItems = new ArrayList<>();
+    }
+
     @Override
     public int getCount() {
         return listItems.size();
@@ -54,10 +62,14 @@ public class DragGridView extends BaseAdapter {
         GridItemHolder holder;
 
         if(convertView == null) {
+            Log.d("DragGridView", "add new items");
             holder = new GridItemHolder();
 
             ImageView imageView = new ImageView(this.context);
             imageView.setImageResource(listItems.get(position).getImageId());
+            Log.d("DragGridView", "IMAGE ID : " + listItems.get(position).getImageId());
+            Log.d("DragGridView", "position : " + position);
+            Log.d("DragGridView", "Number of items  : " + getCount());
 
             convertView = imageView;
             convertView.setTag(holder);
@@ -74,5 +86,9 @@ public class DragGridView extends BaseAdapter {
     public void removeItems(Object item) {
         listItems.remove(item);
         this.notifyDataSetChanged();
+    }
+
+    public boolean newItems(GridItem item) {
+        return listItems.add(item);
     }
 }

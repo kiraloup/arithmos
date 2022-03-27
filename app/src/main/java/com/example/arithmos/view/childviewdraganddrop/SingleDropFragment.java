@@ -40,6 +40,7 @@ public class SingleDropFragment extends Fragment {
     private FragmentSingleDropBinding binding;
     private GridItem gridItem;
     private List<Integer> allDropValue = new ArrayList<>();
+    private GridView gridViewDropZone;
 
     private ExerciceViewModel exerciceViewModel;
     private DragAndDropViewModel dragAndDropViewModel;
@@ -80,14 +81,14 @@ public class SingleDropFragment extends Fragment {
         binding.gridViewDragAndDrop.setNumColumns(2);
         binding.gridViewDragAndDrop.setAdapter(new DragGridView(getContext(), null));
 
+        gridViewDropZone = binding.gridViewDropZone;
+        gridViewDropZone.setAdapter(new DragGridView(getContext()));
+        gridViewDropZone.setNumColumns(2);
+
         binding.constraintLayoutDropZone.setOnDragListener((v,e) -> {
             switch (e.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
-                    ((ConstraintLayout)v).setBackgroundColor(Color.GREEN);
-                    v.invalidate();
-                    return true;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    ((ConstraintLayout)v).setBackgroundColor(Color.WHITE);
+                    ((ConstraintLayout)v).setBackgroundColor(Color.TRANSPARENT);
                     v.invalidate();
                     return true;
                 case DragEvent.ACTION_DROP :
@@ -96,13 +97,13 @@ public class SingleDropFragment extends Fragment {
                     ClipData.Item item = e.getClipData().getItemAt(0);
 
                     Log.d("SingleDropFragment", "URI " + item.getUri());
-                    ConstraintLayout constraintLayout = (ConstraintLayout) v;
+                    DragGridView adapter = (DragGridView) gridViewDropZone.getAdapter();
 
-                    ImageView newImageView = new ImageView(getContext());
-
-                    newImageView.setImageResource(gridItem.getImageId());
-
-                    constraintLayout.addView(newImageView);
+                    if (adapter.newItems(gridItem)) {
+                        Log.d("SingleDropFragment", "New items successfully add to the grid layout");
+                        gridViewDropZone.invalidateViews();
+                        gridViewDropZone.setAdapter(adapter);
+                    }
 
                     allDropValue.add(gridItem.getValue());
 
