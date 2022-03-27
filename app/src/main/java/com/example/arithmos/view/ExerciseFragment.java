@@ -114,7 +114,7 @@ public class ExerciseFragment extends Fragment {
 
         exerciceViewModel.checkCurrentQuestion.observe(getViewLifecycleOwner(), checkQuestion -> {
             if(checkQuestion) {
-                String rep = binding.editTextTextResponse.getText().toString().toLowerCase().
+                String rep = binding.editTextTextResponse.getText().toString().toLowerCase().replaceAll("\\s+$", "").
                         replaceAll("\\s+", " ").
                         replaceAll("-", " ");
 
