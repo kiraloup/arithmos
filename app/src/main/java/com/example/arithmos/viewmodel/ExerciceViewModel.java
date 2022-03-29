@@ -162,7 +162,16 @@ public class ExerciceViewModel extends AndroidViewModel {
             Log.d(TAG, "Correct response  : "  + correctResponse);
 
 
-            responseBool = correctResponse.equals(result);
+            //responseBool = correctResponse.equals(result);
+            int lev = Utils.levenshteinDistance(result, correctResponse);
+
+            Log.d(TAG, "lev  : "  + lev);
+
+            float ratio = ((float)lev) / Math.max(result.length(), correctResponse.length());
+
+            Log.d(TAG, "ratio   : "  + ratio);
+
+            responseBool = ratio < 0.3;
         } else {
             int res = Integer.parseInt(result);
 
