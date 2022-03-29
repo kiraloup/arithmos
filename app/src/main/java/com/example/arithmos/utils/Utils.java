@@ -2,6 +2,8 @@ package com.example.arithmos.utils;
 
 import android.util.Log;
 
+import com.example.arithmos.R;
+
 import java.util.Random;
 
 public class Utils {
@@ -115,4 +117,44 @@ public class Utils {
 
         return res;
     }
+
+    public static int[] getTypeOfImages(String imageType) {
+        switch (imageType) {
+            case "roses":
+                return getIdImagesApples();
+            case "moutons":
+                return getIdImagesSheeps();
+            case "pomme":
+                return getIdImagesRoses();
+            case "feuille":
+                return getIdImagesLeaf();
+            default:
+                return null;
+        }
+    }
+
+    private static int[] getIdImagesApples() {
+        return new int[]{R.drawable.apple_mille, R.drawable.apple_cents,
+                R.drawable.apple_cinquante, R.drawable.apple_dix, R.drawable.apple};
+    }
+
+    private static int[] getIdImagesSheeps() {
+        return new int[]{R.drawable.sheep, R.drawable.sheep,
+                R.drawable.sheep, R.drawable.sheep,
+                R.drawable.sheep};
+    }
+
+    private static int[] getIdImagesRoses() {
+        return new int[]{R.drawable.rose_mille, R.drawable.rose_cents,
+                R.drawable.rose_cinquante, R.drawable.rose_dix,
+                R.drawable.rose};
+    }
+
+    private static int[] getIdImagesLeaf() {
+        return new int[]{R.drawable.feuille, R.drawable.feuille,
+                R.drawable.feuille, R.drawable.feuille, R.drawable.feuille,
+                R.drawable.feuille};
+    }
+
+
 }

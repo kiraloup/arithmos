@@ -18,25 +18,25 @@ public class GridViewAdapter extends BaseAdapter {
     //this array contains all the id
     public ArrayList<Integer> imageID = new ArrayList<>();
 
-    public GridViewAdapter(Context context, int[] listOfApple) {
+    public GridViewAdapter(Context context, int[] listOfApple, int[] typeOfImage) {
         this.context = context;
         for(int i = 0; i < listOfApple.length; i++) {
             for(int j = 0; j < listOfApple[i]; j++) {
                 switch (i) {
                     case 0:
-                        imageID.add(R.drawable.apple_mille);
+                        imageID.add(typeOfImage[0]);
                         break;
                     case 1:
-                        imageID.add(R.drawable.apple_cents);
+                        imageID.add(typeOfImage[1]);
                         break;
                     case 2:
-                        imageID.add(R.drawable.apple_cinquante);
+                        imageID.add(typeOfImage[2]);
                         break;
                     case 3:
-                        imageID.add(R.drawable.apple_dix);
+                        imageID.add(typeOfImage[3]);
                         break;
                     default:
-                        imageID.add(R.drawable.apple);
+                        imageID.add(typeOfImage[4]);
                 }
 
             }

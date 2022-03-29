@@ -21,6 +21,7 @@ import com.example.arithmos.model.TypeOfExercice;
 import com.example.arithmos.utils.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class ExerciceViewModel extends AndroidViewModel {
@@ -114,7 +115,8 @@ public class ExerciceViewModel extends AndroidViewModel {
                     isLoadingOK.postValue(true);
                 } else if (result instanceof Result.Error){
                     //TODO : find a better way to handle error case
-                    currentQuestion.postValue(new Question("ERROR", "ERROR", 2));
+                    currentQuestion.postValue(new Question("ERROR", "ERROR", 2,
+                            "fleur"));
                     isLoadingOK.postValue(false);
                 }
             }
@@ -217,5 +219,9 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     public AbstractExercice getExercice() {
         return exercice;
+    }
+
+    public String getImagesTypes() {
+        return Objects.requireNonNull(currentQuestion.getValue()).getImageType();
     }
 }
