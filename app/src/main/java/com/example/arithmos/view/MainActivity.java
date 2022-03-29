@@ -1,5 +1,7 @@
 package com.example.arithmos.view;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.arithmos.R;
@@ -13,6 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.example.arithmos.databinding.ActivityMainBinding;
 
@@ -38,6 +41,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        // 0 = add / 1 = sous / 2 = mult / 3 = div
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+
+        // first time run?
+        if (!(pref.contains("firstTimeRun"))) {
+            //get the preferences editor
+            SharedPreferences.Editor editor = pref.edit();
+            // start the preferences activity
+            editor.putBoolean("add", true);
+            editor.putBoolean("sous", true);
+            editor.putBoolean("mult", true);
+            editor.putBoolean("div", true);
+            // avoid for next run
+            editor.putBoolean("firstTimeRun", false);
+            editor.apply();
+        }
     }
 
     @Override

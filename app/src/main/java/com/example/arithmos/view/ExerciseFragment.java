@@ -120,8 +120,10 @@ public class ExerciseFragment extends Fragment {
             public void onClick(View view) {
                 if(binding.gridViewApple.getVisibility() == View.GONE){
                     binding.gridViewApple.setVisibility(View.VISIBLE);
+                    binding.fermier.setVisibility(View.GONE);
                 } else {
                     binding.gridViewApple.setVisibility(View.GONE);
+                    binding.fermier.setVisibility(View.VISIBLE);
                 }
             }
         });
