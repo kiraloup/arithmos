@@ -118,42 +118,35 @@ public class Utils {
         return res;
     }
 
-    public static int[] getTypeOfImages(String imageType) {
+    public static int getTypeOfImages(String imageType) {
         switch (imageType) {
-            case "roses":
-                return getIdImagesApples();
-            case "moutons":
-                return getIdImagesSheeps();
             case "pomme":
-                return getIdImagesRoses();
+                return R.drawable.apple;
+            case "moutons":
+                return R.drawable.sheep;
+            case "rose":
+                return R.drawable.rose;
             case "feuille":
-                return getIdImagesLeaf();
+                return R.drawable.feuille;
             default:
-                return null;
+                return -1;
         }
     }
 
     private static int[] getIdImagesApples() {
-        return new int[]{R.drawable.apple_mille, R.drawable.apple_cents,
-                R.drawable.apple_cinquante, R.drawable.apple_dix, R.drawable.apple};
+        return new int[]{R.drawable.apple};
     }
 
     private static int[] getIdImagesSheeps() {
-        return new int[]{R.drawable.sheep, R.drawable.sheep,
-                R.drawable.sheep, R.drawable.sheep,
-                R.drawable.sheep};
+        return new int[]{R.drawable.sheep};
     }
 
     private static int[] getIdImagesRoses() {
-        return new int[]{R.drawable.rose_mille, R.drawable.rose_cents,
-                R.drawable.rose_cinquante, R.drawable.rose_dix,
-                R.drawable.rose};
+        return new int[]{R.drawable.rose};
     }
 
     private static int[] getIdImagesLeaf() {
-        return new int[]{R.drawable.feuille, R.drawable.feuille,
-                R.drawable.feuille, R.drawable.feuille, R.drawable.feuille,
-                R.drawable.feuille};
+        return new int[]{R.drawable.feuille};
     }
 
 

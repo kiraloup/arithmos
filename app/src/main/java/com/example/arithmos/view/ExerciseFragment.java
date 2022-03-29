@@ -68,12 +68,12 @@ public class ExerciseFragment extends Fragment {
         } else if(exerciseSelect == 2) {
             input.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        if (type == "random"){
+        /*if (type == "random"){
             type = "add";
             // faire le code pour choisir le type en fonction du profil apprenant et l'exercice Type (de base standar)
             // la difficulté reste choisi par l'utilisateur
             // exercice selected (chiffre ou lettre)
-        }
+        }*/
 
         //we create the exercise that contains the question that will be display
         exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
@@ -83,10 +83,10 @@ public class ExerciseFragment extends Fragment {
         exerciceViewModel.currentQuestion.observe(getViewLifecycleOwner(), question -> {
             binding.textviewTitle.setText(question.getTitle());
             int[] arrayOfImage = exerciceViewModel.getArrayOfImages();
-            int[] TypeOfImage = Utils.getTypeOfImages(exerciceViewModel.getImagesTypes());
+            int TypeOfImage = Utils.getTypeOfImages(exerciceViewModel.getImagesTypes());
             Log.d(TAG, "Type of question is : " + exerciceViewModel.getImagesTypes());
 
-            if(TypeOfImage != null) {
+            if(TypeOfImage != -1) {
                 binding.gridViewApple.setAdapter(new GridViewAdapter(getContext(),
                         arrayOfImage, TypeOfImage));
                 binding.gridViewApple.setNumColumns(2);
