@@ -1,7 +1,5 @@
 package com.example.arithmos.view;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -18,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentSecondBinding;
+import com.example.arithmos.utils.Utils;
 import com.example.arithmos.view.gridview.GridViewAdapter;
 import com.example.arithmos.viewmodel.ExerciceViewModel;
 
@@ -70,12 +69,12 @@ public class ExerciseFragment extends Fragment {
         } else if(exerciseSelect == 2) {
             input.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        if (type == "random"){
+        /*if (type == "random"){
             type = "add";
             // faire le code pour choisir le type en fonction du profil apprenant et l'exercice Type (de base standar)
             // la difficulté reste choisi par l'utilisateur
             // exercice selected (chiffre ou lettre)
-        }
+        }*/
 
         //we create the exercise that contains the question that will be display
         exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
@@ -85,8 +84,16 @@ public class ExerciseFragment extends Fragment {
         exerciceViewModel.currentQuestion.observe(getViewLifecycleOwner(), question -> {
             binding.textviewTitle.setText(question.getTitle());
             int[] arrayOfImage = exerciceViewModel.getArrayOfImages();
-            binding.gridViewApple.setAdapter(new GridViewAdapter(getContext(), arrayOfImage));
-            binding.gridViewApple.setNumColumns(2);
+            int TypeOfImage = Utils.getTypeOfImages(exerciceViewModel.getImagesTypes());
+            Log.d(TAG, "Type of question is : " + exerciceViewModel.getImagesTypes());
+
+            if(TypeOfImage != -1) {
+                binding.gridViewApple.setAdapter(new GridViewAdapter(getContext(),
+                        arrayOfImage, TypeOfImage));
+                binding.gridViewApple.setNumColumns(2);
+            } else {
+                Log.d(TAG, "Error when loading the type of images");
+            }
         });
 
         //we observe a boolean that will tell us is the exercise is finish

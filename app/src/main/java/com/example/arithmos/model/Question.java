@@ -16,8 +16,6 @@ public class Question {
     @ColumnInfo(name = "type")
     private String type;
 
-
-
     @NonNull
     @ColumnInfo(name = "title")
     private String title;
@@ -26,15 +24,20 @@ public class Question {
     @ColumnInfo(name = "expected_num_values")
     private int expectedNumValues;
 
+    @NonNull
+    @ColumnInfo
+    private String imageType;
 
     //NOT IN DATABASE CLASS MEMBER
     @Ignore
     private int result;
 
-    public Question(@NonNull String title, @NonNull String type, @NonNull int expectedNumValues) {
+    public Question(@NonNull String title, @NonNull String type,
+                    @NonNull int expectedNumValues, @NonNull String imageType) {
         this.title = title;
         this.type = type;
         this.expectedNumValues = expectedNumValues;
+        this.imageType = imageType;
         this.result = 0;
     }
 
@@ -66,6 +69,15 @@ public class Question {
 
     public int getExpectedNumValues() {
         return expectedNumValues;
+    }
+
+    @NonNull
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(@NonNull String imageType) {
+        this.imageType = imageType;
     }
 
     @Ignore
