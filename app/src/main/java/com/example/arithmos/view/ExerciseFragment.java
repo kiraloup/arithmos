@@ -37,6 +37,7 @@ public class ExerciseFragment extends Fragment {
         //all the lifecycle element are handle by the viewmodel provider
         exerciceViewModel = new ViewModelProvider(this).get(ExerciceViewModel.class);
         Log.d(TAG, "HERE 1");
+        binding.gridViewApple.setVisibility(View.GONE);
         return binding.getRoot();
 
     }
@@ -111,6 +112,17 @@ public class ExerciseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 exerciceViewModel.checkCurrentQuestion.setValue(true);
+            }
+        });
+
+        binding.helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(binding.gridViewApple.getVisibility() == View.GONE){
+                    binding.gridViewApple.setVisibility(View.VISIBLE);
+                } else {
+                    binding.gridViewApple.setVisibility(View.GONE);
+                }
             }
         });
 
