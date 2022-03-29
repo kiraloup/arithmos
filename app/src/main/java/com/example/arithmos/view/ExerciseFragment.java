@@ -69,12 +69,23 @@ public class ExerciseFragment extends Fragment {
         } else if(exerciseSelect == 2) {
             input.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        /*if (type == "random"){
+
+        if (type == "random"){
             type = "add";
             // faire le code pour choisir le type en fonction du profil apprenant et l'exercice Type (de base standar)
             // la difficulté reste choisi par l'utilisateur
             // exercice selected (chiffre ou lettre)
-        }*/
+
+            //Regarder les exercices activé
+            //faire le ration
+            /*construire la liste de questions
+                -Pour chaque type d'exo
+                    -Aller chercher en base les questions
+                -Si le nombre de question est inferieur a dix
+                        -les copié et shuffle
+                -sinon ok
+             */
+        }
 
         //we create the exercise that contains the question that will be display
         exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
