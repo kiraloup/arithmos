@@ -1,11 +1,15 @@
 package com.example.arithmos.view.gridview;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
+import androidx.room.util.StringUtil;
 
 import com.example.arithmos.R;
 import com.example.arithmos.model.GridItem;
@@ -19,27 +23,28 @@ public class DragGridView extends BaseAdapter {
     private final Context context;
     private final List<GridItem> listItems;
     private static final String IMAGEVIEW_TAG = "icon bitmap";
+    private int typeOfImage;
 
-    public DragGridView(Context context, List<GridItem> listOfItems ) {
+    public DragGridView(Context context, int typeOfImage) {
         this.context = context;
         //this.listItems = listOfItems;
         this.listItems = new ArrayList<>();
 
 
-        this.listItems.add(new GridItem(1000, R.drawable.apple_mille));
-        this.listItems.add(new GridItem(100, R.drawable.apple_cents));
-        this.listItems.add(new GridItem(50, R.drawable.apple_cinquante));
-        this.listItems.add(new GridItem(10, R.drawable.apple_dix));
-        this.listItems.add(new GridItem(1, R.drawable.apple));
+        this.listItems.add(new GridItem(1000, R.drawable.mille));
+        this.listItems.add(new GridItem(100, R.drawable.cents));
+        this.listItems.add(new GridItem(50, R.drawable.cinquante));
+        this.listItems.add(new GridItem(10, R.drawable.dix));
+        this.listItems.add(new GridItem(1, R.drawable.un));
 
-
+        this.typeOfImage = typeOfImage;
     }
 
 
     public DragGridView(Context context ) {
         this.context = context;
-        //this.listItems = listOfItems;
         this.listItems = new ArrayList<>();
+        typeOfImage = -1;
     }
 
     @Override
@@ -66,6 +71,10 @@ public class DragGridView extends BaseAdapter {
             holder = new GridItemHolder();
 
             ImageView imageView = new ImageView(this.context);
+            if(typeOfImage != -1) {
+                Drawable backgroundImage = ContextCompat.getDrawable(context, typeOfImage);
+                imageView.setBackground(backgroundImage);
+            }
             imageView.setImageResource(listItems.get(position).getImageId());
             Log.d("DragGridView", "IMAGE ID : " + listItems.get(position).getImageId());
             Log.d("DragGridView", "position : " + position);
@@ -86,6 +95,10 @@ public class DragGridView extends BaseAdapter {
     public void removeItems(Object item) {
         listItems.remove(item);
         this.notifyDataSetChanged();
+    }
+
+    public void setTypeOfImage(int typeOfImage) {
+        this.typeOfImage = typeOfImage;
     }
 
     public boolean newItems(GridItem item) {

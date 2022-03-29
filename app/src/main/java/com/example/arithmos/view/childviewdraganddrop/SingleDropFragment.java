@@ -18,10 +18,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.arithmos.databinding.FragmentSingleDropBinding;
 import com.example.arithmos.model.GridItem;
+import com.example.arithmos.utils.Utils;
 import com.example.arithmos.view.DialogAnswerFragment;
 import com.example.arithmos.view.gridview.DragGridView;
 import com.example.arithmos.view.gridview.GridItemHolder;
@@ -61,16 +64,55 @@ public class SingleDropFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.gridViewDragAndDrop.setNumColumns(2);
-        binding.gridViewDragAndDrop.setAdapter(new DragGridView(getContext(), null));
+        int idImgTypes = Utils.getTypeOfImages(exerciceViewModel.getImagesTypes());
+        if(idImgTypes != -1) {
 
+            createDropZone(idImgTypes);
+
+            createDragZone(idImgTypes);
+
+            //we need to do that since the button is not in child view but the parent
+            exerciceViewModel.checkCurrentQuestion.observe(getViewLifecycleOwner(), checkQuestion -> {
+                if(checkQuestion) {
+                    int rep = 0;
+                    for(int i = 0; i < allDropValue.size(); i++) {
+                        rep += allDropValue.get(i);
+                    }
+
+                    String correctResponse =  exerciceViewModel.getResultOfQuestion();
+
+                    if( !exerciceViewModel.checkResponse(String.valueOf(rep), correctResponse) ) {
+                        Log.d("SingleDropFragment", "Response is wrong ");
+                        //this is use to display that the toast message
+                        exerciceViewModel.updateNumberOfError();
+                    }
+                    //the observe variable is put to false before switching question
+                    //otherwise the question will be check before the user can enter the response
+                    exerciceViewModel.checkCurrentQuestion.setValue(false);
+
+                    showResponseDialog();
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(), "Erreur au chargment des background",
+                    Toast.LENGTH_SHORT).show();
+            Log.d("SingleDropFragment",  "Erreur when loading image types");
+        }
+    }
+
+
+    private void createDropZone(int typeOfImage) {
         gridViewDropZone = binding.gridViewDropZone;
-        gridViewDropZone.setAdapter(new DragGridView(getContext()));
+
+        DragGridView dragGridView = new DragGridView(getContext());
+        dragGridView.setTypeOfImage(typeOfImage);
+
+        gridViewDropZone.setAdapter(dragGridView);
+
         gridViewDropZone.setNumColumns(2);
 
         binding.constraintLayoutDropZone.setOnDragListener((v,e) -> {
@@ -118,6 +160,15 @@ public class SingleDropFragment extends Fragment {
             return false;
         });
 
+
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void createDragZone(int idImgTypes) {
+        binding.gridViewDragAndDrop.setNumColumns(2);
+
+        binding.gridViewDragAndDrop.setAdapter(new DragGridView(getContext(), idImgTypes));
+
         binding.gridViewDragAndDrop.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -154,29 +205,6 @@ public class SingleDropFragment extends Fragment {
                     }
                 }
                 return false;
-            }
-        });
-
-        //we need to do that since the button is not in child view but the parent
-        exerciceViewModel.checkCurrentQuestion.observe(getViewLifecycleOwner(), checkQuestion -> {
-            if(checkQuestion) {
-                int rep = 0;
-                for(int i = 0; i < allDropValue.size(); i++) {
-                    rep += allDropValue.get(i);
-                }
-
-                String correctResponse =  exerciceViewModel.getResultOfQuestion();
-
-                if( !exerciceViewModel.checkResponse(String.valueOf(rep), correctResponse) ) {
-                    Log.d("SingleDropFragment", "Response is wrong ");
-                    //this is use to display that the toast message
-                    exerciceViewModel.updateNumberOfError();
-                }
-                //the observe variable is put to false before switching question
-                //otherwise the question will be check before the user can enter the response
-                exerciceViewModel.checkCurrentQuestion.setValue(false);
-
-                showResponseDialog();
             }
         });
     }

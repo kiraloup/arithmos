@@ -17,7 +17,7 @@ import java.util.List;
 
 public class GridViewAdapter extends BaseAdapter {
 
-    private Context context;
+    private final Context context;
     //this array contains all the id
     public ArrayList<Integer> imageID = new ArrayList<>();
 
