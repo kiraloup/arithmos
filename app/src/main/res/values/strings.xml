@@ -23,9 +23,9 @@
     <string name="chiffres">Chiffres</string>
     <string name="lettres">Lettres</string>
     <string name="valider">Valider</string>
-    <string name="facile">Facile</string>
-    <string name="moyen">Moyen</string>
-    <string name="difficile">Difficile</string>
+    <string name="facile">Chiffres (sans retenue)</string>
+    <string name="moyen">Nombres (avec retenue)</string>
+    <string name="difficile">Grands nombres (avec retenue)</string>
     <string name="param_tre_de_l_exercice">paramètre de l\'exercice</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -130,4 +130,20 @@
     <string name="r_ponse_en_nombre">Réponse en nombre</string>
     <string name="r_ponse_en_lettre">Réponse en lettre</string>
     <string name="exo_drag_and_drop">Exo Drag and Drop</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="parametre">Parametre</string>
+    <string name="activer_d_sactiver_les_exercices">Activer / Désactiver les exercices</string>
 </resources>

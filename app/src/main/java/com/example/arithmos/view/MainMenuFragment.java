@@ -1,11 +1,14 @@
 package com.example.arithmos.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -36,32 +39,64 @@ public class MainMenuFragment extends Fragment{
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "HERE 1");
-
-
+        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
         binding.ButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOpenDialogClicked("add");
+                if (pref.getBoolean("add", true)) {
+                    buttonOpenDialogClicked("add");
+                } else {
+                    Toast toast = Toast.makeText(getContext(),
+                            "Vous avez désactivé l'addition dans les paramètres", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
             }
         });
         binding.ButtonSous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOpenDialogClicked("sous");
+                if (pref.getBoolean("sous", true)) {
+                    buttonOpenDialogClicked("sous");
+                } else {
+                    Toast toast = Toast.makeText(getContext(),
+                            "Vous avez désactivé la soustraction dans les paramètres", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
         binding.ButtonDiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOpenDialogClicked("div");
+                if (pref.getBoolean("div", true)) {
+                    buttonOpenDialogClicked("div");
+                } else {
+                    Toast toast = Toast.makeText(getContext(),
+                            "Vous avez désactivé la division dans les paramètres", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
         binding.ButtonMult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOpenDialogClicked("mult");
+                if (pref.getBoolean("mult", true)) {
+                    buttonOpenDialogClicked("mult");
+                } else {
+                    Toast toast = Toast.makeText(getContext(),
+                            "Vous avez désactivé la multiplication dans les paramètres", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
+        binding.ButtonParam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(MainMenuFragment.this).
+                        navigate(R.id.action_FirstFragment_to_settingFragment);
+            }
+        });
+
 
         binding.ButtonProfile.setOnClickListener(new View.OnClickListener() {
             @Override

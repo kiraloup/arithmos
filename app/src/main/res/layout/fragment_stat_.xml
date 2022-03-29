@@ -50,7 +50,7 @@
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/Simple"
+                    android:id="@+id/Activer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/exo_simple"
