@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -87,6 +88,12 @@ public class DragAndDropFragment extends Fragment {
                         .navigate(R.id.action_dragAndDropFragment_to_FirstFragment);
             }
             Log.d(TAG, "observer : exercice is not finish");
+        });
+
+        binding.helpButton2.setOnClickListener(v -> {
+            Log.d(TAG, "help is click");
+            Toast.makeText(getActivity(), "Pour Réussir l'exercice, il faut déplacer ce que le fermier te demande dans le panier",
+                    Toast.LENGTH_SHORT).show();
         });
 
 

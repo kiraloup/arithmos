@@ -5,14 +5,13 @@ import androidx.lifecycle.ViewModel;
 
 public class DragAndDropViewModel extends ViewModel {
 
-    public MutableLiveData<Boolean> isButtonClick = new MutableLiveData<>(false);
+    public MutableLiveData<Boolean> isHelpAsked = new MutableLiveData<>(false);
 
-
-    public MutableLiveData<Boolean> getIsButtonClick() {
-        return isButtonClick;
+    public MutableLiveData<Boolean> getIsHelpAsked() {
+        return isHelpAsked;
     }
 
-    public void setIsButtonClick(Boolean isClick) {
-        isButtonClick.postValue(isClick);
+    public void setIsHelpAsked(MutableLiveData<Boolean> isHelpAsked) {
+        this.isHelpAsked = isHelpAsked;
     }
 }
