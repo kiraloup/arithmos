@@ -92,9 +92,12 @@ public class DragGridView extends BaseAdapter {
         return convertView;
     }
 
-    public void removeItems(Object item) {
-        listItems.remove(item);
-        this.notifyDataSetChanged();
+    public boolean removeItems(GridItem item) {
+        return listItems.remove(item);
+    }
+
+    public List<GridItem> getListItems() {
+        return listItems;
     }
 
     public void setTypeOfImage(int typeOfImage) {

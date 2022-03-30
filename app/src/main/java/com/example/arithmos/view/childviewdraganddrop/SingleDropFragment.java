@@ -40,11 +40,10 @@ public class SingleDropFragment extends Fragment {
 
     private FragmentSingleDropBinding binding;
     private GridItem gridItem;
-    private List<Integer> allDropValue = new ArrayList<>();
     private GridView gridViewDropZone;
-
     private ExerciceViewModel exerciceViewModel;
-    private DragAndDropViewModel dragAndDropViewModel;
+
+    private DragGridView dragGridViewDropZone;
 
 
     public SingleDropFragment() {
@@ -58,9 +57,6 @@ public class SingleDropFragment extends Fragment {
 
         exerciceViewModel = new ViewModelProvider(requireParentFragment())
                 .get(ExerciceViewModel.class);
-
-        dragAndDropViewModel = new ViewModelProvider(requireParentFragment()).
-                get(DragAndDropViewModel.class);
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -84,25 +80,34 @@ public class SingleDropFragment extends Fragment {
 
             //we need to do that since the button is not in child view but the parent
             exerciceViewModel.checkCurrentQuestion.observe(getViewLifecycleOwner(), checkQuestion -> {
-                if(checkQuestion) {
-                    int rep = 0;
-                    for(int i = 0; i < allDropValue.size(); i++) {
-                        rep += allDropValue.get(i);
+
+                List<GridItem> listItems = dragGridViewDropZone.getListItems();
+                if (listItems.size() != 0) {
+                    if(checkQuestion) {
+                        int rep = 0;
+                        for(int i = 0; i < listItems.size(); i++) {
+                            rep += listItems.get(i).getValue();
+                        }
+
+                        String correctResponse =  exerciceViewModel.getResultOfQuestion();
+
+                        if( !exerciceViewModel.checkResponse(String.valueOf(rep), correctResponse) ) {
+                            Log.d("SingleDropFragment", "Response is wrong ");
+                            //this is use to display that the toast message
+                            exerciceViewModel.updateNumberOfError();
+                        }
+                        //the observe variable is put to false before switching question
+                        //otherwise the question will be check before the user can enter the response
+                        exerciceViewModel.checkCurrentQuestion.setValue(false);
+
+                        showResponseDialog();
                     }
-
-                    String correctResponse =  exerciceViewModel.getResultOfQuestion();
-
-                    if( !exerciceViewModel.checkResponse(String.valueOf(rep), correctResponse) ) {
-                        Log.d("SingleDropFragment", "Response is wrong ");
-                        //this is use to display that the toast message
-                        exerciceViewModel.updateNumberOfError();
-                    }
-                    //the observe variable is put to false before switching question
-                    //otherwise the question will be check before the user can enter the response
-                    exerciceViewModel.checkCurrentQuestion.setValue(false);
-
-                    showResponseDialog();
+                } else {
+                    Log.d("SingleDropFragment", "The dropzone is empty");
+                    Toast.makeText(getActivity(), "Attention ! Tu dois aider le fermier !",
+                            Toast.LENGTH_LONG).show();
                 }
+
             });
         } else {
             Toast.makeText(getActivity(), "Erreur au chargment des background",
@@ -111,14 +116,14 @@ public class SingleDropFragment extends Fragment {
         }
     }
 
-
+    @SuppressLint("ClickableViewAccessibility")
     private void createDropZone(int typeOfImage, int idImgTypesBackground) {
         gridViewDropZone = binding.gridViewDropZone;
 
-        DragGridView dragGridView = new DragGridView(getContext());
-        dragGridView.setTypeOfImage(typeOfImage);
+        dragGridViewDropZone = new DragGridView(getContext());
+        dragGridViewDropZone.setTypeOfImage(typeOfImage);
 
-        gridViewDropZone.setAdapter(dragGridView);
+        gridViewDropZone.setAdapter(dragGridViewDropZone);
 
         gridViewDropZone.setNumColumns(2);
 
@@ -138,27 +143,45 @@ public class SingleDropFragment extends Fragment {
                     ClipData.Item item = e.getClipData().getItemAt(0);
 
                     Log.d("SingleDropFragment", "URI " + item.getUri());
-                    DragGridView adapter = (DragGridView) gridViewDropZone.getAdapter();
+
                     //Here we update the drop zone gridview to add the items that was drop
-                    if (adapter.newItems(gridItem)) {
+                    if (dragGridViewDropZone.newItems(gridItem)) {
                         Log.d("SingleDropFragment",
                                 "New items successfully add to the grid layout");
                         //the views are rebuild and redraws
                         //if I don't do that the new apple display in grid view is not the right one
                         //but the first one that was add
                         gridViewDropZone.invalidateViews();
-                        gridViewDropZone.setAdapter(adapter);
+                        gridViewDropZone.setAdapter(dragGridViewDropZone);
                     }
 
-                    allDropValue.add(gridItem.getValue());
-
                     int res = 0;
-                    for(int i = 0; i < allDropValue.size(); i++) {
-                        res += allDropValue.get(i);
+                    for(int i = 0; i < dragGridViewDropZone.getListItems().size(); i++) {
+                        res += dragGridViewDropZone.getListItems().get(i).getValue();
                     }
 
                     Log.d("SingleDropFragment", "current res " +  res);
 
+                    v.invalidate();
+
+                    return true;
+                case DragEvent.ACTION_DRAG_EXITED:
+
+                    //Here we update the drop zone gridview to add the items that was drop
+                    if (dragGridViewDropZone.removeItems(gridItem)) {
+                        Log.d("SingleDropFragment",
+                                "New items successfully remove to the grid layout");
+                        //the views are rebuild and redraws
+                        //if I don't do that the new images display in grid view is not the right one
+                        //but the first one that was add
+                        gridViewDropZone.invalidateViews();
+                        gridViewDropZone.setAdapter(dragGridViewDropZone);
+                    }
+
+                    /*if(allDropValue.remove(gridItem.getValue()) == gridItem.getValue()) {
+                         Log.d("SingleDropFragment",
+                            "The element was remove from the list of drop value");
+                    }*/
                     v.invalidate();
 
                     return true;
@@ -167,6 +190,42 @@ public class SingleDropFragment extends Fragment {
                             +  e.getAction() +
                             " received by View.OnDragListener.");
                     break;
+            }
+            return false;
+        });
+
+        binding.gridViewDropZone.setOnTouchListener((v, event) -> {
+            if(event.getAction() == MotionEvent.ACTION_DOWN){
+                GridView parent = (GridView) v;
+
+                int x = (int) event.getX();
+                int y = (int) event.getY();
+
+                int position = parent.pointToPosition(x, y);
+
+                int relativePosition = position - parent.getFirstVisiblePosition();
+
+                View target = (View) parent.getChildAt(relativePosition);
+                if(target != null) {
+                    GridItemHolder gridItemHolder = (GridItemHolder) target.getTag();
+
+                    gridItem = (GridItem) gridItemHolder.item;
+
+                    Log.d("SingleDropFragment",
+                            " item = " + gridItem.getValue());
+
+
+                    ClipData.Item item = new ClipData.Item((CharSequence) gridItemHolder.tag);
+
+                    ClipData dragData = new ClipData(getTag(),
+                            new String[] {ClipDescription.MIMETYPE_TEXT_PLAIN}, item);
+
+                    View.DragShadowBuilder shadow = new View.DragShadowBuilder(target);
+
+                    v.startDragAndDrop(dragData, shadow, gridItemHolder.item, 0);
+
+                    return true;
+                }
             }
             return false;
         });
