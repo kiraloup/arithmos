@@ -92,6 +92,7 @@ public class ExerciseFragment extends Fragment {
                         -les copié et shuffle
                 -sinon ok
              */
+
             exerciceViewModel.createRandomExercise(exerciseDifficulty);
 
         } else {
