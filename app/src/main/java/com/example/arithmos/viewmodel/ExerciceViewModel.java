@@ -1,6 +1,7 @@
 package com.example.arithmos.viewmodel;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,17 +12,23 @@ import com.example.arithmos.db.QuestionRepository;
 import com.example.arithmos.db.RepositoryCallback;
 import com.example.arithmos.db.Result;
 import com.example.arithmos.db.UserRepository;
+import com.example.arithmos.db.allUserStat;
 import com.example.arithmos.model.AbstractExercice;
 import com.example.arithmos.model.ExerciceAdd;
 import com.example.arithmos.model.ExerciceDiv;
 import com.example.arithmos.model.ExerciceMult;
 import com.example.arithmos.model.ExerciceSous;
+import com.example.arithmos.model.ExerciseRandom;
+import com.example.arithmos.model.ExoStat;
 import com.example.arithmos.model.Question;
 import com.example.arithmos.model.TypeOfExercice;
 import com.example.arithmos.utils.Utils;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 
 public class ExerciceViewModel extends AndroidViewModel {
@@ -45,7 +52,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     //This is the object that the view is observing
     public MutableLiveData<Question> currentQuestion = new MutableLiveData<>();
-    //boolean to check if exercice is finish while in the view
+    //boolean to check if exercise is finish while in the view
     public MutableLiveData<Boolean> isExerciceFinish = new MutableLiveData<>(false);
     //boolean trigger when the user click on the button
     //we check user response to the current question in the observer
@@ -105,31 +112,105 @@ public class ExerciceViewModel extends AndroidViewModel {
 
         //we use a callback to create the exercice
         //because we need to access the database and it's not possible in UI thread
-        questionRepository.getTenQuestionType(new RepositoryCallback<List<Question>>() {
-            @Override
-            public void onComplete(Result<List<Question>> result) {
-                if(result instanceof Result.Success) {
-                    List<Question> resData = ((Result.Success<List<Question>>) result).data;
+        questionRepository.getTenQuestionType(result -> {
+            if(result instanceof Result.Success) {
+                List<Question> resData = ((Result.Success<List<Question>>) result).data;
 
-                    exercice.createAllQuestion(resData, TypeOfExercice.NUMBER, difficulty);
+                exercice.createAllQuestion(resData, difficulty);
 
-                    Log.d(TAG, "SIZE OF Question : "
-                            + String.valueOf(resData.size()));
-                    Log.d(TAG, "TITLE Question 1 : "
-                            + String.valueOf(resData.get(0).getTitle()));
+                Log.d(TAG, "SIZE OF Question : "
+                        + String.valueOf(resData.size()));
+                Log.d(TAG, "TITLE Question 1 : "
+                        + String.valueOf(resData.get(0).getTitle()));
 
-                    currentQuestion.postValue(exercice.getQuestion());
-                    isLoadingOK.postValue(true);
-                } else if (result instanceof Result.Error){
-                    //TODO : find a better way to handle error case
-                    currentQuestion.postValue(new Question("ERROR", "ERROR", 2,
-                            "fleur"));
-                    isLoadingOK.postValue(false);
-                }
+                currentQuestion.postValue(exercice.getQuestion());
+                isLoadingOK.postValue(true);
+            } else if (result instanceof Result.Error){
+                //TODO : find a better way to handle error case
+                currentQuestion.postValue(new Question("ERROR", "ERROR", 2,
+                        "fleur"));
+                isLoadingOK.postValue(false);
             }
         },typeOfExercice);
 
     }
+
+    public void createRandomExercise(int difficulty) {
+
+        exercice = new ExerciseRandom(difficulty);
+
+        SharedPreferences pref = getApplication().getSharedPreferences("MyPref", 0);
+
+        //if none of the exercise are activate we do nothing
+        if(pref.getBoolean("add", false)
+                && pref.getBoolean("sous", false)
+                && pref.getBoolean("mult", false)
+                && pref.getBoolean("div", false)) {
+            return;
+        }
+
+
+        userRepository.geAlltUserStat(result -> {
+            if(result instanceof Result.Success) {
+                List<allUserStat> allUserStat = ((Result.Success<List<allUserStat>>) result).data;
+                int nbWrongResponses = 0;
+
+                for(allUserStat userStat : allUserStat) {
+                    nbWrongResponses += userStat.incorrect;
+                }
+
+                Log.d(TAG, "Total number of Wrong Responses " + nbWrongResponses);
+                HashMap<String, Integer> userRatios = new HashMap<>();
+
+                for(allUserStat userStat : allUserStat) {
+                    int ratio = userStat.incorrect / nbWrongResponses;
+
+                    userRatios.put(userStat.exo, ratio);
+                }
+
+                for (String key : userRatios.keySet()) {
+                    Log.d(TAG,"exo=" + key + "  ratio=" + userRatios.get(key));
+
+                    if(userRatios.get(key) != null) {
+                        int r = userRatios.get(key) * 10;
+
+                        Log.d(TAG,"on va chercher " + r + " quetions");
+
+                        if(r != 0 && pref.getBoolean(key, true)) {
+                            //second callback
+                            questionRepository.getAllQuestionByTypeAndLimit(result1 -> {
+                                if (result1 instanceof Result.Success) {
+                                    List<Question> resData =
+                                            ((Result.Success<List<Question>>) result1).data;
+
+                                    Log.d(TAG, "For type of exercise " + key
+                                            + " we have " +resData.size() + " questions");
+
+                                    //cast to random exercise to call the right constructor
+                                    ExerciseRandom exerciseR = (ExerciseRandom) exercice;
+
+                                    exerciseR.createAllQuestion(resData, key);
+
+                                    if(currentQuestion.getValue() == null) {
+                                        currentQuestion.postValue(exercice.getQuestion());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error when loading questions for type " +
+                                            key);
+                                }
+
+                            }, key, r);
+                        }
+                    }
+                }
+                isLoadingOK.postValue(true);
+            } else {
+                isLoadingOK.postValue(false);
+            }
+        });
+
+    }
+
 
     public void nextQuestion() {
         currentQuestion.setValue(exercice.getNextQuestion());
@@ -168,8 +249,6 @@ public class ExerciceViewModel extends AndroidViewModel {
             correctResponse = Utils.convertIntToStringMillier(exercice.getQuestion().getResult());
             Log.d(TAG, "Correct response  : "  + correctResponse);
 
-
-            //responseBool = correctResponse.equals(result);
             int lev = Utils.levenshteinDistance(result, correctResponse);
 
             Log.d(TAG, "lev  : "  + lev);

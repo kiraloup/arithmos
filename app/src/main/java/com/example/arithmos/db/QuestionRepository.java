@@ -75,4 +75,29 @@ public class QuestionRepository {
         });
     }
 
+    public void getAllQuestionByTypeAndLimit(final RepositoryCallback<List<Question>> callback,
+                                             String typeOfExercise, int limit) {
+        Log.d("QuestionRepository", "getAllQuestion");
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.d("QuestionRepository", "HE 2");
+
+                    Result<List<Question>> resultQuestion = new Result.Success<>(
+                            questionDAO.getQuestionByTypeAndLimited(typeOfExercise, limit));
+
+                    Log.d("QuestionRepository", "type of question after call "
+                            + typeOfExercise);
+
+                    callback.onComplete(resultQuestion);
+                }catch (Exception e){
+                    Log.d("QuestionRepository", "HE 3" + e.toString());
+                    Result<List<Question>> error = new Result.Error<>(e);
+                    callback.onComplete(error);
+                }
+            }
+        });
+    }
+
 }

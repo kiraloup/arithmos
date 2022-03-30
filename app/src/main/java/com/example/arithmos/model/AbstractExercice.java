@@ -22,8 +22,7 @@ public abstract class AbstractExercice {
 
 
 
-    public abstract void  createAllQuestion(List<Question> listQuestions,
-                                            TypeOfExercice typeOfExercice, int difficulty);
+    public abstract void  createAllQuestion(List<Question> listQuestions, int difficulty);
 
     public Question getNextQuestion() {
         currentQuestion++;
@@ -67,7 +66,9 @@ public abstract class AbstractExercice {
         this.typeReponse = typeReponse;
     }
 
-
+    public List<Question> getListQuestion() {
+        return listQuestion;
+    }
 
     public void setNumberOfError(int numberOfError) {
         this.numberOfError = numberOfError;

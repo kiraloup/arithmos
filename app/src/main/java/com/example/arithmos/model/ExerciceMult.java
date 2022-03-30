@@ -12,8 +12,7 @@ public class ExerciceMult extends AbstractExercice {
     }
 
     @Override
-    public void createAllQuestion(List<Question> questions,
-                                  TypeOfExercice typeOfExercice, int difficulty) {
+    public void createAllQuestion(List<Question> questions, int difficulty) {
 
         for(int i = 0; i < questions.size(); i++) {
                 questions.set(i, createQuestionNumber(questions.get(i),difficulty));

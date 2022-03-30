@@ -2,17 +2,14 @@ package com.example.arithmos;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.arithmos.databinding.FragmentSettingBinding;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -28,7 +25,7 @@ public class SettingFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSettingBinding.inflate(inflater,container,false);
         // Inflate the layout for this fragment
@@ -42,30 +39,14 @@ public class SettingFragment extends Fragment {
         sousSwitch = binding.switchsoustraction;
         multSwitch = binding.switchmultiplication;
         divSwitch = binding.switchdivision;
+
         SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = pref.edit();
-        if (pref.getBoolean("add", true)) {
-            addSwitch.setChecked(true);
-        } else {
-            addSwitch.setChecked(false);
-        }
-        if (pref.getBoolean("sous", true)) {
-            sousSwitch.setChecked(true);
-        } else {
-            sousSwitch.setChecked(false);
-        }
-        if (pref.getBoolean("mult", true)) {
-            Log.d("val","dans le if mult");
-            multSwitch.setChecked(true);
-        } else {
-            Log.d("val","dans le else mult");
-            multSwitch.setChecked(false);
-        }
-        if (pref.getBoolean("div", true)) {
-            divSwitch.setChecked(true);
-        } else {
-            divSwitch.setChecked(false);
-        }
+
+        addSwitch.setChecked(pref.getBoolean("add", true));
+        sousSwitch.setChecked(pref.getBoolean("sous", true));
+        multSwitch.setChecked(pref.getBoolean("mult", true));
+        divSwitch.setChecked(pref.getBoolean("div", true));
 
         addSwitch.setOnClickListener(new View.OnClickListener() {
             @Override

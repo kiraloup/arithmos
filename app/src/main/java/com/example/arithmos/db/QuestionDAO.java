@@ -31,5 +31,8 @@ public interface QuestionDAO {
     @Query("SELECT * FROM QUESTION_TABLE where type = :typeQuestion LIMIT 10")
     List<Question> getTenQuestionType(String typeQuestion);
 
+    @Query("SELECT * FROM QUESTION_TABLE where type = :typeQuestion LIMIT :limitQuestion")
+    List<Question> getQuestionByTypeAndLimited(String typeQuestion, int limitQuestion);
+
 
 }

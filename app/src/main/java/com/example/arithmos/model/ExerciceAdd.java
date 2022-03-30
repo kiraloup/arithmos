@@ -12,8 +12,7 @@ public class ExerciceAdd extends AbstractExercice {
 
 
     @Override
-    public void createAllQuestion(List<Question> questions,
-                                            TypeOfExercice typeOfExercice,int difficulty) {
+    public void createAllQuestion(List<Question> questions, int difficulty) {
 
         for(int i = 0; i < questions.size(); i++) {
             if(typeOfExercice == TypeOfExercice.NUMBER) {
@@ -23,7 +22,7 @@ public class ExerciceAdd extends AbstractExercice {
             }*/
         }
 
-        this.listQuestion = questions;
+        this.listQuestion.addAll(questions);
     }
 
     private Question createQuestionNumber(Question q, int difficulty) {

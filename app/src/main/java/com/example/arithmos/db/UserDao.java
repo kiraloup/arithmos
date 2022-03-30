@@ -33,6 +33,9 @@ public interface UserDao {
     @Query("UPDATE exo_stat set pourcentage = ((correct*100)/((correct)+(incorrect)))   where exo = :exoType and typeReponse = :typeReponse")
     void updatePourcentage(String exoType, int typeReponse);
 
+    @Query("SELECT exo, SUM(correct) as correct, SUM(incorrect) as incorrect FROM Exo_Stat where userId = 0 group by exo")
+    List<allUserStat> getTotalReponse();
+
     @Query("SELECT * FROM Exo_Stat where userId = 0")
     List<ExoStat> getUserWithExoStat();
 

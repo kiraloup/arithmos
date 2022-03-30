@@ -70,14 +70,14 @@ public class ExerciseFragment extends Fragment {
             input.setInputType(InputType.TYPE_CLASS_TEXT);
         }
 
-        if (type == "random"){
-            type = "add";
+        if (type.equals("random")){
+
             // faire le code pour choisir le type en fonction du profil apprenant et l'exercice Type (de base standar)
             // la difficulté reste choisi par l'utilisateur
             // exercice selected (chiffre ou lettre)
 
             //Regarder les exercices activé
-            //faire le ration
+            //faire le ratio
             /*construire la liste de questions
                 -Pour chaque type d'exo
                     -Aller chercher en base les questions
@@ -85,10 +85,14 @@ public class ExerciseFragment extends Fragment {
                         -les copié et shuffle
                 -sinon ok
              */
+            exerciceViewModel.createRandomExercise(exerciseDifficulty);
+
+        } else {
+            //we create the exercise that contains the question that will be display
+            exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
         }
 
-        //we create the exercise that contains the question that will be display
-        exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
+
 
         //The observer job is to observe the question and change what is display on the view
         //for that we use a mutable live data in the viewmodel
