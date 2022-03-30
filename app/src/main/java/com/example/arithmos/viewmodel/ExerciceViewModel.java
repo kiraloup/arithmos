@@ -160,10 +160,10 @@ public class ExerciceViewModel extends AndroidViewModel {
                 }
 
                 Log.d(TAG, "Total number of Wrong Responses " + nbWrongResponses);
-                HashMap<String, Integer> userRatios = new HashMap<>();
+                HashMap<String, Float> userRatios = new HashMap<>();
 
                 for(allUserStat userStat : allUserStat) {
-                    int ratio = userStat.incorrect / nbWrongResponses;
+                    float ratio = (float) userStat.incorrect / nbWrongResponses;
 
                     userRatios.put(userStat.exo, ratio);
                 }
@@ -172,7 +172,16 @@ public class ExerciceViewModel extends AndroidViewModel {
                     Log.d(TAG,"exo=" + key + "  ratio=" + userRatios.get(key));
 
                     if(userRatios.get(key) != null) {
-                        int r = userRatios.get(key) * 10;
+
+                        int r = 0;
+                        float calculateRatio = userRatios.get(key);
+
+                        if(calculateRatio < 0.1) {
+                            //round toward 0 since the number is small and but represent a part of exercise
+                            r = (int) Math.ceil(calculateRatio);
+                        } else {
+                            r = (int) (calculateRatio* 10);
+                        }
 
                         Log.d(TAG,"on va chercher " + r + " quetions");
 
