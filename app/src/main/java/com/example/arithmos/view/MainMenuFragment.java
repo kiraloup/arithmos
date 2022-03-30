@@ -139,7 +139,22 @@ public class MainMenuFragment extends Fragment{
         binding.ButtonRand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOpenDialogClicked("random");
+                if (pref.getBoolean("mult", true) || pref.getBoolean("add", true) ||pref.getBoolean("div", true) ||pref.getBoolean("sous", true)) {
+                    buttonOpenDialogClicked("random");
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.customtoast,(ViewGroup)view.findViewById(R.id.toastfrag));
+
+                    final Toast toast= new Toast(getContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    TextView tv = layout.findViewById(R.id.info);
+                    tv.setText("Il faut réactiver des exercices dans les paramètres !");
+                    toast.show();
+
+                }
+
             }
         });
 
