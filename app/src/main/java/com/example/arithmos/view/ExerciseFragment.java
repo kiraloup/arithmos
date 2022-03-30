@@ -159,11 +159,12 @@ public class ExerciseFragment extends Fragment {
                 if (!rep.isEmpty()) {
                     String correctResponse =  exerciceViewModel.getResultOfQuestion();
 
-                    if( exerciceViewModel.checkResponse(rep, correctResponse) ) {
+                    if( !exerciceViewModel.checkResponse(rep, correctResponse) ) {
                         Log.d(TAG, "Response is wrong ");
                         //this is use to display that the toast message
                         exerciceViewModel.updateNumberOfError();
                     }
+                    //Log.d(TAG, "Response is correct");
                     //the observe variable is put to false before switching question
                     //otherwise the question will be check for it's result
                     // before the user can enter the response
