@@ -2,10 +2,13 @@ package com.example.arithmos.view;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +23,8 @@ import com.example.arithmos.databinding.FragmentDragAndDropBinding;
 import com.example.arithmos.view.childviewdraganddrop.SingleDropFragment;
 import com.example.arithmos.viewmodel.DragAndDropViewModel;
 import com.example.arithmos.viewmodel.ExerciceViewModel;
+
+import org.w3c.dom.Text;
 
 public class DragAndDropFragment extends Fragment {
 
@@ -51,6 +56,17 @@ public class DragAndDropFragment extends Fragment {
         int exerciseSelect = getArguments().getInt("exerciseSelect");
 
         int tableselect = getArguments().getInt("table");
+
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.customtoast,(ViewGroup)view.findViewById(R.id.toastfrag));
+
+        final Toast toast= new Toast(getContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        //TextView tv = layout.findViewById(R.id.info);
+        //tv.setText();
+
 
         //here we get the exercice "global" type like add, sub...
         String type = getArguments().getString("exeriseName");
@@ -93,9 +109,7 @@ public class DragAndDropFragment extends Fragment {
         });
 
         binding.helpButton2.setOnClickListener(v -> {
-            Log.d(TAG, "help is click");
-            Toast.makeText(getActivity(), "Pour Réussir l'exercice, il faut déplacer ce que le fermier te demande dans le panier",
-                    Toast.LENGTH_SHORT).show();
+            toast.show();
         });
 
 

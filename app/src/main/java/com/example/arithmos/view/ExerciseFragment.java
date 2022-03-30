@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -174,9 +176,16 @@ public class ExerciseFragment extends Fragment {
                     binding.editTextTextResponse.setText("");
                     showResponseDialog();
                 } else {
-                    Log.d(TAG, "user response is empty");
-                    Toast.makeText(getActivity(), "Une réponse ne peut pas etre vide !",
-                            Toast.LENGTH_LONG).show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.customtoast,(ViewGroup)view.findViewById(R.id.toastfrag));
+
+                    final Toast toast= new Toast(getContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    TextView tv = layout.findViewById(R.id.info);
+                    tv.setText("Une réponse ne peut pas etre vide !");
+                    toast.show();
                 }
             }
         });

@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.content.SharedPreferences;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,8 +48,15 @@ public class MainMenuFragment extends Fragment{
                 if (pref.getBoolean("add", true)) {
                     buttonOpenDialogClicked("add");
                 } else {
-                    Toast toast = Toast.makeText(getContext(),
-                            "Vous avez désactivé l'addition dans les paramètres", Toast.LENGTH_LONG);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.customtoast,(ViewGroup)view.findViewById(R.id.toastfrag));
+
+                    final Toast toast= new Toast(getContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    TextView tv = layout.findViewById(R.id.info);
+                    tv.setText("Vous avez désactivé l'addition dans les paramètres");
                     toast.show();
                 }
 
@@ -59,8 +68,15 @@ public class MainMenuFragment extends Fragment{
                 if (pref.getBoolean("sous", true)) {
                     buttonOpenDialogClicked("sous");
                 } else {
-                    Toast toast = Toast.makeText(getContext(),
-                            "Vous avez désactivé la soustraction dans les paramètres", Toast.LENGTH_LONG);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.customtoast,(ViewGroup)view.findViewById(R.id.toastfrag));
+
+                    final Toast toast= new Toast(getContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    TextView tv = layout.findViewById(R.id.info);
+                    tv.setText("Vous avez désactivé la soustraction dans les paramètres");
                     toast.show();
                 }
             }
@@ -71,8 +87,15 @@ public class MainMenuFragment extends Fragment{
                 if (pref.getBoolean("div", true)) {
                     buttonOpenDialogClicked("div");
                 } else {
-                    Toast toast = Toast.makeText(getContext(),
-                            "Vous avez désactivé la division dans les paramètres", Toast.LENGTH_LONG);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.customtoast,(ViewGroup)view.findViewById(R.id.toastfrag));
+
+                    final Toast toast= new Toast(getContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    TextView tv = layout.findViewById(R.id.info);
+                    tv.setText("Vous avez désactivé la division dans les paramètres");
                     toast.show();
                 }
             }
@@ -83,8 +106,15 @@ public class MainMenuFragment extends Fragment{
                 if (pref.getBoolean("mult", true)) {
                     buttonOpenDialogClicked("mult");
                 } else {
-                    Toast toast = Toast.makeText(getContext(),
-                            "Vous avez désactivé la multiplication dans les paramètres", Toast.LENGTH_LONG);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.customtoast,(ViewGroup)view.findViewById(R.id.toastfrag));
+
+                    final Toast toast= new Toast(getContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    TextView tv = layout.findViewById(R.id.info);
+                    tv.setText("Vous avez désactivé la multiplication dans les paramètres");
                     toast.show();
                 }
             }
