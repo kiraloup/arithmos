@@ -118,16 +118,31 @@ public class Utils {
         return res;
     }
 
-    public static int getTypeOfImages(String imageType) {
+    public static int getTypeOfImage(String imageType) {
         switch (imageType) {
             case "pomme":
+                Log.d("UTILS",  "pomme " );
                 return R.drawable.apple;
             case "moutons":
+                Log.d("UTILS",  "moutons " );
                 return R.drawable.sheep;
             case "rose":
+                Log.d("UTILS",  "rose" );
                 return R.drawable.rose;
             case "feuille":
+                Log.d("UTILS",  "feuille" );
                 return R.drawable.feuille;
+            default:
+                return -1;
+        }
+    }
+
+    public static int getIdImageBackground(String imageType) {
+        switch (imageType) {
+            case "pomme":
+                return R.drawable.panier;
+            case "moutons":
+                return R.drawable.enclot;
             default:
                 return -1;
         }

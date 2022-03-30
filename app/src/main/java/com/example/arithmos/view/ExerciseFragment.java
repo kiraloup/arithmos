@@ -108,7 +108,7 @@ public class ExerciseFragment extends Fragment {
         exerciceViewModel.currentQuestion.observe(getViewLifecycleOwner(), question -> {
             binding.textviewTitle.setText(question.getTitle());
             int[] arrayOfImage = exerciceViewModel.getArrayOfImages();
-            int TypeOfImage = Utils.getTypeOfImages(exerciceViewModel.getImagesTypes());
+            int TypeOfImage = Utils.getTypeOfImage(exerciceViewModel.getImagesTypes());
             Log.d(TAG, "Type of question is : " + exerciceViewModel.getImagesTypes());
 
             if(TypeOfImage != -1) {

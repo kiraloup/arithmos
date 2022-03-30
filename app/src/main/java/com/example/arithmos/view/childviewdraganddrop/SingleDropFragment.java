@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -68,10 +70,15 @@ public class SingleDropFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        int idImgTypes = Utils.getTypeOfImages(exerciceViewModel.getImagesTypes());
-        if(idImgTypes != -1) {
+        int idImgTypes = Utils.getTypeOfImage(exerciceViewModel.getImagesTypes());
+        int idImgTypesBackground = Utils.getIdImageBackground(exerciceViewModel.getImagesTypes());
+        Log.d("SingleDropFragment",  "idImgTypes " + exerciceViewModel.getImagesTypes());
+        Log.d("SingleDropFragment",  "idImgTypes " + idImgTypes);
+        Log.d("SingleDropFragment",  "idImgTypesBackground" + idImgTypesBackground);
 
-            createDropZone(idImgTypes);
+        if(idImgTypes != -1 && idImgTypesBackground != -1) {
+
+            createDropZone(idImgTypes, idImgTypesBackground);
 
             createDragZone(idImgTypes);
 
@@ -105,7 +112,7 @@ public class SingleDropFragment extends Fragment {
     }
 
 
-    private void createDropZone(int typeOfImage) {
+    private void createDropZone(int typeOfImage, int idImgTypesBackground) {
         gridViewDropZone = binding.gridViewDropZone;
 
         DragGridView dragGridView = new DragGridView(getContext());
@@ -114,6 +121,10 @@ public class SingleDropFragment extends Fragment {
         gridViewDropZone.setAdapter(dragGridView);
 
         gridViewDropZone.setNumColumns(2);
+
+        //change background base on the type of object
+        Drawable backgroundImage = ContextCompat.getDrawable(getContext(), idImgTypesBackground);
+        binding.constraintLayoutDropZone.setBackground(backgroundImage);
 
         binding.constraintLayoutDropZone.setOnDragListener((v,e) -> {
             switch (e.getAction()) {
