@@ -124,7 +124,7 @@ public class SingleDropFragment extends Fragment {
 
         //change background base on the type of object
         Drawable backgroundImage = ContextCompat.getDrawable(getContext(), idImgTypesBackground);
-        binding.constraintLayoutDropZone.setBackground(backgroundImage);
+        binding.gridViewDropZone.setBackground(backgroundImage);
 
         binding.constraintLayoutDropZone.setOnDragListener((v,e) -> {
             switch (e.getAction()) {

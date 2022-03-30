@@ -139,7 +139,9 @@ public class Utils {
 
     public static int getIdImageBackground(String imageType) {
         switch (imageType) {
-            case "pomme":
+            case "feuille":
+            case "rose":
+            case "pomme" :
                 return R.drawable.panier;
             case "moutons":
                 return R.drawable.enclot;
