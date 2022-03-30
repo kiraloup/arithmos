@@ -12,8 +12,8 @@
 
         <GridView
             android:id="@+id/gridViewDragAndDrop"
-            android:layout_width="182dp"
-            android:layout_height="111dp"
+            android:layout_width="103dp"
+            android:layout_height="178dp"
             android:layout_marginTop="32dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"

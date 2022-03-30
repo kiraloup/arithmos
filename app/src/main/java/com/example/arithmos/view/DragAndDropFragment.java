@@ -50,6 +50,8 @@ public class DragAndDropFragment extends Fragment {
         //simple or drag and drop
         int exerciseSelect = getArguments().getInt("exerciseSelect");
 
+        int tableselect = getArguments().getInt("table");
+
         //here we get the exercice "global" type like add, sub...
         String type = getArguments().getString("exeriseName");
 
@@ -66,7 +68,7 @@ public class DragAndDropFragment extends Fragment {
             }
         });
 
-        exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
+        exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType, tableselect);
 
         exerciceViewModel.currentQuestion.observe(getViewLifecycleOwner(), question -> {
             binding.textviewTitle.setText(question.getTitle());

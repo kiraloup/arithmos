@@ -146,4 +146,16 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="parametre">Parametre</string>
     <string name="activer_d_sactiver_les_exercices">Activer / Désactiver les exercices</string>
+    <string name="table_de_multiplication">Table de multiplication</string>
+    <string name="choisir_une_table_travailler">Choisir une table à travailler</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="toutes_les_tables">toutes les tables</string>
 </resources>

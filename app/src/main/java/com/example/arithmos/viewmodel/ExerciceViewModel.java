@@ -63,7 +63,7 @@ public class ExerciceViewModel extends AndroidViewModel {
      * @param select : the response must be in number or letter
      * @param type :  exercise can be simple MCQ or in drag and drop style
      */
-    public void createExercice(String typeOfExercice, int difficulty, int select, int type) {
+    public void createExercice(String typeOfExercice, int difficulty, int select, int type, int table) {
 
         TypeOfExercice selectExercise = select == 1 ? TypeOfExercice.NUMBER : TypeOfExercice.LETTER;
 
@@ -83,13 +83,13 @@ public class ExerciceViewModel extends AndroidViewModel {
 
         switch (typeOfExercice) {
             case "add":
-                exercice = new ExerciceAdd(difficulty, selectExercise, typeOfRes);
+                exercice = new ExerciceAdd(difficulty, selectExercise, typeOfRes, table);
                 break;
             case "sous":
                 exercice = new ExerciceSous(difficulty, selectExercise, typeOfRes);
                 break;
             case "mult":
-                exercice = new ExerciceMult(difficulty, selectExercise, typeOfRes);
+                exercice = new ExerciceMult(difficulty, selectExercise, typeOfRes, table);
                 break;
             case "div":
                 exercice = new ExerciceDiv(difficulty, selectExercise, typeOfRes);

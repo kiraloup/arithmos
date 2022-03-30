@@ -119,7 +119,7 @@ public class MainMenuFragment extends Fragment{
         DialogFragment dialog = null;
 
         if (!exeriseName.equals("random")){
-            dialog = new ExerciseParameterDialog();
+            dialog = new ExerciseParameterDialog(exeriseName);
             //using a result listener to pass data from dialog fragment to this one
             //the dialog is a child of this fragment so we must carefull to use  getChildFragmentManager
             //otherwise this is the same when we receive the result
@@ -134,6 +134,8 @@ public class MainMenuFragment extends Fragment{
                             int exerciseDifficulty = bundle.getInt("exerciseDifficulty");
                             //simple or drag and drop
                             int exerciseSelect = bundle.getInt("exerciseSelect");
+
+                            int tableSelect = bundle.getInt("table");
                             //here we add if the exercice "global" type like add, sub...
                             bundle.putString("exeriseName", exeriseName);
 

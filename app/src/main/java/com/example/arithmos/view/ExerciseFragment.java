@@ -1,9 +1,12 @@
 package com.example.arithmos.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -41,6 +44,7 @@ public class ExerciseFragment extends Fragment {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -55,6 +59,7 @@ public class ExerciseFragment extends Fragment {
         //simple or drag and drop
         int exerciseSelect = getArguments().getInt("exerciseSelect");
 
+        int tableSelect = getArguments().getInt("table");
         //here we get the exercice "global" type like add, sub...
         String type = getArguments().getString("exeriseName");
 
@@ -77,7 +82,7 @@ public class ExerciseFragment extends Fragment {
         }*/
 
         //we create the exercise that contains the question that will be display
-        exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
+        exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType,tableSelect);
 
         //The observer job is to observe the question and change what is display on the view
         //for that we use a mutable live data in the viewmodel
@@ -134,6 +139,8 @@ public class ExerciseFragment extends Fragment {
                 }
             }
         });
+
+
 
         exerciceViewModel.checkCurrentQuestion.observe(getViewLifecycleOwner(), checkQuestion -> {
             if(checkQuestion) {
