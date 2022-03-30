@@ -42,12 +42,17 @@ public class ExerciceDiv extends AbstractExercice {
                     res += randomNumber;
                     nb++;
                 } else {
-                    randomNumber = Utils.generateInteger(minSecond, maxSecond);
-                    while (res % randomNumber != 0){
+                    if (!Utils.isPrime(res)){
                         randomNumber = Utils.generateInteger(minSecond, maxSecond);
+                        while (res % randomNumber != 0 || res == randomNumber){
+                            randomNumber = randomNumber - 1;
+                        }
+                        res = res / randomNumber;
+                        nb++;
+                    } else {
+                        randomNumber = res;
                     }
-                    res = res / randomNumber;
-                    nb++;
+
                 }
 
 
@@ -57,6 +62,7 @@ public class ExerciceDiv extends AbstractExercice {
             }
             i++;
         }
+
         q.setTitle(modifiedTitle.toString());
         q.setResult(res);
 
@@ -87,7 +93,7 @@ public class ExerciceDiv extends AbstractExercice {
             res[0] = 2;
             res[1] = 10;
         } else if (difficulty == 3){
-            res[0] = 2;
+            res[0] = 1;
             res[1] = 100;
         }
         return res;

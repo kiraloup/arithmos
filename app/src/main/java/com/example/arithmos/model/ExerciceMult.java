@@ -6,9 +6,17 @@ import java.util.List;
 
 public class ExerciceMult extends AbstractExercice {
     private final String TAG = "EXERCICEMULT";
+    private int table;
+
+    public ExerciceMult(int difficulty, TypeOfExercice typeOfExercice, int typeOfRep, int table) {
+        super(difficulty, typeOfExercice, typeOfRep);
+        this.table = table;
+    }
+
 
     public ExerciceMult(int difficulty, TypeOfExercice typeOfExercice, int typeOfRep) {
         super(difficulty, typeOfExercice, typeOfRep);
+        this.table = 0;
     }
 
     @Override
@@ -29,27 +37,38 @@ public class ExerciceMult extends AbstractExercice {
         min = range[0];
         max = range[1];
 
-        while(i < modifiedTitle.length()) {
-            if(modifiedTitle.charAt(i) == '#') {
-                int randomNumber = Utils.generateInteger(min, max);
+        if (table == 0){
+            while(i < modifiedTitle.length()) {
+                if(modifiedTitle.charAt(i) == '#') {
+                    int randomNumber = Utils.generateInteger(min, max);
+                    res  = res * randomNumber;
+                    modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
 
-                res  = res * randomNumber;
-                int nb = 0;
-                boolean flag = false;
-
-                
-                if (flag) {
-                    modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber/(2*nb)));
-                } else {
+                }
+                i++;
+            }
+            q.setTitle(modifiedTitle.toString());
+            q.setResult(res);
+        } else {
+            int valnb = 0;
+            while(i < modifiedTitle.length()) {
+                if(modifiedTitle.charAt(i) == '#') {
+                    int randomNumber;
+                    if (valnb == 0){
+                        valnb ++;
+                        randomNumber = table;
+                    } else {
+                        randomNumber = Utils.generateInteger(min, max);
+                    }
+                    res  = res * randomNumber;
                     modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
                 }
-                flag = false;
-
+                i++;
             }
-            i++;
+            q.setTitle(modifiedTitle.toString());
+            q.setResult(res);
         }
-        q.setTitle(modifiedTitle.toString());
-        q.setResult(res);
+
 
         return q;
     }

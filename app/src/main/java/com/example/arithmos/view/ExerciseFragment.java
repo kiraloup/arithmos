@@ -1,12 +1,17 @@
 package com.example.arithmos.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +46,7 @@ public class ExerciseFragment extends Fragment {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -55,6 +61,7 @@ public class ExerciseFragment extends Fragment {
         //simple or drag and drop
         int exerciseSelect = getArguments().getInt("exerciseSelect");
 
+        int tableSelect = getArguments().getInt("table");
         //here we get the exercice "global" type like add, sub...
         String type = getArguments().getString("exeriseName");
 
@@ -89,8 +96,10 @@ public class ExerciseFragment extends Fragment {
 
         } else {
             //we create the exercise that contains the question that will be display
-            exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType);
+            exerciceViewModel.createExercice(type, exerciseDifficulty, exerciseSelect, exerciseType,tableSelect);
         }
+
+
 
 
 
@@ -123,7 +132,7 @@ public class ExerciseFragment extends Fragment {
 
         exerciceViewModel.isLoadingOK.observe(getViewLifecycleOwner(), isLoadingOk -> {
             if(!isLoadingOk) {
-                Toast.makeText(getActivity(), "Error when loadinng question",
+                Toast.makeText(getActivity(), "Error when loading question",
                         Toast.LENGTH_LONG).show();
             } else {
                 Log.d(TAG, "Loading is ok");
@@ -150,6 +159,8 @@ public class ExerciseFragment extends Fragment {
             }
         });
 
+
+
         exerciceViewModel.checkCurrentQuestion.observe(getViewLifecycleOwner(), checkQuestion -> {
             if(checkQuestion) {
                 String rep = binding.editTextTextResponse.getText().toString().toLowerCase().replaceAll("\\s+$", "").
@@ -172,9 +183,16 @@ public class ExerciseFragment extends Fragment {
                     binding.editTextTextResponse.setText("");
                     showResponseDialog();
                 } else {
-                    Log.d(TAG, "user response is empty");
-                    Toast.makeText(getActivity(), "Une réponse ne peut pas etre vide !",
-                            Toast.LENGTH_LONG).show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.customtoast,(ViewGroup)view.findViewById(R.id.toastfrag));
+
+                    final Toast toast= new Toast(getContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    TextView tv = layout.findViewById(R.id.info);
+                    tv.setText("Une réponse ne peut pas etre vide !");
+                    toast.show();
                 }
             }
         });

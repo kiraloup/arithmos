@@ -6,8 +6,16 @@ import java.util.List;
 
 public class ExerciceAdd extends AbstractExercice {
 
+    private int table;
+
+    public ExerciceAdd(int difficulty, TypeOfExercice typeOfExercice,int typeOfRep,int table) {
+        super(difficulty, typeOfExercice, typeOfRep);
+        this.table = table;
+    }
+
     public ExerciceAdd(int difficulty, TypeOfExercice typeOfExercice,int typeOfRep) {
         super(difficulty, typeOfExercice, typeOfRep);
+        this.table = 0;
     }
 
 
@@ -27,13 +35,16 @@ public class ExerciceAdd extends AbstractExercice {
 
     private Question createQuestionNumber(Question q, int difficulty) {
 
+
+
         StringBuilder modifiedTitle = new StringBuilder(q.getTitle());
         int res = 0, i = 0, min = 0, max = 0;
 
         int[] range = getRange(difficulty);
         min = range[0];
         max = range[1];
-
+        //cas toutes les tables
+        if (table == 0){
         while(i < modifiedTitle.length()) {
             if(modifiedTitle.charAt(i) == '#') {
                 int randomNumber = Utils.generateInteger(min, max);
@@ -59,8 +70,28 @@ public class ExerciceAdd extends AbstractExercice {
         }
         q.setTitle(modifiedTitle.toString());
         q.setResult(res);
-        System.out.println("res ="+res);
+        // cas table précise
+        } else {
+            int nb = 0;
+            while(i < modifiedTitle.length()) {
+                if(modifiedTitle.charAt(i) == '#') {
+                    if (nb == 0) {
+                        nb ++;
+                        int randomNumber = table;
+                        modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
+                        res += randomNumber;
+                    }else {
+                        int randomNumber = Utils.generateInteger(min, max);
+                        modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
+                        res += randomNumber;
+                    }
 
+                }
+                i++;
+            }
+            q.setTitle(modifiedTitle.toString());
+            q.setResult(res);
+        }
         return q;
     }
 
