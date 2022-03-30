@@ -89,7 +89,7 @@
         android:layout_marginBottom="156dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/enclot" />
+        app:srcCompat="@drawable/enclotmouton" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -109,7 +109,7 @@
         android:layout_marginBottom="156dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/enclot" />
+        app:srcCompat="@drawable/enclotmouton" />
 
     <ImageView
         android:id="@+id/imageView5"

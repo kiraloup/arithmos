@@ -144,7 +144,7 @@ public class Utils {
             case "pomme" :
                 return R.drawable.panier;
             case "moutons":
-                return R.drawable.enclot;
+                return R.drawable.enclotmouton;
             default:
                 return -1;
         }

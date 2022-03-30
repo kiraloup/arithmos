@@ -142,12 +142,14 @@ public class ExerciceViewModel extends AndroidViewModel {
         SharedPreferences pref = getApplication().getSharedPreferences("MyPref", 0);
 
         //if none of the exercise are activate we do nothing
-        if(pref.getBoolean("add", false)
+        /*if(pref.getBoolean("add", false)
                 && pref.getBoolean("sous", false)
                 && pref.getBoolean("mult", false)
                 && pref.getBoolean("div", false)) {
+            Log.d(TAG,"ici le ro");
+            Log.d(TAG,""+pref.getBoolean("add", true));
             return;
-        }
+        }*/
 
 
         userRepository.geAlltUserStat(result -> {

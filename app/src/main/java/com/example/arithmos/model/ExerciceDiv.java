@@ -43,14 +43,24 @@ public class ExerciceDiv extends AbstractExercice {
                     nb++;
                 } else {
                     if (!Utils.isPrime(res)){
-                        randomNumber = Utils.generateInteger(minSecond, maxSecond);
-                        while (res % randomNumber != 0 || res == randomNumber){
-                            randomNumber = randomNumber - 1;
+                        if (difficulty == 1) {
+                            randomNumber = res-1;
+                            while (res % randomNumber != 0 || res == randomNumber){
+                                randomNumber = randomNumber - 1;
+                            }
+                            res = res / randomNumber;
+                            nb++;
+                        } else {
+                            randomNumber = Utils.generateInteger(minSecond, maxSecond);
+                            while (res % randomNumber != 0 || res == randomNumber){
+                                randomNumber = randomNumber - 1;
+                            }
+                            res = res / randomNumber;
+                            nb++;
                         }
-                        res = res / randomNumber;
-                        nb++;
                     } else {
                         randomNumber = res;
+                        res = 1;
                     }
 
                 }

@@ -48,6 +48,7 @@ public class SettingFragment extends Fragment {
         multSwitch.setChecked(pref.getBoolean("mult", true));
         divSwitch.setChecked(pref.getBoolean("div", true));
 
+
         addSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
