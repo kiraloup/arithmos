@@ -25,6 +25,7 @@ public class ExerciseParameterDialog extends DialogFragment {
 
     private RadioButton radioButton_facile;
     private RadioButton radioButton_moyen;
+    private RadioButton radioButton_difficile;
 
     private RadioButton radioButton_chiffres;
 
@@ -61,6 +62,7 @@ public class ExerciseParameterDialog extends DialogFragment {
 
         radioButton_facile =  (RadioButton) view.findViewById(R.id.facile);
         radioButton_moyen =  (RadioButton) view.findViewById(R.id.moyen);
+        radioButton_difficile = (RadioButton) view.findViewById(R.id.difficile);
 
         radioButton_chiffres =  (RadioButton) view.findViewById(R.id.chiffre);
 
@@ -69,6 +71,12 @@ public class ExerciseParameterDialog extends DialogFragment {
         if (!(exericeName.equals("add") ||exericeName.equals("mult"))){
             radioGroup_table.setVisibility(View.GONE);
             textView_table.setVisibility(View.GONE);
+        }
+
+        if ((exericeName.equals("div") || exericeName.equals("mult"))){
+            radioButton_facile.setText("Facile (chiffres)");
+            radioButton_moyen.setText("Moyen (nombre < 100)");
+            radioButton_difficile.setText("Difficile (nombres < 1000)");
         }
 
         radioButton_toutes_tables = (RadioButton) view.findViewById(R.id.rr);
