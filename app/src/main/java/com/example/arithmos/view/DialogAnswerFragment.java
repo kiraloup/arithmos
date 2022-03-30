@@ -74,14 +74,29 @@ public class DialogAnswerFragment extends DialogFragment {
             //the builder view but the fragment which is null
             ImageView imageView = view.findViewById(R.id.imageRep);
             TextView textView = view.findViewById(R.id.TextViewDialogResponse);
+
+            int val = Integer.parseInt(exerciceViewModel.getResultOfQuestion());
+
             if (aBoolean) {
                 textView.setText("Bravo ! Tu as la bonne réponse !");
+
+                if(exerciceViewModel.getDisplayAnswer()) {
+                    textView.append(" Mais attention erreur la bonne réponse est "
+                            + Utils.convertIntToStringMillier(val));
+
+                    String userResponse = exerciceViewModel.getUserResponse();
+
+                    if(userResponse != null) {
+                        textView.append(" et tu as écris : " + userResponse);
+                    }
+
+                    exerciceViewModel.setDisplayAnswer(false);
+                }
                 imageView.setImageResource(R.drawable.good_rep);
             } else {
                 if(exerciceViewModel.getExercice().getTypeOfExercice() == TypeOfExercice.NUMBER) {
                     textView.append(" " + exerciceViewModel.getResultOfQuestion());
                 } else {
-                    int val = Integer.parseInt(exerciceViewModel.getResultOfQuestion());
                     textView.append(" " + Utils.convertIntToStringMillier(val));
                 }
 
