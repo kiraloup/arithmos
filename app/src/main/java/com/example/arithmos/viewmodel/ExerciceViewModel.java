@@ -33,6 +33,12 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     private String nameTypeOfExercise;
 
+    //boolean to let the dialog display the right answer or not
+    private Boolean displayAnswer = false;
+
+    //we will use this to display the user response in the dialog
+    private String userResponse;
+
     //For debug only
     private final String TAG = "EXERCICEVIEWMODEL";
 
@@ -48,6 +54,7 @@ public class ExerciceViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> isLoadingOK = new MutableLiveData<>();
     //is user result ok
     public MutableLiveData<Boolean> isResponseCorrect = new MutableLiveData<>();
+
 
 
     public ExerciceViewModel(@NonNull Application application) {
@@ -172,6 +179,10 @@ public class ExerciceViewModel extends AndroidViewModel {
             Log.d(TAG, "ratio   : "  + ratio);
 
             responseBool = ratio < 0.3;
+
+            displayAnswer = ratio > 0.0;
+
+            userResponse = result;
         } else {
             int res = Integer.parseInt(result);
 
@@ -180,7 +191,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
         isResponseCorrect.postValue(responseBool);
 
-        Log.d(TAG, "responseBool  : "  + isResponseCorrect.getValue());
+        Log.d(TAG, "responseBool  : "  + responseBool);
 
         return responseBool;
     }
@@ -232,5 +243,21 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     public String getImagesTypes() {
         return Objects.requireNonNull(currentQuestion.getValue()).getImageType();
+    }
+
+    public Boolean getDisplayAnswer() {
+        return displayAnswer;
+    }
+
+    public void setDisplayAnswer(Boolean displayAnswer) {
+        this.displayAnswer = displayAnswer;
+    }
+
+    public String getUserResponse() {
+        return userResponse;
+    }
+
+    public void setUserResponse(String userResponse) {
+        this.userResponse = userResponse;
     }
 }
