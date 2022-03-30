@@ -126,7 +126,7 @@ public class ExerciseFragment extends Fragment {
 
         exerciceViewModel.isLoadingOK.observe(getViewLifecycleOwner(), isLoadingOk -> {
             if(!isLoadingOk) {
-                Toast.makeText(getActivity(), "Error when loadinng question",
+                Toast.makeText(getActivity(), "Error when loading question",
                         Toast.LENGTH_LONG).show();
             } else {
                 Log.d(TAG, "Loading is ok");
