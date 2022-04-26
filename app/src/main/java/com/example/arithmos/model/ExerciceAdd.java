@@ -23,9 +23,8 @@ public class ExerciceAdd extends AbstractExercice {
     public void createAllQuestion(List<Question> questions, int difficulty) {
 
         for(int i = 0; i < questions.size(); i++) {
-            if(typeOfExercice == TypeOfExercice.NUMBER) {
-                questions.set(i, createQuestionNumber(questions.get(i),difficulty));
-            } /*else {
+            questions.set(i, createQuestionNumber(questions.get(i),difficulty));
+            /*else {
                 createQuestionString(question);
             }*/
         }

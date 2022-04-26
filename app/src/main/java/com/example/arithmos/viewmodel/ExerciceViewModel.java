@@ -108,6 +108,8 @@ public class ExerciceViewModel extends AndroidViewModel {
             case "div":
                 exercice = new ExerciceDiv(difficulty, selectExercise, typeOfRes);
                 break;
+            default:
+                exercice = new ExerciceAdd(difficulty, selectExercise, typeOfRes, table);
         }
 
         //we use a callback to create the exercice
