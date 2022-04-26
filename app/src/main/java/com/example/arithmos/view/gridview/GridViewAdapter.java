@@ -19,7 +19,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     private final Context context;
     //this array contains all the id
-    public ArrayList<Integer> imageID = new ArrayList<>();
+    public ArrayList<GridItemClickOnlyHolder> imageID = new ArrayList<>();
 
     public int idImageBackground;
 
@@ -29,19 +29,19 @@ public class GridViewAdapter extends BaseAdapter {
             for(int j = 0; j < listOfApple[i]; j++) {
                 switch (i) {
                     case 0:
-                        imageID.add(R.drawable.mille);
+                        imageID.add(new GridItemClickOnlyHolder(R.drawable.mille, false));
                         break;
                     case 1:
-                        imageID.add(R.drawable.cents);
+                        imageID.add(new GridItemClickOnlyHolder(R.drawable.cents, false));
                         break;
                     case 2:
-                        imageID.add(R.drawable.cinquante);
+                        imageID.add(new GridItemClickOnlyHolder(R.drawable.cinquante, false));
                         break;
                     case 3:
-                        imageID.add(R.drawable.dix);
+                        imageID.add(new GridItemClickOnlyHolder(R.drawable.dix, false));
                         break;
                     default:
-                        imageID.add(R.drawable.un);
+                        imageID.add(new GridItemClickOnlyHolder(R.drawable.un, false));
                 }
 
             }
@@ -70,7 +70,7 @@ public class GridViewAdapter extends BaseAdapter {
         ImageView imageView = new ImageView(this.context);
         Drawable backgroundImage = ContextCompat.getDrawable(context, idImageBackground);
         imageView.setBackground(backgroundImage);
-        imageView.setImageResource(imageID.get(position));
+        imageView.setImageResource(imageID.get(position).imgId);
         return imageView;
     }
 }

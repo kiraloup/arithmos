@@ -1,16 +1,24 @@
 package com.example.arithmos.view;
 
 import android.annotation.SuppressLint;
+import android.graphics.BlendModeColorFilter;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Display;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +30,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentSecondBinding;
 import com.example.arithmos.utils.Utils;
+import com.example.arithmos.view.gridview.DragGridView;
+import com.example.arithmos.view.gridview.GridItemClickOnlyHolder;
 import com.example.arithmos.view.gridview.GridViewAdapter;
 import com.example.arithmos.viewmodel.ExerciceViewModel;
 
@@ -116,6 +126,31 @@ public class ExerciseFragment extends Fragment {
                 binding.gridViewApple.setAdapter(new GridViewAdapter(getContext(),
                         arrayOfImage, TypeOfImage));
                 binding.gridViewApple.setNumColumns(2);
+
+                binding.gridViewApple.setOnItemClickListener((parent, view1, position, id) -> {
+                    Log.d(TAG, "item click at position " + position);
+
+                    GridViewAdapter gridViewAdapter =
+                            (GridViewAdapter) binding.gridViewApple.getAdapter();
+
+                    GridItemClickOnlyHolder item =
+                            (GridItemClickOnlyHolder) gridViewAdapter.getItem(position);
+
+                    ImageView currentImg = (ImageView) view1;
+
+                    //we add a filter on the image to tell that it's selected
+                    if (!item.isHighlight) {
+                        currentImg.setColorFilter(Color.argb(100, 0, 255, 255),
+                                PorterDuff.Mode.DARKEN);
+                    } else {
+                        currentImg.clearColorFilter();
+                    }
+
+                    //in all case we do the opposite of what was done
+                    item.isHighlight = !item.isHighlight;
+
+                    currentImg.invalidate();
+                });
             } else {
                 Log.d(TAG, "Error when loading the type of images");
             }
@@ -123,8 +158,8 @@ public class ExerciseFragment extends Fragment {
 
         //we observe a boolean that will tell us is the exercise is finish
         //if this is the case we will change to the finish screen
-        exerciceViewModel.isExerciceFinish.observe(getViewLifecycleOwner(), isExerciceFinish -> {
-            if(isExerciceFinish) {
+        exerciceViewModel.isExerciceFinish.observe(getViewLifecycleOwner(), isExerciseFinish -> {
+            if(isExerciseFinish) {
                 //NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
                 NavHostFragment.findNavController(ExerciseFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
