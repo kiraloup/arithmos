@@ -3,20 +3,22 @@ package com.example.arithmos.view;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.arithmos.R;
+
+import java.util.ArrayList;
 
 public class ExerciseParameterDialog extends DialogFragment {
 
@@ -29,15 +31,15 @@ public class ExerciseParameterDialog extends DialogFragment {
 
     private RadioButton radioButton_chiffres;
 
-    private RadioButton radioButton_toutes_tables;
-    private RadioButton radioButton_1;
-    private RadioButton radioButton_2;
-    private RadioButton radioButton_3;
-    private RadioButton radioButton_4;
-    private RadioButton radioButton_5;
-    private RadioButton radioButton_6;
-    private RadioButton radioButton_7;
-    private RadioButton radioButton_8;
+    private CheckBox radioButton_1;
+    private CheckBox radioButton_2;
+    private CheckBox radioButton_3;
+    private CheckBox radioButton_4;
+    private CheckBox radioButton_5;
+    private CheckBox radioButton_6;
+    private CheckBox radioButton_7;
+    private CheckBox radioButton_8;
+    private CheckBox radioButton_9;
 
     private final String exericeName;
 
@@ -79,15 +81,15 @@ public class ExerciseParameterDialog extends DialogFragment {
             radioButton_difficile.setText("Difficile (nombres < 1000)");
         }
 
-        radioButton_toutes_tables = (RadioButton) view.findViewById(R.id.rr);
-        radioButton_1 = (RadioButton) view.findViewById(R.id.r1);
-        radioButton_2 = (RadioButton) view.findViewById(R.id.r2);
-        radioButton_3 = (RadioButton) view.findViewById(R.id.r3);
-        radioButton_4 = (RadioButton) view.findViewById(R.id.r4);
-        radioButton_5 = (RadioButton) view.findViewById(R.id.r5);
-        radioButton_6 = (RadioButton) view.findViewById(R.id.r6);
-        radioButton_7 = (RadioButton) view.findViewById(R.id.r7);
-        radioButton_8 = (RadioButton) view.findViewById(R.id.r8);
+        radioButton_1 = (CheckBox) view.findViewById(R.id.r1);
+        radioButton_2 = (CheckBox) view.findViewById(R.id.r2);
+        radioButton_3 = (CheckBox) view.findViewById(R.id.r3);
+        radioButton_4 = (CheckBox) view.findViewById(R.id.r4);
+        radioButton_5 = (CheckBox) view.findViewById(R.id.r5);
+        radioButton_6 = (CheckBox) view.findViewById(R.id.r6);
+        radioButton_7 = (CheckBox) view.findViewById(R.id.r7);
+        radioButton_8 = (CheckBox) view.findViewById(R.id.r8);
+        radioButton_9 = (CheckBox) view.findViewById(R.id.r9);
 
 
         builder.setView(view).setPositiveButton(
@@ -100,7 +102,7 @@ public class ExerciseParameterDialog extends DialogFragment {
                 resultParameter.putInt("exerciseType", checkExerciseType());
                 resultParameter.putInt("exerciseSelect", checkExerciseSelect());
                 resultParameter.putInt("exerciseDifficulty", checkDifficulty());
-                resultParameter.putInt("table", checkTable());
+                resultParameter.putIntegerArrayList("table", checkTable());
 
                 //We send to the parent the parameter to launch the exercice
                 getParentFragmentManager().setFragmentResult("exerciseParameter",
@@ -151,28 +153,42 @@ public class ExerciseParameterDialog extends DialogFragment {
 
     }
 
-    public int checkTable() {
+    public ArrayList<Integer> checkTable() {
         //is the radio button check ?
-        if(radioButton_toutes_tables.isChecked()) {
-            return 0;
-        } else if (radioButton_1.isChecked()) {
-            return 1;
-        } else if (radioButton_2.isChecked()) {
-            return 2;
-        } else if (radioButton_3.isChecked()) {
-            return 3;
-        } else if (radioButton_4.isChecked()) {
-            return 4;
-        } else if (radioButton_5.isChecked()) {
-            return 5;
-        } else if (radioButton_6.isChecked()) {
-            return 6;
-        } else if (radioButton_7.isChecked()) {
-            return 7;
-        }else if (radioButton_8.isChecked()) {
-            return 8;
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        if (radioButton_1.isChecked() && radioButton_2.isChecked() && radioButton_3.isChecked() && radioButton_4.isChecked()
+                && radioButton_5.isChecked() && radioButton_6.isChecked() && radioButton_7.isChecked() && radioButton_8.isChecked()
+                && radioButton_9.isChecked()) {
+            list.add(0);
         } else {
-            return 9;
+            if (radioButton_1.isChecked()) {
+                list.add(1);
+            }
+            if (radioButton_2.isChecked()) {
+                list.add(2);
+            }
+            if (radioButton_3.isChecked()) {
+                list.add(3);
+            }
+            if (radioButton_4.isChecked()) {
+                list.add(4);
+            }
+            if (radioButton_5.isChecked()) {
+                list.add(5);
+            }
+            if (radioButton_6.isChecked()) {
+                list.add(6);
+            }
+            if (radioButton_7.isChecked()) {
+                list.add(7);
+            }
+            if (radioButton_8.isChecked()) {
+                list.add(8);
+            }
+            if (radioButton_9.isChecked()) {
+                list.add(9);
         }
+    }
+        return list;
     }
 }

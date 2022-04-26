@@ -98,7 +98,7 @@ public abstract class RoomDatabaseA extends RoomDatabase {
                         "sous", 2, "rose"));
                 dao.insert(new Question("Cet arbustre avait #1 feuilles en été, il ne lui en reste plus que #2 en automne, combien sont tombé ? ",
                         "sous", 2, "feuille"));
-                dao.insert(new Question("L'année dernière le fermier avait #1 moutons il en a racheté et en a maintenant #2 fois plus, combien sont tombé ? ",
+                dao.insert(new Question("L'année dernière le fermier avait #1 moutons il en a racheté et a multiplié son nombre de moutons par #2 , combien sont tombé ? ",
                         "mult", 2, "moutons"));
                 dao.insert(new Question("Cette arbre avait #1 feuilles, son nombre de feuille à été divisé par #2, combien sont tombé ? ",
                         "div", 2, "feuille"));

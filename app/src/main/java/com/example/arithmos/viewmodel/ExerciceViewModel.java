@@ -24,6 +24,7 @@ import com.example.arithmos.model.Question;
 import com.example.arithmos.model.TypeOfExercice;
 import com.example.arithmos.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -77,7 +78,7 @@ public class ExerciceViewModel extends AndroidViewModel {
      * @param select : the response must be in number or letter
      * @param type :  exercise can be simple MCQ or in drag and drop style
      */
-    public void createExercice(String typeOfExercice, int difficulty, int select, int type, int table) {
+    public void createExercice(String typeOfExercice, int difficulty, int select, int type, ArrayList<Integer> table) {
 
         TypeOfExercice selectExercise = select == 1 ? TypeOfExercice.NUMBER : TypeOfExercice.LETTER;
 
