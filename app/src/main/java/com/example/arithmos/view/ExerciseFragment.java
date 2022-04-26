@@ -35,6 +35,8 @@ import com.example.arithmos.view.gridview.GridItemClickOnlyHolder;
 import com.example.arithmos.view.gridview.GridViewAdapter;
 import com.example.arithmos.viewmodel.ExerciceViewModel;
 
+import java.util.ArrayList;
+
 public class ExerciseFragment extends Fragment {
 
     private FragmentSecondBinding binding;
@@ -71,7 +73,7 @@ public class ExerciseFragment extends Fragment {
         //simple or drag and drop
         int exerciseSelect = getArguments().getInt("exerciseSelect");
 
-        int tableSelect = getArguments().getInt("table");
+        ArrayList<Integer> tableSelect = getArguments().getIntegerArrayList("table");
         //here we get the exercice "global" type like add, sub...
         String type = getArguments().getString("exeriseName");
 

@@ -2,20 +2,21 @@ package com.example.arithmos.model;
 
 import com.example.arithmos.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciceAdd extends AbstractExercice {
 
-    private int table;
+    private ArrayList<Integer> table;
 
-    public ExerciceAdd(int difficulty, TypeOfExercice typeOfExercice,int typeOfRep,int table) {
+    public ExerciceAdd(int difficulty, TypeOfExercice typeOfExercice, int typeOfRep, ArrayList<Integer> table) {
         super(difficulty, typeOfExercice, typeOfRep);
         this.table = table;
     }
 
     public ExerciceAdd(int difficulty, TypeOfExercice typeOfExercice,int typeOfRep) {
         super(difficulty, typeOfExercice, typeOfRep);
-        this.table = 0;
+        this.table = null;
     }
 
 
@@ -43,7 +44,7 @@ public class ExerciceAdd extends AbstractExercice {
         min = range[0];
         max = range[1];
         //cas toutes les tables
-        if (table == 0){
+        if (table.get(0) == 0){
         while(i < modifiedTitle.length()) {
             if(modifiedTitle.charAt(i) == '#') {
                 int randomNumber = Utils.generateInteger(min, max);
@@ -71,12 +72,14 @@ public class ExerciceAdd extends AbstractExercice {
         q.setResult(res);
         // cas table précise
         } else {
+            int size_table = table.size()-1;
+            int random_in_table = Utils.generateInteger(0,size_table);
             int nb = 0;
             while(i < modifiedTitle.length()) {
                 if(modifiedTitle.charAt(i) == '#') {
                     if (nb == 0) {
                         nb ++;
-                        int randomNumber = table;
+                        int randomNumber = table.get(random_in_table);
                         modifiedTitle.replace(i, i + 2, String.valueOf(randomNumber));
                         res += randomNumber;
                     }else {

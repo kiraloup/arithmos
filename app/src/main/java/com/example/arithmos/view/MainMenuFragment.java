@@ -21,6 +21,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.arithmos.R;
 import com.example.arithmos.databinding.FragmentFirstBinding;
 
+import java.util.ArrayList;
+
 public class MainMenuFragment extends Fragment{
 
     private FragmentFirstBinding binding;
@@ -180,7 +182,7 @@ public class MainMenuFragment extends Fragment{
                             //simple or drag and drop
                             int exerciseSelect = bundle.getInt("exerciseSelect");
 
-                            int tableSelect = bundle.getInt("table");
+                            ArrayList<Integer> tableSelect = bundle.getIntegerArrayList("table");
                             //here we add if the exercice "global" type like add, sub...
                             bundle.putString("exeriseName", exeriseName);
 

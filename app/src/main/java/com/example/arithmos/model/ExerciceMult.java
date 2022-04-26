@@ -2,13 +2,14 @@ package com.example.arithmos.model;
 
 import com.example.arithmos.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciceMult extends AbstractExercice {
     private final String TAG = "EXERCICEMULT";
-    private int table;
+    private ArrayList<Integer> table;
 
-    public ExerciceMult(int difficulty, TypeOfExercice typeOfExercice, int typeOfRep, int table) {
+    public ExerciceMult(int difficulty, TypeOfExercice typeOfExercice, int typeOfRep, ArrayList<Integer> table) {
         super(difficulty, typeOfExercice, typeOfRep);
         this.table = table;
     }
@@ -16,7 +17,7 @@ public class ExerciceMult extends AbstractExercice {
 
     public ExerciceMult(int difficulty, TypeOfExercice typeOfExercice, int typeOfRep) {
         super(difficulty, typeOfExercice, typeOfRep);
-        this.table = 0;
+        this.table = null;
     }
 
     @Override
@@ -37,7 +38,7 @@ public class ExerciceMult extends AbstractExercice {
         min = range[0];
         max = range[1];
 
-        if (table == 0){
+        if (table.get(0) == 0){
             while(i < modifiedTitle.length()) {
                 if(modifiedTitle.charAt(i) == '#') {
                     int randomNumber = Utils.generateInteger(min, max);
@@ -50,13 +51,18 @@ public class ExerciceMult extends AbstractExercice {
             q.setTitle(modifiedTitle.toString());
             q.setResult(res);
         } else {
+            int size_table = table.size()-1;
+            System.out.println("tablesize = "+size_table);
+            int random_in_table = Utils.generateInteger(0,size_table);
+
             int valnb = 0;
             while(i < modifiedTitle.length()) {
                 if(modifiedTitle.charAt(i) == '#') {
                     int randomNumber;
                     if (valnb == 0){
                         valnb ++;
-                        randomNumber = table;
+                        randomNumber = table.get(random_in_table);
+                        System.out.println("randomNumber = "+randomNumber);
                     } else {
                         randomNumber = Utils.generateInteger(min, max);
                     }

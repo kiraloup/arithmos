@@ -26,6 +26,8 @@ import com.example.arithmos.viewmodel.ExerciceViewModel;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class DragAndDropFragment extends Fragment {
 
     private FragmentDragAndDropBinding binding;
@@ -55,7 +57,7 @@ public class DragAndDropFragment extends Fragment {
         //simple or drag and drop
         int exerciseSelect = getArguments().getInt("exerciseSelect");
 
-        int tableselect = getArguments().getInt("table");
+        ArrayList<Integer> tableselect = getArguments().getIntegerArrayList("table");
 
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.customtoast,(ViewGroup)view.findViewById(R.id.toastfrag));
