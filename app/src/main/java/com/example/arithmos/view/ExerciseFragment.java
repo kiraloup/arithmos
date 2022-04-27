@@ -142,7 +142,7 @@ public class ExerciseFragment extends Fragment {
 
                     //we add a filter on the image to tell that it's selected
                     if (!item.isHighlight) {
-                        currentImg.setColorFilter(Color.argb(100, 0, 255, 255),
+                        currentImg.setColorFilter(Color.argb(99, 252, 184, 15),
                                 PorterDuff.Mode.DARKEN);
                     } else {
                         currentImg.clearColorFilter();
