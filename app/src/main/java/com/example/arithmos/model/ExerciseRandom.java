@@ -1,5 +1,8 @@
 package com.example.arithmos.model;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseRandom extends AbstractExercice{
@@ -28,15 +31,19 @@ public class ExerciseRandom extends AbstractExercice{
     public void createAllQuestion(List<Question> listQuestions, String typeOfQuestion) {
         AbstractExercice exercice;
 
+        ArrayList<Integer> table = new ArrayList<>();
+        table.add(0);
+
         switch (typeOfQuestion) {
             case "add":
-                exercice = new ExerciceAdd(difficulty, TypeOfExercice.NUMBER, 1);
+                Log.d(TAG, "ExerciseRandom ");
+                exercice = new ExerciceAdd(difficulty, TypeOfExercice.NUMBER, 1, table);
                 break;
             case "sous":
                 exercice = new ExerciceSous(difficulty, TypeOfExercice.NUMBER, 1);
                 break;
             case "mult":
-                exercice = new ExerciceMult(difficulty, TypeOfExercice.NUMBER, 1);
+                exercice = new ExerciceMult(difficulty, TypeOfExercice.NUMBER, 1, table);
                 break;
             case "div":
                 exercice = new ExerciceDiv(difficulty, TypeOfExercice.NUMBER, 1);
@@ -47,9 +54,6 @@ public class ExerciseRandom extends AbstractExercice{
 
         exercice.createAllQuestion(listQuestions, difficulty);
 
-
-
         this.listQuestion.addAll(exercice.getListQuestion());
-        exercice = null;
     }
 }

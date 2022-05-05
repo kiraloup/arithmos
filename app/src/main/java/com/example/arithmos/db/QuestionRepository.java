@@ -84,8 +84,13 @@ public class QuestionRepository {
                 try {
                     Log.d("QuestionRepository", "HE 2");
 
-                    Result<List<Question>> resultQuestion = new Result.Success<>(
-                            questionDAO.getQuestionByTypeAndLimited(typeOfExercise, limit));
+                    Log.d("QuestionRepository", "typeOfExercise" + typeOfExercise);
+                    Log.d("QuestionRepository", "limit" + limit);
+                    List<Question> listQuestion
+                            = questionDAO.getQuestionByTypeAndLimited(typeOfExercise, limit);
+
+                    Log.d("QuestionRepository", "listQuestion" + listQuestion);
+                    Result<List<Question>> resultQuestion = new Result.Success<>(listQuestion);
 
                     Log.d("QuestionRepository", "type of question after call "
                             + typeOfExercise);

@@ -138,7 +138,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
     }
 
-    public void createRandomExercise(int difficulty) {
+    public void createRandomExercise(int difficulty, ArrayList<Integer> tableSelect) {
 
         exercice = new ExerciseRandom(difficulty);
 
@@ -192,7 +192,7 @@ public class ExerciceViewModel extends AndroidViewModel {
 
                         if(r != 0 && pref.getBoolean(key, true)) {
                             //second callback
-                            questionRepository.getAllQuestionByTypeAndLimit(result1 -> {
+                            questionRepository.getTenQuestionType(result1 -> {
                                 if (result1 instanceof Result.Success) {
                                     List<Question> resData =
                                             ((Result.Success<List<Question>>) result1).data;
@@ -213,7 +213,7 @@ public class ExerciceViewModel extends AndroidViewModel {
                                             key);
                                 }
 
-                            }, key, r);
+                            }, key);
                         }
                     }
                 }

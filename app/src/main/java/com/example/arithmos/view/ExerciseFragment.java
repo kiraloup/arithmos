@@ -105,7 +105,7 @@ public class ExerciseFragment extends Fragment {
                 -sinon ok
              */
 
-            exerciceViewModel.createRandomExercise(exerciseDifficulty);
+            exerciceViewModel.createRandomExercise(exerciseDifficulty, tableSelect);
 
         } else {
             //we create the exercise that contains the question that will be display
