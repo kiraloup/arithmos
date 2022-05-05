@@ -78,10 +78,12 @@ public class DialogAnswerFragment extends DialogFragment {
             int val = Integer.parseInt(exerciceViewModel.getResultOfQuestion());
 
             if (aBoolean) {
+                imageView.setImageResource(R.drawable.good_rep);
                 textView.setText("Bravo ! Tu as la bonne réponse !");
 
                 if(exerciceViewModel.getDisplayAnswer()) {
-                    textView.append(" Mais attention erreur la bonne réponse est "
+                    imageView.setImageResource(R.drawable.accept_rep);
+                    textView.setText("Réponse accéptée, mais attention il y a erreur, la bonne réponse est "
                             + Utils.convertIntToStringMillier(val));
 
                     String userResponse = exerciceViewModel.getUserResponse();
@@ -92,7 +94,7 @@ public class DialogAnswerFragment extends DialogFragment {
 
                     exerciceViewModel.setDisplayAnswer(false);
                 }
-                imageView.setImageResource(R.drawable.good_rep);
+
             } else {
                 if(exerciceViewModel.getExercice().getTypeOfExercice() == TypeOfExercice.NUMBER) {
                     textView.append(" " + exerciceViewModel.getResultOfQuestion());
