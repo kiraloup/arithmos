@@ -4,23 +4,33 @@
 Arithmos
 
 ## Description
-This app was devellop during my first year of master at University Claude-Benard  Lyon 1 for the class logiciel educatif. It aims at teaching french childrend basic arithmetic using simple exercice base on their level. 
+This app was develop during my first year of master's degree at University Claude-Benard Lyon 1 for the course "logiciel educatif". It aims at teaching french children basic arithmetic using simple exercice base on their level.
+
+The app include : 
+### Code
+- MVVM architecture
+- ROOM Database
+- Use of nav graph
+- databinding
+
+### Features
+- User stats
+- Simple exercices and more complex with drag and drop
+- Difficulty
+- User help
+
 
 ## Visuals
-You can see a demo following this link : 
-https://www.youtube.com/watch?v=T9MQoK8zC0g&list=PLW3hlBH7lNJJw_5OkcbXRbIgiKD3Xdx86&index=4
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+You can see a demo following this link [on Youtube](https://www.youtube.com/watch?v=T9MQoK8zC0g&list=PLW3hlBH7lNJJw_5OkcbXRbIgiKD3Xdx86&index=4)
 
 ## Authors and acknowledgment
-# Authors 
+### Authors 
 Aralou Clément & Nicolas Vallot
-# acknowledgment
+### acknowledgment
 Stéphanie Jean-Daubias 
 
 ## License
-For open source projects, say how it is licensed.
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Not in development anymore !
